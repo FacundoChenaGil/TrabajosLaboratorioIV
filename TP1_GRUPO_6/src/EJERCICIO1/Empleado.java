@@ -8,11 +8,11 @@ public class Empleado {
 	public static int cont = 1000;
 	
 	public Empleado() {
-		id = cont ++;
-		
+		this.id = cont++;
+		this.nombre = "Sin nombre";
+		this.edad = 99;
 	}
 
-	
 	//getters y setters
 	public int getId() {
 		return id;
