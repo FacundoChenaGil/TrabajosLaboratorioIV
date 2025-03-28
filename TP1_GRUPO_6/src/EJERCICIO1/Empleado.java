@@ -2,18 +2,22 @@ package EJERCICIO1;
 
 public class Empleado {
 	//atributos
-	private int id;
+	private final int id;
 	private String nombre;
 	private int edad;
+	public static int cont = 1000;
 	
+	public Empleado() {
+		id = cont ++;
+		
+	}
+
 	
 	//getters y setters
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 	public String getNombre() {
 		return nombre;
 	}
