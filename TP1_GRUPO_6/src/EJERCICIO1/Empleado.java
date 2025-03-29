@@ -12,6 +12,11 @@ public class Empleado {
 		this.nombre = "Sin nombre";
 		this.edad = 99;
 	}
+	
+	@Override
+	public String toString() {
+		return "Empleado [Id=" + id + ", Nombre=" + nombre + ", Edad=" + edad + "]";
+	}	
 
 	//getters y setters
 	public int getId() {
