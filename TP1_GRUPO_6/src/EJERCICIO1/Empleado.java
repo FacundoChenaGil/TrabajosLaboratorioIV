@@ -2,37 +2,37 @@ package EJERCICIO1;
 
 public class Empleado {
 	//atributos
-	private final int id;
-	private String nombre;
-	private int edad;
-	public static int cont = 1000;
+	private final int Id;
+	private String Nombre;
+	private int Edad;
+	public static int Cont = 1000;
 	
 	public Empleado() {
-		this.id = cont++;
-		this.nombre = "Sin nombre";
-		this.edad = 99;
+		this.Id = Cont++;
+		this.Nombre = "Sin nombre";
+		this.Edad = 99;
 	}
 	
 	@Override
 	public String toString() {
-		return "Empleado [Id=" + id + ", Nombre=" + nombre + ", Edad=" + edad + "]";
+		return "Empleado [Id=" + Id + ", Nombre=" + Nombre + ", Edad=" + Edad + "]";
 	}	
 
 	//getters y setters
 	public int getId() {
-		return id;
+		return Id;
 	}
 	
 	public String getNombre() {
-		return nombre;
+		return Nombre;
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.Nombre = nombre;
 	}
 	public int getEdad() {
-		return edad;
+		return Edad;
 	}
 	public void setEdad(int edad) {
-		this.edad = edad;
+		this.Edad = edad;
 	}
 }
