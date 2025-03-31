@@ -13,6 +13,12 @@ public class Empleado {
 		this.Edad = 99;
 	}
 	
+	Empleado(String nombre, int edad) {
+		this.Id = Cont++;
+		this.Nombre = nombre;
+		this.Edad = edad;
+	}
+	
 	@Override
 	public String toString() {
 		return "Empleado [Id=" + Id + ", Nombre=" + Nombre + ", Edad=" + Edad + "]";
@@ -34,5 +40,8 @@ public class Empleado {
 	}
 	public void setEdad(int edad) {
 		this.Edad = edad;
+	}
+	public static int devuelveProximoID() {
+		return Cont;
 	}
 }
