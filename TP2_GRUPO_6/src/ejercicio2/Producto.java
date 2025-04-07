@@ -24,5 +24,4 @@ public class Producto {
 	public void setNroLote(String nroLote) {
 		NroLote = nroLote;
 	}
-
 }
