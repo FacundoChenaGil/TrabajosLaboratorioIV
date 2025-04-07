@@ -5,6 +5,12 @@ public class Producto {
 	private String FechaCaducidad;
 	private String NroLote;
 	
+	//constructor por parámetro
+	public Producto(String f, String nl) {
+		this.FechaCaducidad = f;
+		this.NroLote = nl;
+	}
+
 	//getters and setters
 	public String getFechaCaducidad() {
 		return FechaCaducidad;
