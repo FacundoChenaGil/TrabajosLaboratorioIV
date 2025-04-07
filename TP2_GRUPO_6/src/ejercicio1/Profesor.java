@@ -11,6 +11,24 @@ public class Profesor extends Empleado implements Comparable<Profesor>{
 		this.AntiguedadDocente = 0;
 	}
 
+	
+	
+	public Profesor(String cargo, int antiguedadDocente) {
+		super();
+		Cargo = cargo;
+		AntiguedadDocente = antiguedadDocente;
+	}
+
+
+
+	public Profesor(String nombre, int edad, String cargo, int antiguedadDocente) {
+		super(nombre, edad);
+		Cargo = cargo;
+		AntiguedadDocente = antiguedadDocente;
+	}
+
+
+
 	//getters y setters
 	public String getCargo() {
 		return Cargo;
