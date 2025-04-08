@@ -24,4 +24,9 @@ public class Producto {
 	public void setNroLote(String nroLote) {
 		NroLote = nroLote;
 	}
+	
+	public void mostrar() {
+		System.out.println("Fecha de caducidad: " + FechaCaducidad);
+		System.out.println("Número de lote: " + NroLote);
+	}
 }

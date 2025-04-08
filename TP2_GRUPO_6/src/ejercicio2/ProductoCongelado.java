@@ -16,5 +16,8 @@ public class ProductoCongelado extends Producto{
 		this.tempConge = tempConge;
 	}
 	
-	
+	public void mostrar() {
+		super.mostrar();
+		System.out.println("Temperatura de congelación: " + tempConge);
+	}
 }

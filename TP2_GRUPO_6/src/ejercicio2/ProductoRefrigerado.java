@@ -16,4 +16,8 @@ public class ProductoRefrigerado extends Producto {
 		CodOSA = codOSA;
 	}
 
+	public void mostrar() {
+		super.mostrar();
+		System.out.println("Código OSA: " + CodOSA);
+	}
 }
