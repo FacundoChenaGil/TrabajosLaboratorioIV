@@ -21,5 +21,17 @@ public class MainEjercicio1_a {
 			Profesor profesor = it.next();
 			System.out.println(profesor.toString());
 		}
+		
+		Profesor profe1 = new Profesor("Ana", 40, "Titular", 10);
+        Profesor profe2 = new Profesor("Juan", 40, "Titular", 10);
+
+        if (profe1.equals(profe2)) {
+            System.out.println("Es el mismo profesor");
+        } else {
+            System.out.println("No es el mismo profesor");
+        }
+    }
+		
+		
 	}
-}
+
