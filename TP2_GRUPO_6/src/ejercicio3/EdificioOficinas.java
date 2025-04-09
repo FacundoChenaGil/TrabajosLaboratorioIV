@@ -32,7 +32,8 @@ public class EdificioOficinas implements IEdificio {
     // toString para mostrar los datos
     @Override
     public String toString() {
-        return "Edificio de Oficinas: cantidad de oficinas = " + cantidadOficinas + ", superficie = " + superficie;
+        return "Edificio de Oficinas: cantidad de oficinas = " + cantidadOficinas +
+        		", superficie = " + getSuperficieEdificio();
     }
 
 	@Override
