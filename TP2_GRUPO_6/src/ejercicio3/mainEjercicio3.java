@@ -16,24 +16,9 @@ public class mainEjercicio3 {
         listaEdificios.add(new EdificioOficinas(6, 650.0));
 
         Iterator<IEdificio> it = listaEdificios.iterator();
-        
         while (it.hasNext()) {
             IEdificio obj = it.next();
-
-            if (obj instanceof Polideportivo) {
-                Polideportivo p = (Polideportivo) obj;
-                System.out.println("== Polideportivo ==");
-                System.out.println("Nombre: " + p.getName());
-                System.out.println("Superficie: " + p.getSuperficieEdificio());
-                System.out.println("Tipo de instalación: " + p.getTipoDeInstalacion());
-            } else if (obj instanceof EdificioOficinas) {
-                EdificioOficinas e = (EdificioOficinas) obj;
-                System.out.println("== Edificio de Oficinas ==");
-                System.out.println("Superficie: " + e.getSuperficieEdificio());
-                System.out.println("Cantidad de oficinas: " + e.getCantidadOficinas());
-            }
-
-            System.out.println();
+            System.out.println(obj.toString());
         }
 	}
 }
