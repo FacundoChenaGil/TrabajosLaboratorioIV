@@ -5,7 +5,7 @@ public class mainEjercicio3 {
 
 	public static void main(String[] args) {
 		
-		ArrayList <Object> listaEdificios = new ArrayList<Object>(5);
+		ArrayList <IEdificio> listaEdificios = new ArrayList<IEdificio>(5);
 		// 3 Polideportivos
         listaEdificios.add(new Polideportivo("Poli Norte", 1200.0, 1));
         listaEdificios.add(new Polideportivo("Poli Centro", 950.5, 2));
@@ -15,10 +15,10 @@ public class mainEjercicio3 {
         listaEdificios.add(new EdificioOficinas(10,800.0 ));
         listaEdificios.add(new EdificioOficinas(6, 650.0));
 
-        Iterator<Object> it = listaEdificios.iterator();
+        Iterator<IEdificio> it = listaEdificios.iterator();
         
         while (it.hasNext()) {
-            Object obj = it.next();
+            IEdificio obj = it.next();
 
             if (obj instanceof Polideportivo) {
                 Polideportivo p = (Polideportivo) obj;
@@ -29,7 +29,7 @@ public class mainEjercicio3 {
             } else if (obj instanceof EdificioOficinas) {
                 EdificioOficinas e = (EdificioOficinas) obj;
                 System.out.println("== Edificio de Oficinas ==");
-                System.out.println("Superficie: " + e.getSuperficie());
+                System.out.println("Superficie: " + e.getSuperficieEdificio());
                 System.out.println("Cantidad de oficinas: " + e.getCantidadOficinas());
             }
 

@@ -1,6 +1,6 @@
 package ejercicio3;
 
-public class EdificioOficinas {
+public class EdificioOficinas implements IEdificio {
 	private int cantidadOficinas;
     private double superficie;
 
@@ -26,10 +26,6 @@ public class EdificioOficinas {
         this.cantidadOficinas = cantidadOficinas;
     }
 
-    public double getSuperficie() {
-        return superficie;
-    }
-
     public void setSuperficie(double superficie) {
         this.superficie = superficie;
     }
@@ -38,6 +34,11 @@ public class EdificioOficinas {
     public String toString() {
         return "Edificio de Oficinas: cantidad de oficinas = " + cantidadOficinas + ", superficie = " + superficie;
     }
+
+	@Override
+	public double getSuperficieEdificio() {
+		return superficie;
+	}
 }
 
 
