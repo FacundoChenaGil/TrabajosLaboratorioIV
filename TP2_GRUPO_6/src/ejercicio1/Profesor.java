@@ -46,7 +46,7 @@ public class Profesor extends Empleado implements Comparable<Profesor>{
 		AntiguedadDocente = antiguedadDocente;
 	}
 	
-	
+	//compareTO()
 	@Override
 	public int compareTo(Profesor profe) {
 		if (this.getId() < profe.getId()) {
@@ -58,6 +58,7 @@ public class Profesor extends Empleado implements Comparable<Profesor>{
 	    }
 	}
 	
+	//equals
 	@Override
 	public boolean equals(Object obj) {
 	    if (this == obj)
@@ -73,6 +74,10 @@ public class Profesor extends Empleado implements Comparable<Profesor>{
 	           this.AntiguedadDocente == otro.AntiguedadDocente;
 	}
 	
-	
+	@Override
+    public String toString() {
+        return "Profesor: ID: " + getId() + ", Nombre: " + getNombre() + ", Edad: " + getEdad() + 
+                ", Cargo: " + Cargo + ", Antiguedad Docente: "+ AntiguedadDocente;
+    }
 }
 
