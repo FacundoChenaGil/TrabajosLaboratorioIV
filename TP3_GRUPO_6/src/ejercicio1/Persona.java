@@ -1,6 +1,8 @@
 package ejercicio1;
 
-public class Persona {
+import java.util.Objects;
+
+public class Persona implements Comparable<Persona> {
 	private String Nombre;
 	private String Apellido;
 	private String Dni;
@@ -44,6 +46,37 @@ public class Persona {
 		return "Persona [Nombre=" + Nombre + ", Apellido=" + Apellido + ", Dni=" + Dni + "]";
 	}
 	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(Apellido, Dni, Nombre);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		return Objects.equals(Apellido, other.Apellido) && Objects.equals(Dni, other.Dni)
+				&& Objects.equals(Nombre, other.Nombre);
+	}
+	
+	public static void VerificarDniInvalido(String dni) throws DniInvalido {
+		for(int i=0; i<dni.length(); i++) {
+			if(!Character.isDigit(dni.charAt(i))) {
+				throw new DniInvalido();
+			}
+		}
+	}
+
+	@Override
+	public int compareTo(Persona o) {
+		return this.Apellido.compareTo(o.Apellido);
+	}
 	
 	
 	
