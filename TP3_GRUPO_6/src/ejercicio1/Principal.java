@@ -1,5 +1,8 @@
 package ejercicio1;
 
+import java.util.Iterator;
+import java.util.TreeSet;
+
 public class Principal {
 
 	public static void main(String[] args) {
@@ -9,8 +12,14 @@ public class Principal {
 	        } else {
 	            System.out.println(" El archivo no existe.");
 	        }
+		 TreeSet<Persona> ts = Archivo.Guardar();
+		 
+		 Iterator<Persona> it = ts.iterator();
+		 while (it.hasNext()) {
+			 Persona persona = it.next();
+			 System.out.println(persona.toString());
+		 }
 	    }
-
 	}
 
 
