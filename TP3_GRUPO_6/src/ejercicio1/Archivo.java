@@ -1,6 +1,18 @@
 package ejercicio1;
 
+import java.io.File;
+
 public class Archivo {
+	
+	
+	 public static boolean archivoExiste(String rutaArchivo) {
+	        File archivo = new File(rutaArchivo);
+	        if(archivo.exists()) {
+	        	return true;
+	        }
+	        return false;
+	    }
+	 
 	
 	public static void verificarDniInvalido (String dni) throws DniInvalido{
 		Boolean hayCaracteres = false;
@@ -14,4 +26,5 @@ public class Archivo {
 			throw new DniInvalido();
 		}
 	}
+	
 }
