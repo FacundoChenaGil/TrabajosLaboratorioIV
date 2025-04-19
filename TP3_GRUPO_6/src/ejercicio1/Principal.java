@@ -8,9 +8,9 @@ public class Principal {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		 if (Archivo.archivoExiste("archivos/Personas.txt")) {
-	            System.out.println(" El archivo existe.");
+	            System.out.println("El archivo existe.");
 	        } else {
-	            System.out.println(" El archivo no existe.");
+	            System.out.println("El archivo no existe.");
 	        }
 		 TreeSet<Persona> ts = Archivo.Guardar();
 		 
@@ -19,6 +19,13 @@ public class Principal {
 			 Persona persona = it.next();
 			 System.out.println(persona.toString());
 		 }
+		 
+		 //Ejercicio B
+		 Archivo.creaArchivo("Archivos/Resultado.txt");
+		 
+		 Archivo.escribirArchivo("Archivos/Resultado.txt", ts);
+		 
+		 Archivo.leerArchivo("Archivos/Resultado.txt");
 	    }
 	}
 

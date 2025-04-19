@@ -1,14 +1,17 @@
 package ejercicio1;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 public class Archivo {
 	
-	private static final String Ruta = "C:\\TrabajosLaboratorioIV\\TP3_GRUPO_6\\Archivos\\Personas.txt";
+	private static final String Ruta = "Archivos/Personas.txt";
 	
 	 public static boolean archivoExiste(String rutaArchivo) {
 	        File archivo = new File(rutaArchivo);
@@ -59,6 +62,55 @@ public class Archivo {
 		 }
 		 
 		 return ts;
+	 }
+	 
+	 public static boolean creaArchivo(String ruta) {
+		 FileWriter escritura;
+		 try {
+			 escritura = new FileWriter(ruta, false);
+			 escritura.write("");
+			 escritura.close();
+			 return true;
+			 }
+		 catch (IOException e) {
+			 e.printStackTrace();
+		 }
+		 return false;
+	 }
+	 
+	 public static void escribirArchivo(String ruta, TreeSet<Persona> ts) {
+		 try {
+			 FileWriter entrada = new FileWriter(ruta, true);
+			 BufferedWriter miBuffer = new BufferedWriter(entrada);
+			 Iterator<Persona> it = ts.iterator();
+			 while (it.hasNext()) {
+				 Persona persona = it.next();
+				 miBuffer.write(persona.getNombre() + '-' + persona.getApellido() + '-' + persona.getDni()+'\n');
+			 }
+			 miBuffer.close();
+			 entrada.close();
+			 }
+		 catch (IOException e) {
+			 e.printStackTrace();
+		 }
+	 }
+	 
+	 public static void leerArchivo(String ruta) {
+		 FileReader entrada;
+		 try {
+			 entrada = new FileReader(ruta);
+			 BufferedReader miBuffer = new BufferedReader(entrada);
+			 String linea = "";
+			 while(linea != null) {
+				 System.out.println(linea);
+				 linea = miBuffer.readLine();
+			 }
+			 miBuffer.close();
+			 entrada.close();
+		 }
+		 catch (IOException e) {
+			 System.out.println("No se encontro el archivo");
+		 }
 	 }
 }
 
