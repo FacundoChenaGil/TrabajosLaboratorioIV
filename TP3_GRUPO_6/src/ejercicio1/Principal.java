@@ -20,7 +20,7 @@ public class Principal {
 			 System.out.println(persona.toString());
 		 }
 		 
-		 //Ejercicio B
+		 //Ejercicio C
 		 Archivo.creaArchivo("Archivos/Resultado.txt");
 		 
 		 Archivo.escribirArchivo("Archivos/Resultado.txt", ts);
