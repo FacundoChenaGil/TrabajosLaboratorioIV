@@ -66,12 +66,16 @@ public class Persona implements Comparable<Persona> {
 	}
 	
 	public static void VerificarDniInvalido(String dni) throws DniInvalido {
-		for(int i=0; i<dni.length(); i++) {
-			if(!Character.isDigit(dni.charAt(i))) {
-				throw new DniInvalido();
-			}
-		}
+	    if (dni.length() < 7 || dni.length() > 8) {
+	        throw new DniInvalido("DNI inválido: debe tener entre 7 y 8 dígitos.");
+	    }
+	    for (int i = 0; i < dni.length(); i++) {
+	        if (!Character.isDigit(dni.charAt(i))) {
+	            throw new DniInvalido("DNI inválido: solo se permiten números.");
+	        }
+	    }
 	}
+	
 
 	@Override
 	public int compareTo(Persona o) {
