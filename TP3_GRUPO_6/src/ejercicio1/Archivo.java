@@ -100,16 +100,15 @@ public class Archivo {
 		 try {
 			 entrada = new FileReader(ruta);
 			 BufferedReader miBuffer = new BufferedReader(entrada);
-			 String linea = "";
-			 while(linea != null) {
+			 String linea;
+			 while((linea = miBuffer.readLine()) != null) {
 				 System.out.println(linea);
-				 linea = miBuffer.readLine();
 			 }
 			 miBuffer.close();
 			 entrada.close();
 		 }
 		 catch (IOException e) {
-			 System.out.println("No se encontro el archivo");
+			 e.printStackTrace();
 		 }
 	 }
 }

@@ -21,11 +21,18 @@ public class Principal {
 		 }
 		 
 		 //Ejercicio C
-		 Archivo.creaArchivo("Archivos/Resultado.txt");
+		 String ruta = "Archivos/Resultado.txt";
 		 
-		 Archivo.escribirArchivo("Archivos/Resultado.txt", ts);
-		 
-		 Archivo.leerArchivo("Archivos/Resultado.txt");
+		 if(Archivo.archivoExiste(ruta)) {
+			 System.out.println("El archivo existe.");
+			 Archivo.leerArchivo(ruta);
+		 }
+		 else {
+			 System.out.println("El archivo no existe, creando..");
+			 Archivo.creaArchivo(ruta);
+			 Archivo.escribirArchivo(ruta, ts);
+			 Archivo.leerArchivo(ruta);
+		 }
 	    }
 	}
 
