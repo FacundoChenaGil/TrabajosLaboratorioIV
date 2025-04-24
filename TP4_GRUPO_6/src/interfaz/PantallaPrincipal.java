@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import Ejercicio_1.Ejercicio1;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -46,29 +48,31 @@ public class PantallaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("GRUPO NRO: 6");
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 15));
-		lblNewLabel_1.setBounds(35, 21, 121, 33);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblGrupo = new JLabel("GRUPO NRO: 6");
+		lblGrupo.setFont(new Font("Arial", Font.BOLD, 15));
+		lblGrupo.setBounds(35, 21, 121, 33);
+		contentPane.add(lblGrupo);
 		
-		JButton btnNewButton = new JButton("Ejercicio 1");
-		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 10));
-		btnNewButton.setBounds(152, 64, 85, 21);
-		contentPane.add(btnNewButton);
-		
-		JButton btnEjercicio = new JButton("Ejercicio 2");
-		btnEjercicio.setFont(new Font("Arial", Font.PLAIN, 10));
-		btnEjercicio.setBounds(152, 95, 85, 21);
-		contentPane.add(btnEjercicio);
-		
-		JButton btnEjercicio_1 = new JButton("Ejercicio 3");
-		btnEjercicio_1.addActionListener(new ActionListener() {
+		JButton btnEjercicio1 = new JButton("Ejercicio 1");
+		btnEjercicio1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Ejercicio1 ej1 = new Ejercicio1();
+				ej1.setVisible(true);
 			}
 		});
-		btnEjercicio_1.setFont(new Font("Arial", Font.PLAIN, 10));
-		btnEjercicio_1.setBounds(152, 126, 85, 21);
-		contentPane.add(btnEjercicio_1);
+		btnEjercicio1.setFont(new Font("Arial", Font.PLAIN, 10));
+		btnEjercicio1.setBounds(152, 64, 85, 21);
+		contentPane.add(btnEjercicio1);
+		
+		JButton btnEjercicio2 = new JButton("Ejercicio 2");
+		btnEjercicio2.setFont(new Font("Arial", Font.PLAIN, 10));
+		btnEjercicio2.setBounds(152, 95, 85, 21);
+		contentPane.add(btnEjercicio2);
+		
+		JButton btnEjercicio3 = new JButton("Ejercicio 3");
+		btnEjercicio3.setFont(new Font("Arial", Font.PLAIN, 10));
+		btnEjercicio3.setBounds(152, 126, 85, 21);
+		contentPane.add(btnEjercicio3);
 	}
 
 }
