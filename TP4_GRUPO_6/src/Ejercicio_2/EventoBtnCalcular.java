@@ -24,9 +24,18 @@ public class EventoBtnCalcular implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		try {
+			double n1 = Double.parseDouble(txtNota1.getText().trim());
+			
+			if(!notaValida(n1)) {
+				throw new NumberFormatException();
+			}
+		}catch(NumberFormatException e1) {
+			javax.swing.JOptionPane.showMessageDialog(null, "Ingrese una nota valida (números del 1 al 10).", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+		}
 		
 	}
+	
 	
 	
 }
