@@ -17,7 +17,7 @@ public class Ejercicio3 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private ButtonGroup bgSO;
+	private ButtonGroup bgSO = new ButtonGroup();
 	private JTextField txtHoras;
 
 	/**
@@ -106,7 +106,5 @@ public class Ejercicio3 extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(172, 258, 89, 23);
 		contentPane.add(btnAceptar);
-		
-		bgSO = new ButtonGroup();
 	}
 }
