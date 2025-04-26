@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import Ejercicio_1.Ejercicio1;
+import Ejercicio_2.Ejercicio2;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -65,6 +66,12 @@ public class PantallaPrincipal extends JFrame {
 		contentPane.add(btnEjercicio1);
 		
 		JButton btnEjercicio2 = new JButton("Ejercicio 2");
+		btnEjercicio2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Ejercicio2 ej2 = new Ejercicio2();
+				ej2.setVisible(true);
+			}
+		});
 		btnEjercicio2.setFont(new Font("Arial", Font.PLAIN, 10));
 		btnEjercicio2.setBounds(152, 95, 85, 21);
 		contentPane.add(btnEjercicio2);
