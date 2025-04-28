@@ -29,31 +29,43 @@ public class EventoBtnAceptar implements ActionListener {
 		this.cbxDesigner = cbxDesigner;
 	}
 	
-	private void ValidarEspecialidad() {
+	private boolean ValidarEspecialidad() {
 		if(!cbxProgramacion.isSelected() && !cbxAdmin.isSelected() && !cbxDesigner.isSelected()) {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar una Especialidad.", "Error", 
 					JOptionPane.ERROR_MESSAGE);
-			return;
+			return false;
 		}
+		return true;
+	}
+	
+	private String ObtenerSistemaOperativo() {
+		String so = "";
+		
+		if(rdbtnWindows.isSelected()) {
+			return "Windows";
+		}
+		else if(rdbtnLinux.isSelected()) {
+			return "Linux";
+		}
+		else if(rdbtnMac.isSelected()) {
+			return "Mac";
+		}
+		
+		return so;
 	}
 	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//SISTEMA OPERATIVO
-		String so = "";
-				
-		if(rdbtnWindows.isSelected()) {
-			so = "Windows";
-		}
-		else if(rdbtnLinux.isSelected()) {
-			so = "Linux";
-		}
-		else if(rdbtnMac.isSelected()) {
-			so = "Mac";
-		}
-		else {
+		String so = ObtenerSistemaOperativo();
+		
+		if(so.equals("")) {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar un sistema operativo.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+				
+		if(!ValidarEspecialidad()) {
 			return;
 		}
 		

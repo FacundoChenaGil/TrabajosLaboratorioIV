@@ -78,7 +78,7 @@ public class Ejercicio3 extends JFrame {
 		bgSO.add(rdbtnMac);
 		
 		rdbtnLinux = new JRadioButton("Linux");
-		rdbtnLinux.setBounds(300, 17, 50, 23);
+		rdbtnLinux.setBounds(300, 17, 63, 23);
 		pnlSO.add(rdbtnLinux);
 		bgSO.add(rdbtnLinux);
 		
@@ -92,15 +92,15 @@ public class Ejercicio3 extends JFrame {
 		pnlEspecialidad.add(lblEspecialidad);
 		
 		cbxProgamacion = new JCheckBox("Programación");
-		cbxProgamacion.setBounds(171, 17, 97, 23);
+		cbxProgamacion.setBounds(171, 17, 137, 23);
 		pnlEspecialidad.add(cbxProgamacion);
 		
 		cbxAdmin = new JCheckBox("Administración");
-		cbxAdmin.setBounds(171, 41, 97, 23);
+		cbxAdmin.setBounds(171, 41, 137, 23);
 		pnlEspecialidad.add(cbxAdmin);
 		
 		cbxDesigner = new JCheckBox("Diseño Gráfico");
-		cbxDesigner.setBounds(171, 64, 97, 23);
+		cbxDesigner.setBounds(171, 64, 137, 23);
 		pnlEspecialidad.add(cbxDesigner);
 		
 		JLabel lblHoras = new JLabel("Cantidad de horas en el computador:");
