@@ -13,21 +13,30 @@ public class EventoBtnAceptar implements ActionListener {
     private JRadioButton rdbtnWindows;
     private JRadioButton rdbtnMac;
     private JRadioButton rdbtnLinux;
-    private JCheckBox cbxProgamacion;
+    private JCheckBox cbxProgramacion;
     private JCheckBox cbxAdmin;
     private JCheckBox cbxDesigner;
 	
 	public EventoBtnAceptar(JTextField txtHoras, JRadioButton rdbtnWindows, JRadioButton rdbtnMac,
-			JRadioButton rdbtnLinux, JCheckBox cbxProgamacion, JCheckBox cbxAdmin, JCheckBox cbxDesigner) {
+			JRadioButton rdbtnLinux, JCheckBox cbxProgramacion, JCheckBox cbxAdmin, JCheckBox cbxDesigner) {
 		super();
 		this.txtHoras = txtHoras;
 		this.rdbtnWindows = rdbtnWindows;
 		this.rdbtnMac = rdbtnMac;
 		this.rdbtnLinux = rdbtnLinux;
-		this.cbxProgamacion = cbxProgamacion;
+		this.cbxProgramacion = cbxProgramacion;
 		this.cbxAdmin = cbxAdmin;
 		this.cbxDesigner = cbxDesigner;
 	}
+	
+	private void ValidarEspecialidad() {
+		if(!cbxProgramacion.isSelected() && !cbxAdmin.isSelected() && !cbxDesigner.isSelected()) {
+			JOptionPane.showMessageDialog(null, "Debe seleccionar una Especialidad.", "Error", 
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
