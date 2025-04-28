@@ -41,7 +41,7 @@ public class Ejercicio3 extends JFrame {
 	public Ejercicio3() {
 		setTitle("Seleccion multiple");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 350);
+		setBounds(600, 250, 450, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
