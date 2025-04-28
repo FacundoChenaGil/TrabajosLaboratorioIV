@@ -13,7 +13,7 @@ public class EventoBtnCalcular implements ActionListener{
 		this.txtNota1 = nota1;
 	}
 	
-	public boolean notaValida(double nota) {
+	private boolean notaValida(double nota) {
 		if(nota >= 1 && nota <= 10) {
 			return true;
 		}
@@ -21,6 +21,22 @@ public class EventoBtnCalcular implements ActionListener{
 			return false;
 		}
 	}
+	
+	private double CastearADouble(String nota) {
+		double Nota = Double.parseDouble(nota);
+		
+		return Nota;
+	}
+	
+	private boolean VerificarNotaMenorASeis(double nota1, double nota2, double nota3) {
+		
+		if(nota1 < 6 || nota2 < 6 || nota3 < 6) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
