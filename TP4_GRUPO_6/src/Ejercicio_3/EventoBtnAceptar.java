@@ -3,20 +3,32 @@ package Ejercicio_3;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class EventoBtnAceptar implements ActionListener {
-	private JRadioButton rdbtnWindows;
-	private JRadioButton rdbtnMac;
-	private JRadioButton rdbtnLinux;
+	private JTextField txtHoras;
+    private JRadioButton rdbtnWindows;
+    private JRadioButton rdbtnMac;
+    private JRadioButton rdbtnLinux;
+    private JCheckBox cbxProgamacion;
+    private JCheckBox cbxAdmin;
+    private JCheckBox cbxDesigner;
 	
-	public EventoBtnAceptar(JRadioButton windows, JRadioButton mac, JRadioButton linux) {
-		this.rdbtnWindows = windows;
-		this.rdbtnMac = mac;
-		this.rdbtnLinux = linux;
+	public EventoBtnAceptar(JTextField txtHoras, JRadioButton rdbtnWindows, JRadioButton rdbtnMac,
+			JRadioButton rdbtnLinux, JCheckBox cbxProgamacion, JCheckBox cbxAdmin, JCheckBox cbxDesigner) {
+		super();
+		this.txtHoras = txtHoras;
+		this.rdbtnWindows = rdbtnWindows;
+		this.rdbtnMac = rdbtnMac;
+		this.rdbtnLinux = rdbtnLinux;
+		this.cbxProgamacion = cbxProgamacion;
+		this.cbxAdmin = cbxAdmin;
+		this.cbxDesigner = cbxDesigner;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//SISTEMA OPERATIVO
