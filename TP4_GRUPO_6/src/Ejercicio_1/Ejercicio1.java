@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class Ejercicio1 extends JFrame {
 
@@ -35,7 +38,7 @@ public class Ejercicio1 extends JFrame {
 	public Ejercicio1() {
 		setTitle("Contactos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(600, 250, 400, 347);
+		setBounds(100, 100, 400, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -82,12 +85,14 @@ public class Ejercicio1 extends JFrame {
 		txtNacimiento.setBounds(150, 154, 174, 20);
 		contentPane.add(txtNacimiento);
 		
+		JLabel lblSalida = new JLabel("Aguardando ingrese datos.");
+		lblSalida.setVerticalAlignment(SwingConstants.TOP);
+		lblSalida.setBounds(42, 219, 282, 78);
+		contentPane.add(lblSalida);
+		
 		JButton btnMostrar = new JButton("Mostrar");
+		btnMostrar.addActionListener(new EventoBtnMostrar(txtNombre, txtApellido, txtTelefono, txtNacimiento, lblSalida));
 		btnMostrar.setBounds(235, 185, 89, 23);
 		contentPane.add(btnMostrar);
-		
-		JLabel lblSalida = new JLabel("Los datos ingresados fueron:");
-		lblSalida.setBounds(42, 219, 191, 14);
-		contentPane.add(lblSalida);
 	}
 }
