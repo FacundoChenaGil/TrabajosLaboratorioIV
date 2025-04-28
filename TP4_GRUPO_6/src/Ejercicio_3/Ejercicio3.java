@@ -11,13 +11,23 @@ import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Ejercicio3 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private ButtonGroup bgSO = new ButtonGroup();
-	private JTextField txtHoras;
+    private JPanel contentPane;
+    private ButtonGroup bgSO = new ButtonGroup();
+    private JTextField txtHoras;
+    private JRadioButton rdbtnWindows;
+    private JRadioButton rdbtnMac;
+    private JRadioButton rdbtnLinux;
+    private JCheckBox cbxProgamacion;
+    private JCheckBox cbxAdmin;
+    private JCheckBox cbxDesigner;
+    private JButton btnAceptar;
+    
 
 	/**
 	 * Launch the application.
@@ -57,17 +67,17 @@ public class Ejercicio3 extends JFrame {
 		lblSO.setBounds(43, 21, 122, 14);
 		pnlSO.add(lblSO);
 		
-		JRadioButton rdbtnWindows = new JRadioButton("Windows");
+		rdbtnWindows = new JRadioButton("Windows");
 		rdbtnWindows.setBounds(171, 17, 75, 23);
 		pnlSO.add(rdbtnWindows);
 		bgSO.add(rdbtnWindows);
 		
-		JRadioButton rdbtnMac = new JRadioButton("Mac");
+		rdbtnMac = new JRadioButton("Mac");
 		rdbtnMac.setBounds(248, 17, 50, 23);
 		pnlSO.add(rdbtnMac);
 		bgSO.add(rdbtnMac);
 		
-		JRadioButton rdbtnLinux = new JRadioButton("Linux");
+		rdbtnLinux = new JRadioButton("Linux");
 		rdbtnLinux.setBounds(300, 17, 50, 23);
 		pnlSO.add(rdbtnLinux);
 		bgSO.add(rdbtnLinux);
@@ -81,15 +91,15 @@ public class Ejercicio3 extends JFrame {
 		lblEspecialidad.setBounds(43, 45, 122, 14);
 		pnlEspecialidad.add(lblEspecialidad);
 		
-		JCheckBox cbxProgamacion = new JCheckBox("Programación");
+		cbxProgamacion = new JCheckBox("Programación");
 		cbxProgamacion.setBounds(171, 17, 97, 23);
 		pnlEspecialidad.add(cbxProgamacion);
 		
-		JCheckBox cbxAdmin = new JCheckBox("Administración");
+		cbxAdmin = new JCheckBox("Administración");
 		cbxAdmin.setBounds(171, 41, 97, 23);
 		pnlEspecialidad.add(cbxAdmin);
 		
-		JCheckBox cbxDesigner = new JCheckBox("Diseño Gráfico");
+		cbxDesigner = new JCheckBox("Diseño Gráfico");
 		cbxDesigner.setBounds(171, 64, 97, 23);
 		pnlEspecialidad.add(cbxDesigner);
 		
@@ -102,7 +112,9 @@ public class Ejercicio3 extends JFrame {
 		contentPane.add(txtHoras);
 		txtHoras.setColumns(10);
 		
-		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new EventoBtnAceptar(txtHoras, rdbtnWindows, rdbtnMac,
+			rdbtnLinux, cbxProgamacion, cbxAdmin, cbxDesigner));
 		btnAceptar.setBounds(172, 258, 89, 23);
 		contentPane.add(btnAceptar);
 	}
