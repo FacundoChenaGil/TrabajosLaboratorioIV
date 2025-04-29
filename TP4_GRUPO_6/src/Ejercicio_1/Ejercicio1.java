@@ -86,8 +86,11 @@ public class Ejercicio1 extends JFrame {
 		btnMostrar.setBounds(235, 185, 89, 23);
 		contentPane.add(btnMostrar);
 		
+		
 		JLabel lblSalida = new JLabel("Los datos ingresados fueron:");
-		lblSalida.setBounds(42, 219, 191, 14);
+		lblSalida.setBounds(42, 219, 300, 60); 
 		contentPane.add(lblSalida);
+		
+		btnMostrar.addActionListener(new EventoBtnMostrar(txtNombre, txtApellido, txtTelefono,txtNacimiento, lblSalida));
 	}
 }
