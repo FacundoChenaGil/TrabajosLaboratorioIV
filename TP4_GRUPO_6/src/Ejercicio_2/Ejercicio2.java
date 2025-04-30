@@ -139,5 +139,11 @@ public class Ejercicio2 extends JFrame {
 		btnSalir = new JButton("SALIR");
 		btnSalir.setBounds(308, 142, 99, 40);
 		contentPane.add(btnSalir);
+		
+		EventoBotones manejador = new EventoBotones(
+			    txtNota1, txtNota2, txtNota3, btnNuevo, btnSalir, this);
+
+			btnNuevo.addActionListener(manejador);
+			btnSalir.addActionListener(manejador);
 	}
 }

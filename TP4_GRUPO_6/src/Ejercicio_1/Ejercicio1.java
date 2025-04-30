@@ -83,14 +83,15 @@ public class Ejercicio1 extends JFrame {
 		txtNacimiento.setBounds(150, 154, 174, 20);
 		contentPane.add(txtNacimiento);
 		
+	
 		JButton btnMostrar = new JButton("Mostrar");
-		btnMostrar.setBounds(235, 185, 89, 23);
+		btnMostrar.setBounds(42, 219, 300, 60);
 		contentPane.add(btnMostrar);
 		
 		validarCampos.soloLetras(txtNombre);
 		validarCampos.soloLetras(txtApellido);
 		validarCampos.soloNumeros(txtTelefono);
-	
+		
 		
 		JLabel lblSalida = new JLabel("Los datos ingresados fueron:");
 		lblSalida.setBounds(42, 219, 300, 60); 
