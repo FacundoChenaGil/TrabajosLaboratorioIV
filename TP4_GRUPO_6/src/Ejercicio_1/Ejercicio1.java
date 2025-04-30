@@ -1,6 +1,7 @@
 package Ejercicio_1;
 
 import java.awt.EventQueue;
+
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -86,9 +87,14 @@ public class Ejercicio1 extends JFrame {
 		btnMostrar.setBounds(235, 185, 89, 23);
 		contentPane.add(btnMostrar);
 		
+		validarCampos.soloLetras(txtNombre);
+		validarCampos.soloLetras(txtApellido);
+		validarCampos.soloNumeros(txtTelefono);
+	
 		
 		JLabel lblSalida = new JLabel("Los datos ingresados fueron:");
 		lblSalida.setBounds(42, 219, 300, 60); 
+		lblSalida.setVerticalAlignment(JLabel.TOP); 
 		contentPane.add(lblSalida);
 		
 		btnMostrar.addActionListener(new EventoBtnMostrar(txtNombre, txtApellido, txtTelefono,txtNacimiento, lblSalida));
