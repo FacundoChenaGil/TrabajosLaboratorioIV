@@ -31,44 +31,86 @@ public class EventoBtnAceptar implements ActionListener {
 	
 	private boolean ValidarEspecialidad() {
 		if(!cbxProgramacion.isSelected() && !cbxAdmin.isSelected() && !cbxDesigner.isSelected()) {
-			JOptionPane.showMessageDialog(null, "Debe seleccionar una Especialidad.", "Error", 
-					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+	}
+	
+	private String ObtenerEspecialidades() {
+		String especialidades = "";
+
+		if (cbxProgramacion.isSelected()) {
+			especialidades += "Programación ";
+		}
+		if (cbxAdmin.isSelected()) {
+			especialidades += "Administración ";
+		}
+		if (cbxDesigner.isSelected()) {
+			especialidades += "Diseño Gráfico ";
+		}
+		return especialidades.trim(); // Elimina espacios extra al final
+	}
+	
+	private boolean ValidarSistemaOperativo() {
+		if(!rdbtnWindows.isSelected() && !rdbtnLinux.isSelected() && !rdbtnMac.isSelected()) {
 			return false;
 		}
 		return true;
 	}
 	
 	private String ObtenerSistemaOperativo() {
-		String so = "";
-		
 		if(rdbtnWindows.isSelected()) {
 			return "Windows";
 		}
 		else if(rdbtnLinux.isSelected()) {
 			return "Linux";
 		}
-		else if(rdbtnMac.isSelected()) {
+		else {
 			return "Mac";
 		}
-		
-		return so;
 	}
 	
-
+	private boolean ValidarHoras() {
+		String texto = txtHoras.getText().trim();
+		if (texto.isEmpty()) {
+			return false;
+		}
+		try {
+			Integer.parseInt(texto); // Validar que sea número si querés
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	private String ObtenerHoras() {
+		return txtHoras.getText().trim();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//SISTEMA OPERATIVO
-		String so = ObtenerSistemaOperativo();
 		
-		if(so.equals("")) {
+		if(!ValidarSistemaOperativo()) {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar un sistema operativo.", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 				
 		if(!ValidarEspecialidad()) {
+			JOptionPane.showMessageDialog(null, "Debe seleccionar una Especialidad.", "Error", 
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
+		if(!ValidarHoras()) {
+			JOptionPane.showMessageDialog(null, "Debe ingresar las horas.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		String so = ObtenerSistemaOperativo();
+		String especialidades = ObtenerEspecialidades();
+		String horas = ObtenerHoras();
+		
+		JOptionPane.showMessageDialog(null, so + " - " + especialidades + "- " + horas + " Hs", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }
