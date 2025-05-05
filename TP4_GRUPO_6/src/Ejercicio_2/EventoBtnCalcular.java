@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 public class EventoBtnCalcular implements ActionListener{
 	private JTextField txtNota1;
 	private JTextField txtNota2;
@@ -25,7 +28,25 @@ public class EventoBtnCalcular implements ActionListener{
 		this.cbAprobacion = cbAprobacion;
 		this.txtPromedio = txtPromedio;
 		this.txtCondicion = txtCondicion;
-	}
+		this.txtPromedio.setEditable(false);
+		this.txtCondicion.setEditable(false);
+		
+		// Validación: Solo permitir números y punto en los campos de nota
+        KeyAdapter soloNumeros = new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) && c != '.' && c != '\b') {
+                    e.consume();
+                }
+            }
+        };
+
+        this.txtNota1.addKeyListener(soloNumeros);
+        this.txtNota2.addKeyListener(soloNumeros);
+        this.txtNota3.addKeyListener(soloNumeros);
+    }
+
 
 	private boolean notaValida(double nota) {
 		if(nota >= 1 && nota <= 10) {
@@ -45,13 +66,8 @@ public class EventoBtnCalcular implements ActionListener{
 		return false;
 	}
 	
-	private boolean verificarPromocion(double nota1, double nota2, double nota3, boolean estado) {
-		
-		if(nota1 >= 8 && nota2 >= 8 && nota3 >= 8 && estado) {
-			return true;
-		}
-		
-		return false;
+	private boolean verificarPromocion(double nota1, double nota2, double nota3) {
+	    return nota1 >= 8 && nota2 >= 8 && nota3 >= 8;
 	}
 	
 	private boolean verificarTP(JComboBox<String> cb) {
@@ -85,8 +101,8 @@ public class EventoBtnCalcular implements ActionListener{
 			else if (verificarNotaMenorASeis(n1, n2, n3)) {
 				txtCondicion.setText("Libre");
 			}
-			else if (verificarPromocion(n1, n2, n3, estado)) {
-				txtCondicion.setText("Promociona");
+			else if (verificarPromocion(n1, n2, n3)) {
+			    txtCondicion.setText("Promociona");
 			}
 			else {
 				txtCondicion.setText("Regular");
