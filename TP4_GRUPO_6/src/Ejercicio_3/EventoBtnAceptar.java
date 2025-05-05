@@ -48,7 +48,7 @@ public class EventoBtnAceptar implements ActionListener {
 		if (cbxDesigner.isSelected()) {
 			especialidades += "Diseño Gráfico ";
 		}
-		return especialidades.trim(); // Elimina espacios extra al final
+		return especialidades;
 	}
 	
 	private boolean ValidarSistemaOperativo() {
@@ -76,7 +76,7 @@ public class EventoBtnAceptar implements ActionListener {
 			return false;
 		}
 		try {
-			Integer.parseInt(texto); // Validar que sea número si querés
+			Integer.parseInt(texto);
 		} catch (NumberFormatException e) {
 			return false;
 		}
