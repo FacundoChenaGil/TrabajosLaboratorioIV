@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import Ejercicio_1.validarCampos;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Component;
@@ -75,6 +78,7 @@ public class Ejercicio2 extends JFrame {
 		txtNota1.setBounds(89, 35, 119, 20);
 		pnlNotas.add(txtNota1);
 		txtNota1.setColumns(10);
+		validarCampos.soloNumeros(txtNota1);
 		
 		lblNota2 = new JLabel("Nota 2:");
 		lblNota2.setBounds(33, 69, 46, 14);
@@ -84,6 +88,7 @@ public class Ejercicio2 extends JFrame {
 		txtNota2.setColumns(10);
 		txtNota2.setBounds(89, 66, 119, 20);
 		pnlNotas.add(txtNota2);
+		validarCampos.soloNumeros(txtNota2);
 		
 		lblNota3 = new JLabel("Nota 3:");
 		lblNota3.setBounds(33, 99, 46, 14);
@@ -93,6 +98,7 @@ public class Ejercicio2 extends JFrame {
 		txtNota3.setColumns(10);
 		txtNota3.setBounds(89, 97, 119, 20);
 		pnlNotas.add(txtNota3);
+		validarCampos.soloNumeros(txtNota3);
 		
 		JLabel lblTPS = new JLabel("TPS");
 		lblTPS.setBounds(33, 127, 46, 14);
@@ -129,6 +135,7 @@ public class Ejercicio2 extends JFrame {
 		pnlCondicion.add(txtCondicion);
 		
 		btnCalcular = new JButton("CALCULAR");
+		btnCalcular.addActionListener(new EventoBtnCalcular(txtNota1, txtNota2, txtNota3, cbAprobacion, txtPromedio, txtCondicion));
 		btnCalcular.setBounds(308, 38, 99, 40);
 		contentPane.add(btnCalcular);
 		
@@ -141,7 +148,7 @@ public class Ejercicio2 extends JFrame {
 		contentPane.add(btnSalir);
 		
 		EventoBotones manejador = new EventoBotones(
-			    txtNota1, txtNota2, txtNota3, btnNuevo, btnSalir, this);
+			    txtNota1, txtNota2, txtNota3, txtPromedio, txtCondicion, btnNuevo, btnSalir, this);
 
 			btnNuevo.addActionListener(manejador);
 			btnSalir.addActionListener(manejador);

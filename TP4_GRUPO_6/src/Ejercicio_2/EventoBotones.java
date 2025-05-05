@@ -7,15 +7,17 @@ import javax.swing.JFrame;
 
 public class EventoBotones implements ActionListener {
 	
-	 private JTextField txtNota1, txtNota2, txtNota3;
+	 private JTextField txtNota1, txtNota2, txtNota3, txtPromedio, txtCondicion;
 	    private JButton btnNuevo, btnSalir;
 	    private JFrame ventana;
 
-	    public EventoBotones(JTextField txtNota1, JTextField txtNota2, JTextField txtNota3,
+	    public EventoBotones(JTextField txtNota1, JTextField txtNota2, JTextField txtNota3, JTextField txtPromedio, JTextField txtCondicion,
 	                               JButton btnNuevo, JButton btnSalir, JFrame ventana) {
 	        this.txtNota1 = txtNota1;
 	        this.txtNota2 = txtNota2;
 	        this.txtNota3 = txtNota3;
+	        this.txtPromedio = txtPromedio;
+	        this.txtCondicion = txtCondicion;
 	        this.btnNuevo = btnNuevo;
 	        this.btnSalir = btnSalir;
 	        this.ventana = ventana;
@@ -29,6 +31,8 @@ public class EventoBotones implements ActionListener {
 	            txtNota1.setText("");
 	            txtNota2.setText("");
 	            txtNota3.setText("");
+	            txtPromedio.setText("");
+	            txtCondicion.setText("");
 	        } 
 	        else if (source == btnSalir) {
 	            ventana.dispose();  // Cierra solo esta ventana

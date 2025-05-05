@@ -46,43 +46,47 @@ public class EventoBtnMostrar implements ActionListener{
 		}
 		
 		//TELEFONO
-				if(txtTelefono.getText().isEmpty()) {
-					txtTelefono.setBackground(Color.red);
-					camposIncompletos = true;
-				}
-				else {
-					txtTelefono.setBackground(Color.white);
-				}
-				
-	   //NACIMIENTO
-	          if(txtNacimiento.getText().isEmpty()) {
-					txtNacimiento.setBackground(Color.red);
-					camposIncompletos = true;
-				}
-				else {
-					txtNacimiento.setBackground(Color.white);
-				}
-	
+		if(txtTelefono.getText().isEmpty()) {
+			txtTelefono.setBackground(Color.red);
+			camposIncompletos = true;
+		}
+		else {
+			txtTelefono.setBackground(Color.white);
+		}
 		
-	       // Si todos los campos están completos, mostrar mensaje
-	  		
-	          if (!camposIncompletos) {
-	        		mensaje = "<html>Los datos ingresados fueron:<br>" +
-	        		          "- Nombre: " + txtNombre.getText().trim() + "<br>" +
-	        		          "- Apellido: " + txtApellido.getText().trim() + "<br>" +
-	        		          "- Teléfono: " + txtTelefono.getText().trim() + "<br>" +
-	        		          "- Fecha Nac.: " + txtNacimiento.getText().trim() + "</html>";
+	   //NACIMIENTO
+      if(txtNacimiento.getText().isEmpty()) {
+			txtNacimiento.setBackground(Color.red);
+			camposIncompletos = true;
+		}
+		else {
+			txtNacimiento.setBackground(Color.white);
+		}
 
-	        		// Limpiar campos
-	        		txtNombre.setText("");
-	        		txtApellido.setText("");
-	        		txtTelefono.setText("");
-	        		txtNacimiento.setText("");
-	        	} else {
-	        		mensaje = "Debe completar todos los campos";
-	        	}
 
-	        	// Mostrar mensaje
-	        	lblMensaje.setText(mensaje);   
-  }
+      // Si todos los campos están completos, mostrar mensaje
+	
+      if (!camposIncompletos) {
+    		mensaje = "<html>Los datos ingresados fueron:<br>" +
+    		          "- Nombre: " + txtNombre.getText().trim() + "<br>" +
+    		          "- Apellido: " + txtApellido.getText().trim() + "<br>" +
+    		          "- Teléfono: " + txtTelefono.getText().trim() + "<br>" +
+    		          "- Fecha Nac.: " + txtNacimiento.getText().trim() + "</html>";
+
+    		// Limpiar campos
+    		limpiarCampos();
+    	} else {
+    		mensaje = "Debe completar todos los campos";
+    	}
+
+    	// Mostrar mensaje
+    	lblMensaje.setText(mensaje);   
+	}
+	
+	private void limpiarCampos() {
+		txtNombre.setText("");
+		txtApellido.setText("");
+		txtTelefono.setText("");
+		txtNacimiento.setText("");
+	}
 }

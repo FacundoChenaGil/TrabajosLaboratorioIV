@@ -52,6 +52,7 @@ public class Ejercicio1 extends JFrame {
 		txtNombre.setBounds(150, 31, 174, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
+		validarCampos.soloLetras(txtNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido");
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -62,6 +63,7 @@ public class Ejercicio1 extends JFrame {
 		txtApellido.setColumns(10);
 		txtApellido.setBounds(150, 72, 174, 20);
 		contentPane.add(txtApellido);
+		validarCampos.soloLetras(txtApellido);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
 		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -72,6 +74,7 @@ public class Ejercicio1 extends JFrame {
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(150, 113, 174, 20);
 		contentPane.add(txtTelefono);
+		validarCampos.soloNumeros(txtTelefono);
 		
 		JLabel lblNacimiento = new JLabel("Fecha Nac.");
 		lblNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -85,16 +88,11 @@ public class Ejercicio1 extends JFrame {
 		
 	
 		JButton btnMostrar = new JButton("Mostrar");
-		btnMostrar.setBounds(42, 219, 300, 60);
+		btnMostrar.setBounds(125, 188, 131, 20);
 		contentPane.add(btnMostrar);
 		
-		validarCampos.soloLetras(txtNombre);
-		validarCampos.soloLetras(txtApellido);
-		validarCampos.soloNumeros(txtTelefono);
-		
-		
-		JLabel lblSalida = new JLabel("Los datos ingresados fueron:");
-		lblSalida.setBounds(42, 219, 300, 60); 
+		JLabel lblSalida = new JLabel("Ingrese sus datos.");
+		lblSalida.setBounds(42, 219, 300, 78); 
 		lblSalida.setVerticalAlignment(JLabel.TOP); 
 		contentPane.add(lblSalida);
 		
