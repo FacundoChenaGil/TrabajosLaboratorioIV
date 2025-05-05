@@ -1,7 +1,11 @@
 package Ejercicio_3;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -27,6 +31,18 @@ public class EventoBtnAceptar implements ActionListener {
 		this.cbxProgramacion = cbxProgramacion;
 		this.cbxAdmin = cbxAdmin;
 		this.cbxDesigner = cbxDesigner;
+		
+		this.txtHoras.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isDigit(c) && c != ':' && c != '\b') {
+		            e.consume(); 
+		        }
+		    }
+		});
+		
+		
 	}
 	
 	private boolean ValidarEspecialidad() {
