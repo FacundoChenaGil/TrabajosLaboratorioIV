@@ -1,6 +1,8 @@
 package Ejercicio_2;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import Ejercicio_1.validarCampos;
+import interfaz.PantallaPrincipal;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -138,16 +141,26 @@ public class Ejercicio2 extends JFrame {
 		
 		btnNuevo = new JButton("NUEVO");
 		btnNuevo.setBounds(308, 90, 99, 40);
+		btnNuevo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNota1.setText("");
+	            txtNota2.setText("");
+	            txtNota3.setText("");
+	            txtPromedio.setText("");
+	            txtCondicion.setText("");
+			}
+		});
 		contentPane.add(btnNuevo);
 		
 		btnSalir = new JButton("SALIR");
 		btnSalir.setBounds(308, 142, 99, 40);
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaPrincipal pr = new PantallaPrincipal();
+				pr.setVisible(true);
+				setVisible(false);
+			}
+		});
 		contentPane.add(btnSalir);
-		
-		EventoBotones manejador = new EventoBotones(
-			    txtNota1, txtNota2, txtNota3, txtPromedio, txtCondicion, btnNuevo, btnSalir, this);
-
-			btnNuevo.addActionListener(manejador);
-			btnSalir.addActionListener(manejador);
 	}
 }
