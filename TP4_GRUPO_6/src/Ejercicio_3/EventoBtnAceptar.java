@@ -56,13 +56,13 @@ public class EventoBtnAceptar implements ActionListener {
 		String especialidades = "";
 
 		if (cbxProgramacion.isSelected()) {
-			especialidades += "Programación ";
+			especialidades += "Programación - ";
 		}
 		if (cbxAdmin.isSelected()) {
-			especialidades += "Administración ";
+			especialidades += "Administración - ";
 		}
 		if (cbxDesigner.isSelected()) {
-			especialidades += "Diseño Gráfico ";
+			especialidades += "Diseño Gráfico - ";
 		}
 		return especialidades;
 	}
@@ -126,7 +126,7 @@ public class EventoBtnAceptar implements ActionListener {
 		String especialidades = ObtenerEspecialidades();
 		String horas = ObtenerHoras();
 		
-		JOptionPane.showMessageDialog(null, so + " - " + especialidades + "- " + horas + " Hs", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, so + " - " + especialidades + horas + " Hs", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }

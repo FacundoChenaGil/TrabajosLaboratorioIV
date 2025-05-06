@@ -63,7 +63,7 @@ public class Ejercicio3 extends JFrame {
 		contentPane.add(pnlSO);
 		pnlSO.setLayout(null);
 		
-		JLabel lblSO = new JLabel("Elije un sistema operativo");
+		JLabel lblSO = new JLabel("Elige un sistema operativo");
 		lblSO.setBounds(43, 21, 122, 14);
 		pnlSO.add(lblSO);
 		
@@ -87,7 +87,7 @@ public class Ejercicio3 extends JFrame {
 		pnlEspecialidad.setBounds(20, 91, 392, 106);
 		contentPane.add(pnlEspecialidad);
 		
-		JLabel lblEspecialidad = new JLabel("Elije una especialidad");
+		JLabel lblEspecialidad = new JLabel("Elige una especialidad");
 		lblEspecialidad.setBounds(43, 45, 122, 14);
 		pnlEspecialidad.add(lblEspecialidad);
 		
