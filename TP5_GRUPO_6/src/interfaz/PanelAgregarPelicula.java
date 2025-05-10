@@ -14,7 +14,6 @@ public class PanelAgregarPelicula extends JPanel {
 	 */
 	public PanelAgregarPelicula() {
 		generos = new ArrayList<>();
-		generos.add(new Genero("Seleccione un género"));
 		generos.add(new Genero("Terror"));
 		generos.add(new Genero("Acción"));
 		generos.add(new Genero("Suspenso"));
