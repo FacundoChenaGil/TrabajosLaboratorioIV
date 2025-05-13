@@ -7,7 +7,7 @@ public class Pelicula {
     private String titulo;
     private Genero genero;
     
-	public Pelicula(int id, String titulo, Genero genero) {
+	public Pelicula(String titulo, Genero genero) {
 		// Se asigna el ID y luego se incrementa
 		this.id = contadorID++;
 		this.titulo = titulo;
@@ -34,6 +34,10 @@ public class Pelicula {
 		return id;
 	}
 	
+	public static int getContadorID() {
+		return contadorID;
+	}
+
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", genero=" + genero.getNombre() + "]";
