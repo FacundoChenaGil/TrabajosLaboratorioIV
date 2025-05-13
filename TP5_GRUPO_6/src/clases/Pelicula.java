@@ -1,4 +1,4 @@
-package interfaz;
+package clases;
 
 public class Pelicula {
 	private static int contadorID = 1; // Comienza desde 1

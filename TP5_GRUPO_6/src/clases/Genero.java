@@ -1,10 +1,9 @@
-package interfaz;
+package clases;
 
 public class Genero {
 	private String nombre;
 
 	public Genero(String nombre) {
-		super();
 		this.nombre = nombre;
 	}
 

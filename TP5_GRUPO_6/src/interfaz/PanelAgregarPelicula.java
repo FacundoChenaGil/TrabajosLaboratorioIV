@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import clases.Genero;
+import clases.Pelicula;
+
 
 public class PanelAgregarPelicula extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -23,16 +26,11 @@ public class PanelAgregarPelicula extends JPanel {
 	private JLabel lbl_Nombre;
 	private JTextField txt_Nombre;
 	private JLabel lbl_Generos;
-	private JComboBox<Genero> cb_Generos;
+	private JComboBox<String> cb_Generos;
 	private ArrayList<Genero> generos;
 	
 	
 	public PanelAgregarPelicula() {
-		generos = new ArrayList<>();
-		generos.add(new Genero("Terror"));
-		generos.add(new Genero("Acción"));
-		generos.add(new Genero("Suspenso"));
-		generos.add(new Genero("Romántica"));
 		dibujarControles();
 	}
 	
@@ -86,7 +84,19 @@ public class PanelAgregarPelicula extends JPanel {
 		gbc_lbl_Generos.gridy = 3;
 		add(lbl_Generos, gbc_lbl_Generos);
 		
-		cb_Generos = new JComboBox<Genero>();
+		generos = new ArrayList<>();
+		generos.add(new Genero("Terror"));
+		generos.add(new Genero("Acción"));
+		generos.add(new Genero("Suspenso"));
+		generos.add(new Genero("Romántica"));
+		
+		cb_Generos = new JComboBox<>();
+		
+		cb_Generos.addItem("Seleccione un Genero");
+		for(Genero g : generos) {
+			cb_Generos.addItem(g.getNombre());
+		}
+		
 		GridBagConstraints gbc_cb_Generos = new GridBagConstraints();
 		gbc_cb_Generos.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cb_Generos.insets = new Insets(0, 0, 5, 0);
