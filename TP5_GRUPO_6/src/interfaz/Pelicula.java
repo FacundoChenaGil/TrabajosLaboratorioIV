@@ -8,7 +8,6 @@ public class Pelicula {
     private Genero genero;
     
 	public Pelicula(String titulo, Genero genero) {
-		// Se asigna el ID y luego se incrementa
 		this.id = contadorID++;
 		this.titulo = titulo;
 		this.genero = genero;
