@@ -92,9 +92,6 @@ public class PanelAgregarPelicula extends JPanel {
 		gbc_cb_Generos.insets = new Insets(0, 0, 5, 0);
 		gbc_cb_Generos.gridx = 2;
 		gbc_cb_Generos.gridy = 3;
-		
-		cb_Generos.addItem(new Genero("Seleccione un género"));
-		
 		add(cb_Generos, gbc_cb_Generos);
 		
 		JButton btn_Aceptar = new JButton("Aceptar");
@@ -103,13 +100,6 @@ public class PanelAgregarPelicula extends JPanel {
 				if(txt_Nombre.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Complete el campo nombre.", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
-				}
-				else if(((Genero)cb_Generos.getSelectedItem()).getNombre().equals("Seleccione un género")){
-					JOptionPane.showMessageDialog(null, "Seleccione un género.", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				else {
-					
 				}
 			}
 		});
