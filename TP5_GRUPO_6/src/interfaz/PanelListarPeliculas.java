@@ -24,13 +24,6 @@ public class PanelListarPeliculas extends JPanel {
 		add(scroll, BorderLayout.CENTER);
 	}
 
-	// Método para agregar una película al listado
-	public void agregarPelicula(String descripcion) {
-		modeloLista.addElement(descripcion);
-	}
 
-	// Método opcional para limpiar el listado
-	public void limpiarLista() {
-		modeloLista.clear();
-	}
 }
+
