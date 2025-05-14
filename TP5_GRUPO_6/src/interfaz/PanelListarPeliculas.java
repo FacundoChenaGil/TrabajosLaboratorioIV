@@ -1,16 +1,36 @@
 package interfaz;
 
 import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+
 
 public class PanelListarPeliculas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Create the panel.
-	 */
-	public PanelListarPeliculas() {
+	private JList<String> jListPeliculas;
+	private DefaultListModel<String> modeloLista;
 
+	public PanelListarPeliculas() {
+		setLayout(new BorderLayout());
+
+		modeloLista = new DefaultListModel<>();
+		jListPeliculas = new JList<>(modeloLista);
+		JScrollPane scroll = new JScrollPane(jListPeliculas);
+
+		add(new JLabel("Películas guardadas:"), BorderLayout.NORTH);
+		add(scroll, BorderLayout.CENTER);
 	}
 
+	// Método para agregar una película al listado
+	public void agregarPelicula(String descripcion) {
+		modeloLista.addElement(descripcion);
+	}
+
+	// Método opcional para limpiar el listado
+	public void limpiarLista() {
+		modeloLista.clear();
+	}
 }

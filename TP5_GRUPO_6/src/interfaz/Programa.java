@@ -39,13 +39,22 @@ public class Programa extends JFrame {
 		});
 		mnPeliculas.add(mntmAgregar);
 		
-		JMenuItem mntmListar = new JMenuItem("Listar");
-		mnPeliculas.add(mntmListar);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout());
+	    JMenuItem mntmListar = new JMenuItem("Listar");
+	    mntmListar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            contentPane.removeAll();
+	            PanelListarPeliculas lp = new PanelListarPeliculas(); 
+	            contentPane.add(lp);
+	            contentPane.repaint();
+	            contentPane.revalidate();
+	        }
+	    });
+	    mnPeliculas.add(mntmListar);
+	    
+	    contentPane = new JPanel();
+	    contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	    setContentPane(contentPane);
+	    contentPane.setLayout(new BorderLayout());
 	}
 
 }
