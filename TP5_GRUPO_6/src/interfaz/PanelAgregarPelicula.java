@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -26,8 +27,18 @@ public class PanelAgregarPelicula extends JPanel {
 	private JLabel lbl_Nombre;
 	private JTextField txt_Nombre;
 	private JLabel lbl_Generos;
+	private JButton btn_Aceptar;
 	private JComboBox<String> cb_Generos;
 	private ArrayList<Genero> generos;
+	private GridBagLayout gbl_contentPane;
+	private GridBagConstraints gbc_lbl_IdPelicula;
+	private GridBagConstraints gbc_lbl_ContadorId;
+	private GridBagConstraints gbc_lbl_Nombre;
+	private GridBagConstraints gbc_txt_Nombre;
+	private GridBagConstraints gbc_lbl_Generos;
+	private GridBagConstraints gbc_cb_Generos;
+	private GridBagConstraints gbc_btn_Aceptar;
+	private DefaultListModel<Pelicula> listModel;
 	
 	
 	public PanelAgregarPelicula() {
@@ -36,15 +47,15 @@ public class PanelAgregarPelicula extends JPanel {
 	
 	public void dibujarControles() {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
-		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{129, 46, 53, 145, 0};
 		gbl_contentPane.rowHeights = new int[]{50, 14, 40, 0, 20, 44, 22, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gbl_contentPane);
 		
 		lbl_IdPelicula = new JLabel("ID");
-		GridBagConstraints gbc_lbl_IdPelicula = new GridBagConstraints();
+		gbc_lbl_IdPelicula = new GridBagConstraints();
 		gbc_lbl_IdPelicula.anchor = GridBagConstraints.CENTER;
 		gbc_lbl_IdPelicula.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_IdPelicula.gridx = 1;
@@ -52,15 +63,15 @@ public class PanelAgregarPelicula extends JPanel {
 		add(lbl_IdPelicula, gbc_lbl_IdPelicula);
 
 		lbl_ContadorId = new JLabel(Integer.toString(Pelicula.getContadorID()));
-		GridBagConstraints gbc_lbl_ContadorId = new GridBagConstraints();
+		gbc_lbl_ContadorId = new GridBagConstraints();
 		gbc_lbl_ContadorId.anchor = GridBagConstraints.CENTER;
-		gbc_lbl_ContadorId.insets = new Insets(0, 0, 5, 0);
+		gbc_lbl_ContadorId.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_ContadorId.gridx = 2;
 		gbc_lbl_ContadorId.gridy = 1;
 		add(lbl_ContadorId, gbc_lbl_ContadorId);
 		
 		lbl_Nombre = new JLabel("Nombre");
-		GridBagConstraints gbc_lbl_Nombre = new GridBagConstraints();
+		gbc_lbl_Nombre = new GridBagConstraints();
 		gbc_lbl_Nombre.anchor = GridBagConstraints.CENTER;
 		gbc_lbl_Nombre.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_Nombre.gridx = 1;
@@ -68,16 +79,16 @@ public class PanelAgregarPelicula extends JPanel {
 		add(lbl_Nombre, gbc_lbl_Nombre);
 		
 		txt_Nombre = new JTextField();
-		GridBagConstraints gbc_txt_Nombre = new GridBagConstraints();
+		gbc_txt_Nombre = new GridBagConstraints();
 		gbc_txt_Nombre.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txt_Nombre.insets = new Insets(0, 0, 5, 0);
+		gbc_txt_Nombre.insets = new Insets(0, 0, 5, 5);
 		gbc_txt_Nombre.gridx = 2;
 		gbc_txt_Nombre.gridy = 2;
 		add(txt_Nombre, gbc_txt_Nombre);
 		txt_Nombre.setColumns(10);
 		
 		lbl_Generos = new JLabel("Género");
-		GridBagConstraints gbc_lbl_Generos = new GridBagConstraints();
+		gbc_lbl_Generos = new GridBagConstraints();
 		gbc_lbl_Generos.anchor = GridBagConstraints.CENTER;
 		gbc_lbl_Generos.insets = new Insets(0, 0, 5, 5);
 		gbc_lbl_Generos.gridx = 1;
@@ -97,28 +108,33 @@ public class PanelAgregarPelicula extends JPanel {
 			cb_Generos.addItem(g.getNombre());
 		}
 		
-		GridBagConstraints gbc_cb_Generos = new GridBagConstraints();
+		cb_Generos.setSelectedIndex(0);
+		
+		gbc_cb_Generos = new GridBagConstraints();
 		gbc_cb_Generos.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cb_Generos.insets = new Insets(0, 0, 5, 0);
+		gbc_cb_Generos.insets = new Insets(0, 0, 5, 5);
 		gbc_cb_Generos.gridx = 2;
 		gbc_cb_Generos.gridy = 3;
 		add(cb_Generos, gbc_cb_Generos);
 		
-		JButton btn_Aceptar = new JButton("Aceptar");
+		btn_Aceptar = new JButton("Aceptar");
 		btn_Aceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txt_Nombre.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Complete el campo nombre.", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
+				
+				listModel.addElement(new Pelicula("Test", new Genero("Test")));
+				lbl_ContadorId.setText(Integer.toString(Pelicula.getContadorID()));
 			}
 		});
-		GridBagConstraints gbc_btn_Aceptar = new GridBagConstraints();
+		gbc_btn_Aceptar = new GridBagConstraints();
 		gbc_btn_Aceptar.anchor = GridBagConstraints.CENTER;
-		gbc_btn_Aceptar.insets = new Insets(0, 0, 5, 0);
+		gbc_btn_Aceptar.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_Aceptar.gridx = 2;
 		gbc_btn_Aceptar.gridy = 5;
 		add(btn_Aceptar, gbc_btn_Aceptar);
 	}
-
+	
+	public void setDefaultListModel(DefaultListModel<Pelicula> listModel)
+	{
+		this.listModel = listModel;
+	}
 }
