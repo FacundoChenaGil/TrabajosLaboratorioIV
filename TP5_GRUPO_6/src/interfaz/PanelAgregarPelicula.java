@@ -119,11 +119,24 @@ public class PanelAgregarPelicula extends JPanel {
 		
 		btn_Aceptar = new JButton("Aceptar");
 		btn_Aceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				listModel.addElement(new Pelicula("Test", new Genero("Test")));
-				lbl_ContadorId.setText(Integer.toString(Pelicula.getContadorID()));
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        String nombre = txt_Nombre.getText().trim();
+		        String generoSeleccionado = (String) cb_Generos.getSelectedItem();
+
+		        if (nombre.isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para la película.");
+		            return;
+		        }
+
+		        if (generoSeleccionado.equals("Seleccione un Genero")) {
+		            JOptionPane.showMessageDialog(null, "Debe seleccionar un género válido.");
+		            return;
+		        }
+
+		        // Si pasa las validaciones, se guarda la película
+		        listModel.addElement(new Pelicula(nombre, new Genero(generoSeleccionado)));
+		        lbl_ContadorId.setText(Integer.toString(Pelicula.getContadorID()));
+		    }
 		});
 		gbc_btn_Aceptar = new GridBagConstraints();
 		gbc_btn_Aceptar.anchor = GridBagConstraints.CENTER;
