@@ -136,6 +136,10 @@ public class PanelAgregarPelicula extends JPanel {
 		        // Si pasa las validaciones, se guarda la película
 		        listModel.addElement(new Pelicula(nombre, new Genero(generoSeleccionado)));
 		        lbl_ContadorId.setText(Integer.toString(Pelicula.getContadorID()));
+		        
+		        txt_Nombre.setText("");
+		        cb_Generos.setSelectedIndex(0);
+		        
 		    }
 		});
 		gbc_btn_Aceptar = new GridBagConstraints();

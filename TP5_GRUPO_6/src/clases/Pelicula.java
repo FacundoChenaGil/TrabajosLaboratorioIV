@@ -1,6 +1,6 @@
 package clases;
 
-public class Pelicula {
+public class Pelicula implements Comparable<Pelicula> {
 	private static int contadorID = 1; // Comienza desde 1
 
     private int id;
@@ -40,6 +40,12 @@ public class Pelicula {
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", genero=" + genero.getNombre() + "]";
+	}
+
+	@Override
+	public int compareTo(Pelicula o) {
+		// TODO Auto-generated method stub
+		return this.titulo.compareToIgnoreCase(o.getTitulo());
 	}
     
     

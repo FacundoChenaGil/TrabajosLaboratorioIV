@@ -6,6 +6,7 @@ import clases.Pelicula;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.TreeSet;
 
 
 public class PanelListarPeliculas extends JPanel {
@@ -15,6 +16,20 @@ public class PanelListarPeliculas extends JPanel {
 	private JScrollPane scroll;
 	private JList<Pelicula> jListPeliculas;
 	private DefaultListModel<Pelicula> modeloLista;
+	
+	public void ordenarPorTitulo() {
+	   TreeSet<Pelicula> peliculas = new TreeSet<Pelicula>();
+	    
+	    for(int i=0; i<modeloLista.getSize(); i++) {
+	    	peliculas.add(modeloLista.getElementAt(i));
+	    }
+
+	    modeloLista.clear();
+	    for (Pelicula p : peliculas) {
+	        modeloLista.addElement(p);
+	    }
+
+	}
 
 	public PanelListarPeliculas() {
 		setLayout(new BorderLayout());
@@ -29,6 +44,7 @@ public class PanelListarPeliculas extends JPanel {
 
 	public void setDefaultListModel(DefaultListModel<Pelicula> listModel) {
 		this.modeloLista = listModel;
+		ordenarPorTitulo();
 		jListPeliculas.setModel(this.modeloLista);
 	}
 }
