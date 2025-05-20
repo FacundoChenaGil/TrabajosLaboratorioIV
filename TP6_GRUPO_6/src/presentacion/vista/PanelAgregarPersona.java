@@ -95,5 +95,19 @@ public class PanelAgregarPersona extends JPanel{
 		add(btnAceptar, gbc_btnAceptar);
 	}
 	
+	public JButton getBtnAceptar() {
+		return btnAceptar;
+	}
 	
+	public JTextField getTxtDNI() {
+		return txtDNI;
+	}
+	
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+	
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
 }

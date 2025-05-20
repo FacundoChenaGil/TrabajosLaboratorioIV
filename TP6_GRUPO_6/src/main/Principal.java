@@ -2,6 +2,8 @@ package main;
 
 import presentacion.controlador.Controlador;
 import presentacion.vista.VentanaPrincipal;
+import negocio.PersonaNegocio;
+import negocioImpl.PersonaNegocioImpl;
 import dao.PersonaDao;
 import daoImpl.PersonaDaoImpl;
 import entidad.Persona;
@@ -13,7 +15,8 @@ public class Principal {
 		
 		//dao.insert(new Persona("11111111", "Justina", "Leon"));
 		VentanaPrincipal ventana = new VentanaPrincipal();
-        Controlador controlador = new Controlador(ventana);
+		PersonaNegocio pNeg = new PersonaNegocioImpl();
+        Controlador controlador = new Controlador(ventana, pNeg);
         controlador.inicializar();
 	}
 }
