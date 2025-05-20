@@ -3,11 +3,12 @@ package presentacion.controlador;
 import presentacion.vista.VentanaPrincipal;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import presentacion.vista.PanelAgregarPersona;
 import presentacion.vista.PanelModificarPersona;
 
-public class Controlador {
+public class Controlador implements ActionListener{
 	private VentanaPrincipal ventana;
 	private PanelAgregarPersona pnlAgregarPersona;
 	private PanelModificarPersona pnlModificarPersona;
@@ -15,12 +16,9 @@ public class Controlador {
 	public Controlador(VentanaPrincipal ventana) {
 		this.ventana = ventana;
 		
-		//Instancio los paneles
 		this.pnlAgregarPersona = new PanelAgregarPersona();
 		this.pnlModificarPersona = new PanelModificarPersona();
-				
-		//Enlazo todos los eventos
-				
+		
 		//Eventos del menu
 		this.ventana.getMntmAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
 		this.ventana.getMntmModificar().addActionListener(a->EventoClickMenu_AbrirPanel_ModificarPersona(a));
@@ -46,5 +44,11 @@ public class Controlador {
 
 	public void inicializar() {
 		this.ventana.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
