@@ -43,6 +43,30 @@ public class PanelModificarPersona extends JPanel{
 	    return listaPersonas;
 	}
 	
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
+
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
+	}
+
+	public JTextField getTxtDNI() {
+		return txtDNI;
+	}
+
+	public void setTxtDNI(JTextField txtDNI) {
+		this.txtDNI = txtDNI;
+	}
+
 	private void inicializar() {
 		setBounds(100, 100, 550, 250);
 		setBorder(new EmptyBorder(5, 5, 5, 5));

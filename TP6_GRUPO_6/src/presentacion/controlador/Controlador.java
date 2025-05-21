@@ -32,6 +32,8 @@ public class Controlador implements ActionListener{
 		
 		//Evento click del btnAceptar (Panel Agregar Persona)
 		this.pnlAgregarPersona.getBtnAceptar().addActionListener(a->EventoClickBoton_AgregarPesona_PanelAgregarPersonas(a));
+	
+		EventoSeleccionlista_PanelModificarPersona();
 	}
 	
 	//EventoClickMenu abrir PanelAgregarPersona
@@ -92,6 +94,20 @@ public class Controlador implements ActionListener{
 				}
 			}
 		}
+		
+	private void EventoSeleccionlista_PanelModificarPersona() {
+		this.pnlModificarPersona.getListaPersonas().addListSelectionListener(e-> {
+			if(!e.getValueIsAdjusting()) {
+				Persona seleccionada = this.pnlModificarPersona.getListaPersonas().getSelectedValue();
+				if(seleccionada != null) {
+					this.pnlModificarPersona.getTxtNombre().setText(seleccionada.getNombre());
+					this.pnlModificarPersona.getTxtApellido().setText(seleccionada.getApellido());
+					this.pnlModificarPersona.getTxtDNI().setText(seleccionada.getDni());
+					
+				}
+			}
+		});
+	}
 
 	public void inicializar() {
 		this.ventana.setVisible(true);
