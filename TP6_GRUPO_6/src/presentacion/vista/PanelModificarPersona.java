@@ -4,7 +4,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -18,6 +20,7 @@ public class PanelModificarPersona extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JLabel lblSeleccionar;
 	private JList<Persona> listaPersonas;
+	private DefaultListModel<Persona> listModelPersonas;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
 	private JTextField txtDNI;
@@ -25,6 +28,19 @@ public class PanelModificarPersona extends JPanel{
 	
 	public PanelModificarPersona() {
 		inicializar();
+	}
+	
+	public void cargarPersonas(List<Persona> personas) {
+		listModelPersonas = new DefaultListModel<>();
+		for(Persona p : personas) {
+			listModelPersonas.addElement(p);
+		}
+		
+		listaPersonas.setModel(listModelPersonas);
+	}
+	
+	public JList<Persona> getListaPersonas() {
+	    return listaPersonas;
 	}
 	
 	private void inicializar() {

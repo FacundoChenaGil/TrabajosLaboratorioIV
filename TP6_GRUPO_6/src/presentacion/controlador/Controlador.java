@@ -4,6 +4,7 @@ import presentacion.vista.VentanaPrincipal;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -45,6 +46,10 @@ public class Controlador implements ActionListener{
 	//EventoClickMenu abrir PanelModificarPersona
 	public void  EventoClickMenu_AbrirPanel_ModificarPersona(ActionEvent a)
 	{		
+		List<Persona> personas = pNeg.readAll();
+		
+		pnlModificarPersona.cargarPersonas(personas);
+		
 		ventana.getContentPane().removeAll();
 		ventana.getContentPane().add(pnlModificarPersona);
 		ventana.getContentPane().repaint();
