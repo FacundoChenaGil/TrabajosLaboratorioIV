@@ -27,6 +27,11 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 	public List<Persona> readAll() {
 		return pdao.readAll();
 	}
+	@Override
+	public boolean update(Persona persona) {
+		boolean estado = pdao.update(persona);
+		return estado;
+	}
 
 
 }

@@ -8,4 +8,5 @@ public interface PersonaNegocio {
 	public boolean insert(Persona persona);
 	public List<Persona> readAll();
 	public boolean isExist(String dni);
+	public boolean update(Persona persona);
 }

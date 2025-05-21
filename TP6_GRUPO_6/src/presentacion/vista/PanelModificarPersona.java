@@ -47,24 +47,12 @@ public class PanelModificarPersona extends JPanel{
 		return txtNombre;
 	}
 
-	public void setTxtNombre(JTextField txtNombre) {
-		this.txtNombre = txtNombre;
-	}
-
 	public JTextField getTxtApellido() {
 		return txtApellido;
 	}
 
-	public void setTxtApellido(JTextField txtApellido) {
-		this.txtApellido = txtApellido;
-	}
-
 	public JTextField getTxtDNI() {
 		return txtDNI;
-	}
-
-	public void setTxtDNI(JTextField txtDNI) {
-		this.txtDNI = txtDNI;
 	}
 
 	private void inicializar() {
@@ -117,6 +105,7 @@ public class PanelModificarPersona extends JPanel{
 		txtApellido.setColumns(10);
 
 		txtDNI = new JTextField();
+		txtDNI.setEditable(false);
 		GridBagConstraints gbc_txtDNI = new GridBagConstraints();
 		gbc_txtDNI.insets = new Insets(0, 0, 0, 5);
 		gbc_txtDNI.fill = GridBagConstraints.HORIZONTAL;
@@ -133,5 +122,10 @@ public class PanelModificarPersona extends JPanel{
 		gbc_btnModificar.gridy = 2;
 		add(btnModificar, gbc_btnModificar);
 	}
+
+	public JButton getBtnModificar() {
+		return btnModificar;
+	}
+
 }
 	
