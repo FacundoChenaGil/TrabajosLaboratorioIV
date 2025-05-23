@@ -93,6 +93,38 @@ public class PanelAgregarPersona extends JPanel{
 		gbc_btnAceptar.gridx = 2;
 		gbc_btnAceptar.gridy = 4;
 		add(btnAceptar, gbc_btnAceptar);
+		
+		
+	
+		txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+		    public void keyTyped(java.awt.event.KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+		            e.consume();
+		        }
+		    }
+		});
+
+		txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+		    public void keyTyped(java.awt.event.KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+		            e.consume();
+		        }
+		    }
+		});
+
+		
+		txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+		    public void keyTyped(java.awt.event.KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isDigit(c)) {
+		            e.consume();
+		        }
+		    }
+		});
+		
+		
 	}
 	
 	public JButton getBtnAceptar() {
