@@ -33,5 +33,7 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 		return estado;
 	}
 
-
+	public boolean delete(Persona persona) {
+	    return this.pdao.delete(persona);
+	}
 }

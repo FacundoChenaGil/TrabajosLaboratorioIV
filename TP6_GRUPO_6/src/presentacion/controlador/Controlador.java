@@ -46,8 +46,7 @@ public class Controlador implements ActionListener{
 		// Evento click del btnModificar (Panel Modificar Persona)
 		this.pnlModificarPersona.getBtnModificar().addActionListener(a->EventoClickBoton_ModificarPersona_PanelModificarPersonas(a));
 		
-		// Evento click botón eliminar (PanelEliminarPersona)
-	 //   this.pnlEliminarPersona.getBtnEliminar().addActionListener(a->EventoClickBoton_EliminarPersona_PanelEliminarPersona(a));
+		this.pnlEliminarPersona.getBtnEliminar().addActionListener(a->EventoClickBoton_EliminarPersona_PanelEliminarPersona(a));
 	}
 	
 	//EventoClickMenu abrir PanelAgregarPersona
@@ -170,6 +169,31 @@ public class Controlador implements ActionListener{
 				}
 			}
 		});
+	}
+	
+	private void EventoClickBoton_EliminarPersona_PanelEliminarPersona(ActionEvent a) {
+	    Persona seleccionada = pnlEliminarPersona.getListaPersonas().getSelectedValue();
+
+	    if (seleccionada != null) {
+	        int confirm = JOptionPane.showConfirmDialog(null,
+	                "¿Estás seguro de eliminar a " + seleccionada + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+	        if (confirm == JOptionPane.YES_OPTION) {
+	        	boolean eliminado = pNeg.delete(seleccionada);
+
+	            if (eliminado) {
+	                JOptionPane.showMessageDialog(null, "Persona eliminada correctamente.");
+
+	                // Refrescar lista
+	                List<Persona> personas = pNeg.readAll();
+	                pnlEliminarPersona.cargarPersonas(personas);
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Error al eliminar la persona.");
+	            }
+	        }
+	    } else {
+	        JOptionPane.showMessageDialog(null, "Debe seleccionar una persona para eliminar.");
+	    }
 	}
 	
 
