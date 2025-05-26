@@ -16,6 +16,7 @@ import entidad.Persona;
 import negocio.PersonaNegocio;
 import presentacion.vista.PanelAgregarPersona;
 import presentacion.vista.PanelEliminarPersona;
+import presentacion.vista.PanelListarPersonas;
 import presentacion.vista.PanelModificarPersona;
 
 public class Controlador implements ActionListener{
@@ -24,6 +25,7 @@ public class Controlador implements ActionListener{
 	private PanelModificarPersona pnlModificarPersona;
 	private PanelEliminarPersona pnlEliminarPersona;
 	private PersonaNegocio pNeg;
+	private PanelListarPersonas pnlListarPersonas;
 	
 	public Controlador(VentanaPrincipal ventana, PersonaNegocio pNeg) {
 		this.ventana = ventana;
@@ -32,14 +34,15 @@ public class Controlador implements ActionListener{
 		this.pnlAgregarPersona = new PanelAgregarPersona();
 		this.pnlModificarPersona = new PanelModificarPersona();
 		this.pnlEliminarPersona = new PanelEliminarPersona();  
+		this.pnlListarPersonas = new PanelListarPersonas();
 		
 		
 		
 		//Eventos del menu
 		this.ventana.getMntmAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
 		this.ventana.getMntmModificar().addActionListener(a->EventoClickMenu_AbrirPanel_ModificarPersona(a));
-		 this.ventana.getMntmEliminar().addActionListener(a->EventoClickMenu_AbrirPanel_EliminarPersona(a)); 
-		
+		this.ventana.getMntmEliminar().addActionListener(a->EventoClickMenu_AbrirPanel_EliminarPersona(a)); 
+		this.ventana.getMntmListar().addActionListener(a->EventoClickMenu_AbrirPanel_ListarPersonas(a));
 		//Evento click del btnAceptar (Panel Agregar Persona)
 		this.pnlAgregarPersona.getBtnAceptar().addActionListener(a->EventoClickBoton_AgregarPesona_PanelAgregarPersonas(a));
 	
@@ -86,6 +89,19 @@ public class Controlador implements ActionListener{
 	    ventana.getContentPane().add(pnlEliminarPersona);
 	    ventana.getContentPane().repaint();
 	    ventana.getContentPane().revalidate();
+	}
+	
+	//EventoClickMenu abrir PanelModificarPersona
+	public void  EventoClickMenu_AbrirPanel_ListarPersonas(ActionEvent a)
+	{		
+		List<Persona> personas = pNeg.readAll();
+			
+		pnlModificarPersona.cargarPersonas(personas);
+			
+		ventana.getContentPane().removeAll();
+		ventana.getContentPane().add(pnlListarPersonas);
+		ventana.getContentPane().repaint();
+		ventana.getContentPane().revalidate();
 	}
 	
 	// Evento Click Boton Modificar en PanelModificarPersonas
