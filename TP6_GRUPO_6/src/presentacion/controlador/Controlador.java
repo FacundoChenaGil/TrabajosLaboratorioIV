@@ -4,10 +4,13 @@ import presentacion.vista.VentanaPrincipal;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import entidad.Persona;
 import negocio.PersonaNegocio;
@@ -40,6 +43,11 @@ public class Controlador implements ActionListener{
 		//Evento click del btnAceptar (Panel Agregar Persona)
 		this.pnlAgregarPersona.getBtnAceptar().addActionListener(a->EventoClickBoton_AgregarPesona_PanelAgregarPersonas(a));
 	
+		// Evento KeyListener en Textfields (Panel Agregar Persona)
+		EventoKeyListener_Letras_AgregarPersona_PanelAgregarPersonas(this.pnlAgregarPersona.getTxtNombre());
+		EventoKeyListener_Letras_AgregarPersona_PanelAgregarPersonas(this.pnlAgregarPersona.getTxtApellido());
+		EventoKeyListener_Numeros_AgregarPersona_PanelAgregarPersonas(this.pnlAgregarPersona.getTxtDNI());
+		
 		// Evento al seleccionar un objeto de la lista de modificar
 		EventoSeleccionlista_PanelModificarPersona();
 		
@@ -117,6 +125,31 @@ public class Controlador implements ActionListener{
 		
 	}
 	
+	private void EventoKeyListener_Letras_AgregarPersona_PanelAgregarPersonas(JTextField txt) {
+		txt.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!Character.isLetter(c) && !Character.isWhitespace(c)) {
+					e.consume();
+				}
+			}
+		});
+		
+	}
+	
+	private void EventoKeyListener_Numeros_AgregarPersona_PanelAgregarPersonas(JTextField txt) {
+		txt.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!Character.isDigit(c)) {
+		            e.consume();
+		        }
+			}
+		});
+		
+	}
 	
 	//Evento Click Boton Aceptar en PanelAgregarPersonas
 		private void EventoClickBoton_AgregarPesona_PanelAgregarPersonas(ActionEvent a) {
