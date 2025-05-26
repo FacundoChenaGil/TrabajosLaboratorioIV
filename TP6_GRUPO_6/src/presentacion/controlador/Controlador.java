@@ -91,12 +91,11 @@ public class Controlador implements ActionListener{
 	    ventana.getContentPane().revalidate();
 	}
 	
-	//EventoClickMenu abrir PanelModificarPersona
 	public void  EventoClickMenu_AbrirPanel_ListarPersonas(ActionEvent a)
 	{		
 		List<Persona> personas = pNeg.readAll();
 			
-		pnlModificarPersona.cargarPersonas(personas);
+		pnlListarPersonas.cargarPersonas(personas);
 			
 		ventana.getContentPane().removeAll();
 		ventana.getContentPane().add(pnlListarPersonas);
