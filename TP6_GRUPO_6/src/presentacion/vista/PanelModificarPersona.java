@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -77,13 +78,14 @@ public class PanelModificarPersona extends JPanel{
 		add(lblSeleccionar, gbc_lblSeleccionar);
 
 		listaPersonas = new JList<Persona>();
-		GridBagConstraints gbc_list = new GridBagConstraints();
-		gbc_list.gridwidth = 4;
-		gbc_list.insets = new Insets(0, 0, 5, 5);
-		gbc_list.fill = GridBagConstraints.BOTH;
-		gbc_list.gridx = 1;
-		gbc_list.gridy = 1;
-		add(listaPersonas, gbc_list);
+		JScrollPane scrollPane = new JScrollPane(listaPersonas);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 1;
+		add(scrollPane, gbc_scrollPane);
 
 		txtNombre = new JTextField();
 		GridBagConstraints gbc_txtNombre = new GridBagConstraints();
