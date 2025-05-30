@@ -42,6 +42,20 @@ public class servletSeguro extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/ListarSeguro.jsp");   
 	        rd.forward(request, response);
 		}
+		
+		if("agregar".equals(request.getParameter("Param"))) {
+			int nuevoId = sdao.obtenerProximoId();
+			ArrayList<String> listaTiposSeguro = sdao.obtenerTiposSeguro();
+			
+			System.out.println("Tamaño de la lista: " + listaTiposSeguro.size());
+		
+			request.setAttribute("nuevoId", nuevoId);
+			request.setAttribute("listaTiposSeguro", listaTiposSeguro);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
+			rd.forward(request, response);
+		}
+		
 	}
 
 	/**
