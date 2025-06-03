@@ -64,10 +64,10 @@ if(request.getAttribute("nuevoId") != null) {
 </form>
 
 <%
-	Integer filas = null;
+	int filas = 0;
 	String mensajeCompletar = null;
 	if (request.getAttribute("cantFilas") != null) {
-		filas = (Integer) request.getAttribute("cantFilas");
+		filas = Integer.parseInt(request.getAttribute("cantFilas").toString());
 	}
 	if (request.getAttribute("noCompleto") != null) {
 		mensajeCompletar = request.getAttribute("noCompleto").toString();
@@ -75,7 +75,7 @@ if(request.getAttribute("nuevoId") != null) {
 	%>
 
 	<%
-	if (filas != null && filas == 1) {
+	if (filas != 0 && filas == 1) {
 	%>
 	<p style="color: blue;">Seguro agregado correctamente.</p>
 	<%

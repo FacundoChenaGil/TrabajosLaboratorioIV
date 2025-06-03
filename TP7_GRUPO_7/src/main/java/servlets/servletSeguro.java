@@ -20,75 +20,78 @@ import dominio.SeguroDao;
 public class servletSeguro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SeguroDao sdao = new SeguroDao();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public servletSeguro() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("btnFiltrar")!=null)
-		{
-			ArrayList<Seguro> lista= sdao.obtenerSeguros(request.getParameter("tipoSeguro"));
-			
-			request.setAttribute("listaSeguros", lista);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/ListarSeguro.jsp");   
-	        rd.forward(request, response);
-		}
-		
-		if("agregar".equals(request.getParameter("Param"))) {
-			int nuevoId = sdao.obtenerProximoId();
-			ArrayList<String> listaTiposSeguro = sdao.obtenerTiposSeguro();
-			
-			System.out.println("Tamaño de la lista: " + listaTiposSeguro.size());
-		
-			request.setAttribute("nuevoId", nuevoId);
-			request.setAttribute("listaTiposSeguro", listaTiposSeguro);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
-			rd.forward(request, response);
-		}
-		
+	public servletSeguro() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (request.getParameter("btnFiltrar") != null) {
+			ArrayList<Seguro> lista = sdao.obtenerSeguros(request.getParameter("tipoSeguro"));
+
+			request.setAttribute("listaSeguros", lista);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/ListarSeguro.jsp");
+			rd.forward(request, response);
+		}
+
+		if ("agregar".equals(request.getParameter("Param"))) {
+			int nuevoId = sdao.obtenerProximoId();
+			ArrayList<String> listaTiposSeguro = sdao.obtenerTiposSeguro();
+
+			System.out.println("Tamaño de la lista: " + listaTiposSeguro.size());
+
+			request.setAttribute("nuevoId", nuevoId);
+			request.setAttribute("listaTiposSeguro", listaTiposSeguro);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
+			rd.forward(request, response);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("descripcion")!= null && request.getParameter("tipoSeguro")!= null 
-				   && request.getParameter("contratacion")!= null && request.getParameter("costoMaximo")!= null){
-					
-					String descripcion = request.getParameter("descripcion");
-					int idTipo = Integer.parseInt(request.getParameter("tipoSeguro"));
-					double costoContratacion = Double.parseDouble(request.getParameter("contratacion"));
-					double costoAsegurado = Double.parseDouble(request.getParameter("costoMaximo"));
-		        
-					Seguro seguro = new Seguro();
-					seguro.setDescripcion(descripcion);
-					seguro.setIdTipo(idTipo);
-					seguro.setCostoContratacion(costoContratacion);
-					seguro.setCostoAsegurado(costoAsegurado);
-					
-					SeguroDao dao = new SeguroDao();
-					int filas = dao.agregarSeguro(seguro);
-					
-					request.setAttribute("cantFilas", filas);
-		        
-				}
-				else {
-					String error = "Complete y seleccione los campos.";
-					request.setAttribute("noCompleto", error);
-				}
-				
-		        RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
-		        rd.forward(request, response);
+		if (request.getParameter("btnAceptar") != null) {
+			if (request.getParameter("descripcion") != null && request.getParameter("tipoSeguro") != null
+					&& request.getParameter("contratacion") != null && request.getParameter("costoMaximo") != null) {
+
+				String descripcion = request.getParameter("descripcion");
+				int idTipo = Integer.parseInt(request.getParameter("tipoSeguro"));
+				double costoContratacion = Double.parseDouble(request.getParameter("contratacion"));
+				double costoAsegurado = Double.parseDouble(request.getParameter("costoMaximo"));
+
+				Seguro seguro = new Seguro();
+				seguro.setDescripcion(descripcion);
+				seguro.setIdTipo(idTipo);
+				seguro.setCostoContratacion(costoContratacion);
+				seguro.setCostoAsegurado(costoAsegurado);
+
+				SeguroDao dao = new SeguroDao();
+				int filas = dao.agregarSeguro(seguro);
+
+				request.setAttribute("cantFilas", filas);
+
+			} else {
+				String error = "Complete y seleccione los campos.";
+				request.setAttribute("noCompleto", error);
+			}
+		}
+
+		RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
+		rd.forward(request, response);
 
 	}
 
