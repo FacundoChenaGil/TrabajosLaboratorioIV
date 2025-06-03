@@ -2,6 +2,7 @@ package dominio;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
@@ -122,5 +123,33 @@ public class SeguroDao {
 		}
 		
 		return lista;
+	}
+	
+	public int agregarSeguro(Seguro seguro) {
+		int filas = 0;
+		Connection cn = null;
+		try {
+			cn = DriverManager.getConnection(host + dbName, user, pass);
+			String query = "INSERT INTO seguros (descripcion, idTipo, costoContratacion, costoAsegurado) VALUES (?, ?, ?, ?)";
+			PreparedStatement pst = cn.prepareStatement(query);
+
+			pst.setString(1, seguro.getDescripcion());
+			pst.setInt(2, seguro.getIdTipo());
+			pst.setDouble(3, seguro.getCostoContratacion());
+			pst.setDouble(4, seguro.getCostoAsegurado());
+
+			filas = pst.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return filas;
 	}
 }

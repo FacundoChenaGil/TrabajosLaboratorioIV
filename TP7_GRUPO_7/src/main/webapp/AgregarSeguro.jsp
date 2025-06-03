@@ -63,6 +63,33 @@ if(request.getAttribute("nuevoId") != null) {
 	</table>
 </form>
 
+<%
+	Integer filas = null;
+	String mensajeCompletar = null;
+	if (request.getAttribute("cantFilas") != null) {
+		filas = (Integer) request.getAttribute("cantFilas");
+	}
+	if (request.getAttribute("noCompleto") != null) {
+		mensajeCompletar = request.getAttribute("noCompleto").toString();
+	}
+	%>
+
+	<%
+	if (filas != null && filas == 1) {
+	%>
+	<p style="color: blue;">Seguro agregado correctamente.</p>
+	<%
+	}
+	%>
+
+	<%
+	if (mensajeCompletar != null) {
+	%>
+	<strong style="color: red;"> <%=mensajeCompletar%></strong>
+	<%
+	}
+%>
+
 
 </body>
 </html>

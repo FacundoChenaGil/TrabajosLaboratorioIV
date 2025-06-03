@@ -62,8 +62,34 @@ public class servletSeguro extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		if(request.getParameter("descripcion")!= null && request.getParameter("tipoSeguro")!= null 
+				   && request.getParameter("contratacion")!= null && request.getParameter("costoMaximo")!= null){
+					
+					String descripcion = request.getParameter("descripcion");
+					int idTipo = Integer.parseInt(request.getParameter("tipoSeguro"));
+					double costoContratacion = Double.parseDouble(request.getParameter("contratacion"));
+					double costoAsegurado = Double.parseDouble(request.getParameter("costoMaximo"));
+		        
+					Seguro seguro = new Seguro();
+					seguro.setDescripcion(descripcion);
+					seguro.setIdTipo(idTipo);
+					seguro.setCostoContratacion(costoContratacion);
+					seguro.setCostoAsegurado(costoAsegurado);
+					
+					SeguroDao dao = new SeguroDao();
+					int filas = dao.agregarSeguro(seguro);
+					
+					request.setAttribute("cantFilas", filas);
+		        
+				}
+				else {
+					String error = "Complete y seleccione los campos.";
+					request.setAttribute("noCompleto", error);
+				}
+				
+		        RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
+		        rd.forward(request, response);
+
 	}
 
 }
