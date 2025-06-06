@@ -125,6 +125,39 @@ public class SeguroDao {
 		return lista;
 	}
 	
+	public boolean existeSeguro(String descripcion, int idTipo) {
+	    boolean existe = false;
+	    Connection cn = null;
+	    PreparedStatement pst = null;
+	    ResultSet rs = null;
+
+	    try {
+	        cn = DriverManager.getConnection(host + dbName, user, pass);
+	        String query = "SELECT COUNT(*) AS total FROM seguros WHERE descripcion = ? AND idTipo = ?";
+	        pst = cn.prepareStatement(query);
+	        pst.setString(1, descripcion);
+	        pst.setInt(2, idTipo);
+	        rs = pst.executeQuery();
+
+	        if (rs.next()) {
+	            int total = rs.getInt("total");
+	            existe = total > 0;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pst != null) pst.close();
+	            if (cn != null) cn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return existe;
+	}
+	
 	public int agregarSeguro(Seguro seguro) {
 		int filas = 0;
 		Connection cn = null;

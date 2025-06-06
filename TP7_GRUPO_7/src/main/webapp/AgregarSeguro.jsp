@@ -8,6 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<nav>
+        <a href="Inicio.jsp">Inicio</a>
+        <a href="servletSeguro?Param=agregar">Agregar Seguros</a>
+        <a href="ListarSeguro.jsp">Listar Seguros</a>
+    </nav>
+
 <%
 int proximoId = 0;
 ArrayList<String> tiposSeguro = null;

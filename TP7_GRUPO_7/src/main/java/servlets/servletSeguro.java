@@ -72,6 +72,15 @@ public class servletSeguro extends HttpServlet {
 				int idTipo = Integer.parseInt(request.getParameter("tipoSeguro"));
 				double costoContratacion = Double.parseDouble(request.getParameter("contratacion"));
 				double costoAsegurado = Double.parseDouble(request.getParameter("costoMaximo"));
+				
+				SeguroDao dao = new SeguroDao();
+
+				if (dao.existeSeguro(descripcion, idTipo)) {
+				    request.setAttribute("noCompleto", "Ya existe un seguro con esa descripción y tipo.");
+				    RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
+				    rd.forward(request, response);
+				    return;
+				}
 
 				Seguro seguro = new Seguro();
 				seguro.setDescripcion(descripcion);
@@ -79,7 +88,7 @@ public class servletSeguro extends HttpServlet {
 				seguro.setCostoContratacion(costoContratacion);
 				seguro.setCostoAsegurado(costoAsegurado);
 
-				SeguroDao dao = new SeguroDao();
+				
 				int filas = dao.agregarSeguro(seguro);
 
 				request.setAttribute("cantFilas", filas);
