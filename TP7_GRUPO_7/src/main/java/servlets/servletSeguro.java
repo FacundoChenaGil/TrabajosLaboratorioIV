@@ -70,8 +70,8 @@ public class servletSeguro extends HttpServlet {
 
 				String descripcion = request.getParameter("descripcion");
 				int idTipo = Integer.parseInt(request.getParameter("tipoSeguro"));
-				double costoContratacion = Double.parseDouble(request.getParameter("contratacion"));
-				double costoAsegurado = Double.parseDouble(request.getParameter("costoMaximo"));
+				float costoContratacion = Float.parseFloat(request.getParameter("contratacion"));
+				float costoAsegurado = Float.parseFloat(request.getParameter("costoMaximo"));
 				
 				if (costoContratacion <= 0 || costoAsegurado <= 0) {
 				    request.setAttribute("noCompleto", "Los costos deben ser mayores a 0.");
