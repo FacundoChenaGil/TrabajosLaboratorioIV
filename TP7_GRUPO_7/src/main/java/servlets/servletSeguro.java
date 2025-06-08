@@ -73,6 +73,13 @@ public class servletSeguro extends HttpServlet {
 				double costoContratacion = Double.parseDouble(request.getParameter("contratacion"));
 				double costoAsegurado = Double.parseDouble(request.getParameter("costoMaximo"));
 				
+				if (costoContratacion <= 0 || costoAsegurado <= 0) {
+				    request.setAttribute("noCompleto", "Los costos deben ser mayores a 0.");
+				    RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
+				    rd.forward(request, response);
+				    return;
+				}
+				
 				SeguroDao dao = new SeguroDao();
 
 				if (dao.existeSeguro(descripcion, idTipo)) {
