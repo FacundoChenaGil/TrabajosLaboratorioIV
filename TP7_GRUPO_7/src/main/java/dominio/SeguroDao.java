@@ -20,31 +20,6 @@ public class SeguroDao {
 		}
 	}
 	
-	public ArrayList<String> obtenerTiposSeguro() {
-		ArrayList<String> lista = new ArrayList<String>();
-		Connection conn = null;
-		PreparedStatement pSt = null;
-		ResultSet rs = null;
-		
-		try{
-			conn = DriverManager.getConnection(host + dbName, user, pass);
-			
-			String query = "SELECT descripcion FROM tipoSeguros";
-			pSt = conn.prepareStatement(query);
-			rs = pSt.executeQuery();
-			
-			while(rs.next()){
-				lista.add(rs.getString("descripcion"));
-				
-			}
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		return lista;
-	}
-	
 	public int obtenerProximoId() {
 		int proximoId = 0;
 		Connection cn = null;
@@ -99,10 +74,13 @@ public class SeguroDao {
 			while(rs.next()){
 				
 				Seguro seguroRs = new Seguro();
+				TipoSeguro ts = new TipoSeguro();
+				ts.setIdTipo(rs.getInt("idTipo"));
+				ts.setDescripcion(rs.getString("descripcionTipo"));
+				
 				seguroRs.setId(rs.getInt("idSeguro"));
 				seguroRs.setDescripcion(rs.getString("descripcion"));
-				seguroRs.setIdTipo(rs.getInt("idTipo"));
-				seguroRs.setDescripcionTipo(rs.getString("descripcionTipo"));
+				seguroRs.setTipoSeguro(ts);
 				seguroRs.setCostoContratacion(rs.getFloat("costoContratacion"));
 				seguroRs.setCostoAsegurado(rs.getFloat("costoAsegurado"));
 				
@@ -167,7 +145,7 @@ public class SeguroDao {
 			PreparedStatement pst = cn.prepareStatement(query);
 
 			pst.setString(1, seguro.getDescripcion());
-			pst.setInt(2, seguro.getIdTipo());
+			pst.setInt(2, seguro.getTipoSeguro().getIdTipo());
 			pst.setDouble(3, seguro.getCostoContratacion());
 			pst.setDouble(4, seguro.getCostoAsegurado());
 

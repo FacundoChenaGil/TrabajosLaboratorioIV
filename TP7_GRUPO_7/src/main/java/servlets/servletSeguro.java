@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import dominio.Seguro;
 import dominio.SeguroDao;
+import dominio.TipoSeguro;
+import dominio.TipoSeguroDao;
 
 /**
  * Servlet implementation class servletSeguro
@@ -20,6 +22,7 @@ import dominio.SeguroDao;
 public class servletSeguro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SeguroDao sdao = new SeguroDao();
+	private TipoSeguroDao tsdao = new TipoSeguroDao();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,9 +49,7 @@ public class servletSeguro extends HttpServlet {
 
 		if ("agregar".equals(request.getParameter("Param"))) {
 			int nuevoId = sdao.obtenerProximoId();
-			ArrayList<String> listaTiposSeguro = sdao.obtenerTiposSeguro();
-
-			System.out.println("Tamaño de la lista: " + listaTiposSeguro.size());
+			ArrayList<TipoSeguro> listaTiposSeguro = tsdao.obtenerTiposSeguro();
 
 			request.setAttribute("nuevoId", nuevoId);
 			request.setAttribute("listaTiposSeguro", listaTiposSeguro);
@@ -90,8 +91,12 @@ public class servletSeguro extends HttpServlet {
 				}
 
 				Seguro seguro = new Seguro();
+				TipoSeguro ts = new TipoSeguro();
+				
+				ts.setIdTipo(idTipo);
+				
 				seguro.setDescripcion(descripcion);
-				seguro.setIdTipo(idTipo);
+				seguro.setTipoSeguro(ts);
 				seguro.setCostoContratacion(costoContratacion);
 				seguro.setCostoAsegurado(costoAsegurado);
 
@@ -105,6 +110,12 @@ public class servletSeguro extends HttpServlet {
 				request.setAttribute("noCompleto", error);
 			}
 		}
+		
+		ArrayList<TipoSeguro> listaTiposSeguro = tsdao.obtenerTiposSeguro();
+	    request.setAttribute("listaTiposSeguro", listaTiposSeguro);
+	    int nuevoId = sdao.obtenerProximoId();
+	    request.setAttribute("nuevoId", nuevoId);
+		
 
 		RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
 		rd.forward(request, response);

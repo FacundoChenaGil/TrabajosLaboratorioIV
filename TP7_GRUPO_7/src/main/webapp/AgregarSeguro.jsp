@@ -1,4 +1,5 @@
 <%@page import="java.util.ArrayList"%>
+<%@page import="dominio.TipoSeguro"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,9 +17,9 @@
 
 <%
 int proximoId = 0;
-ArrayList<String> tiposSeguro = null;
+ArrayList<TipoSeguro> tiposSeguro = null;
 if(request.getAttribute("listaTiposSeguro") != null) {
-	tiposSeguro = (ArrayList<String>)request.getAttribute("listaTiposSeguro");
+	tiposSeguro = (ArrayList<TipoSeguro>)request.getAttribute("listaTiposSeguro");
 }
 
 if(request.getAttribute("nuevoId") != null) {
@@ -44,10 +45,10 @@ if(request.getAttribute("nuevoId") != null) {
 				<select name="tipoSeguro">
 					<%
 					if(tiposSeguro != null)
-						for(String tipoSeguro : tiposSeguro) {
+						for(TipoSeguro tipoSeguro : tiposSeguro) {
 					
 					 %>
-						<option value=<%=tipoSeguro%>><%=tipoSeguro%></option>
+						<option value="<%=tipoSeguro.getIdTipo()%>"><%=tipoSeguro.getDescripcion()%></option>
 					<%
 						}
 					%>

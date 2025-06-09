@@ -56,7 +56,7 @@
             <tr>
                 <td><%=seguro.getId() %></td>
                 <td><%=seguro.getDescripcion() %></td>
-                <td><%=seguro.getDescripcionTipo() %></td>
+                <td><%=seguro.getTipoSeguro().getDescripcion() %></td>
                 <td><%=seguro.getCostoContratacion() %></td>
                 <td><%=seguro.getCostoAsegurado() %></td>
             </tr>
