@@ -37,12 +37,12 @@ if(request.getAttribute("nuevoId") != null) {
 		</tr>
 		<tr>
 			<td>Descripción:</td>
-			<td><input type="text" name="descripcion" /></td>
+			<td><input type="text" name="descripcion" required/></td>
 		</tr>
 		<tr>
 			<td>Tipo de Seguro:</td>
 			<td>
-				<select name="tipoSeguro">
+				<select name="tipoSeguro" required>
 					<%
 					if(tiposSeguro != null)
 						for(TipoSeguro tipoSeguro : tiposSeguro) {
@@ -57,11 +57,11 @@ if(request.getAttribute("nuevoId") != null) {
 		</tr>
 		<tr>
 			<td>Costo contratación:</td>
-			<td><input type="text" name="contratacion" /></td>
+			<td><input type="text" name="contratacion" required/></td>
 		</tr>
 		<tr>
 			<td>Costo Máximo Asegurado:</td>
-			<td><input type="text" name="costoMaximo" /></td>
+			<td><input type="text" name="costoMaximo" required/></td>
 		</tr>
 		<tr>
 			<td></td>

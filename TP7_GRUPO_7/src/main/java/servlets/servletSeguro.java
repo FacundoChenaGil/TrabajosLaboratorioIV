@@ -65,61 +65,58 @@ public class servletSeguro extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("btnAceptar") != null) {
-			if (request.getParameter("descripcion") != null && request.getParameter("tipoSeguro") != null
-					&& request.getParameter("contratacion") != null && request.getParameter("costoMaximo") != null) {
+		String descripcion = request.getParameter("descripcion");
+	    String tipoSeguro = request.getParameter("tipoSeguro");
+	    String contratacion = request.getParameter("contratacion");
+	    String costoMaximo = request.getParameter("costoMaximo");
 
-				String descripcion = request.getParameter("descripcion");
-				int idTipo = Integer.parseInt(request.getParameter("tipoSeguro"));
-				float costoContratacion = Float.parseFloat(request.getParameter("contratacion"));
-				float costoAsegurado = Float.parseFloat(request.getParameter("costoMaximo"));
-				
-				if (costoContratacion <= 0 || costoAsegurado <= 0) {
-				    request.setAttribute("noCompleto", "Los costos deben ser mayores a 0.");
-				    RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
-				    rd.forward(request, response);
-				    return;
-				}
-				
-				SeguroDao dao = new SeguroDao();
+	    if (request.getParameter("btnAceptar") != null) {
+	        if (descripcion != null && !descripcion.isEmpty()
+	                && tipoSeguro != null && !tipoSeguro.isEmpty()
+	                && contratacion != null && !contratacion.isEmpty()
+	                && costoMaximo != null && !costoMaximo.isEmpty()) {
 
-				if (dao.existeSeguro(descripcion, idTipo)) {
-				    request.setAttribute("noCompleto", "Ya existe un seguro con esa descripción y tipo.");
-				    RequestDispatcher rd = request.getRequestDispatcher("AgregarSeguro.jsp");
-				    rd.forward(request, response);
-				    return;
-				}
+	            try {
+	                int idTipo = Integer.parseInt(tipoSeguro);
+	                float costoContratacion = Float.parseFloat(contratacion);
+	                float costoAsegurado = Float.parseFloat(costoMaximo);
 
-				Seguro seguro = new Seguro();
-				TipoSeguro ts = new TipoSeguro();
-				
-				ts.setIdTipo(idTipo);
-				
-				seguro.setDescripcion(descripcion);
-				seguro.setTipoSeguro(ts);
-				seguro.setCostoContratacion(costoContratacion);
-				seguro.setCostoAsegurado(costoAsegurado);
+	                if (costoContratacion <= 0 || costoAsegurado <= 0) {
+	                    request.setAttribute("noCompleto", "Los costos deben ser mayores a 0.");
+	                } else {
+	                    SeguroDao dao = new SeguroDao();
 
-				
-				int filas = dao.agregarSeguro(seguro);
+	                    if (dao.existeSeguro(descripcion, idTipo)) {
+	                        request.setAttribute("noCompleto", "Ya existe un seguro con esa descripción y tipo.");
+	                    } else {
+	                        Seguro seguro = new Seguro();
+	                        TipoSeguro ts = new TipoSeguro();
+	                        ts.setIdTipo(idTipo);
 
-				request.setAttribute("cantFilas", filas);
+	                        seguro.setDescripcion(descripcion);
+	                        seguro.setTipoSeguro(ts);
+	                        seguro.setCostoContratacion(costoContratacion);
+	                        seguro.setCostoAsegurado(costoAsegurado);
 
-			} else {
-				String error = "Complete y seleccione los campos.";
-				request.setAttribute("noCompleto", error);
-			}
-		}
-		
-		ArrayList<TipoSeguro> listaTiposSeguro = tsdao.obtenerTiposSeguro();
+	                        int filas = dao.agregarSeguro(seguro);
+	                        request.setAttribute("cantFilas", filas);
+	                    }
+	                }
+	            } catch (NumberFormatException e) {
+	                request.setAttribute("noCompleto", "Los campos de costo deben ser números válidos (usar punto para decimales).");
+	            }
+	        } else {
+	            request.setAttribute("noCompleto", "Complete todos los campos obligatorios.");
+	        }
+	    }
+
+	    ArrayList<TipoSeguro> listaTiposSeguro = tsdao.obtenerTiposSeguro();
 	    request.setAttribute("listaTiposSeguro", listaTiposSeguro);
 	    int nuevoId = sdao.obtenerProximoId();
 	    request.setAttribute("nuevoId", nuevoId);
-		
 
-		RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
-		rd.forward(request, response);
-
+	    RequestDispatcher rd = request.getRequestDispatcher("/AgregarSeguro.jsp");
+	    rd.forward(request, response);
 	}
 
 }
