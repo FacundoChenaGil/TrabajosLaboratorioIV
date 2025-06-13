@@ -1,0 +1,45 @@
+# Archivos y carpetas generados por Eclipse
+.classpath
+.project
+.settings/
+
+# Directorios de compilación
+/bin/
+/build/
+
+# Clases compiladas
+**/*.class
+
+# Archivos JAR del proyecto (si los manejas manualmente en una carpeta lib/ o similar)
+# Si usas Maven/Gradle, estos son manejados de forma diferente.
+# /WebContent/WEB-INF/lib/
+
+# Archivos de configuración de Tomcat (generados al desplegar)
+# Estos son específicos de tu entorno local y no deben versionarse.
+# Si tu IDE despliega tu proyecto en un directorio de Tomcat, asegúrate de ignorar:
+# Por ejemplo, si tu proyecto se despliega como TPINT_GRUPO_6_LAB4.war o en una carpeta descomprimida
+# dentro de webapps de Tomcat.
+# Puedes ignorar la carpeta de despliegue de tu proyecto dentro de tu servidor local.
+# Si usas un Tomcat directamente dentro de Eclipse, este punto es menos crítico,
+# pero aún así querrás ignorar los archivos WAR o los directorios de despliegue.
+# .metadata/ (Este es para el workspace completo de Eclipse, no para el proyecto individual)
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de la Papelera de Reciclaje de Eclipse o de otros sistemas operativos
+.DS_Store
+Thumbs.db
+
+# Configuración de cualquier otro IDE o sistema de control de versiones que puedas usar
+# .idea/ (IntelliJ IDEA)
+# *.iml (IntelliJ IDEA)
+# .vscode/ (VS Code)
+
+# Archivos generados por el sistema operativo
+*~
+.#*
