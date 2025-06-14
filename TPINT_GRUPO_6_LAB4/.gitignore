@@ -1,8 +1,3 @@
-# Archivos y carpetas generados por Eclipse
-.classpath
-.project
-.settings/
-
 # Directorios de compilación
 /bin/
 /build/
