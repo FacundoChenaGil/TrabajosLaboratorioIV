@@ -38,7 +38,7 @@
 </head>
 <body class="relative overflow-hidden">
     <div class="relative z-10 bg-white min-h-screen pt-12 pb-24 mx-auto mt-8 mb-8 max-w-7xl"
-         style="background-image: url('/imagenes/menuAdmin.jpg'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
+         style="background-image: url('../imagenes/menuAdmin.jpg'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
         <div class="absolute inset-0 bg-custom-red opacity-80"></div>
 
         <div class="relative z-20">
@@ -59,7 +59,7 @@
                         </p>
                     </a>
 
-                    <a href="" class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
+                    <a href="gestionDeCuentas.jsp" class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
                         <i class="fa-solid fa-landmark fa-2xl mb-6" style="color: #ffffff;"></i> <h3 class="text-2xl font-semibold mb-2">Gestión de Cuentas</h3>
                         <p class="text-sm opacity-90 leading-relaxed">
                             Gestione cuentas y su asignación a clientes (máximo 3 por cliente), con un monto inicial de $10.000.
