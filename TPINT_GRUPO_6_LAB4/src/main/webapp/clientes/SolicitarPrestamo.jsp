@@ -5,8 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
+
+<!-- Navbar y header -->
+<jsp:include page="/WEB-INF/jsp/includes/header2.jsp" />
+
 <body>
 
+
+
 </body>
+
+<!-- Footer -->
+<jsp:include page="/WEB-INF/jsp/includes/footer2.jsp" />
+
 </html>
