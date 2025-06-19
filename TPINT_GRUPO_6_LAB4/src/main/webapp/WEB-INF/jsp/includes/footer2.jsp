@@ -8,6 +8,6 @@
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <footer
-	class="w-full h-[70px] bg-[#D14444] flex justify-center items-center fixed bottom-0 left-0 text-white">
+	class="w-full h-[70px] bg-[#D14444] flex justify-center items-center text-white">
 	Este es el footer </footer>
 </html>
