@@ -20,52 +20,48 @@
         }
         .input-glow-effect:hover, .input-glow-effect:focus {
             border-color: #800020; /* Bordo-dark */
-            box-shadow: 0 0 8px 3px rgba(128, 0, 32, 0.4); /* Sombra bordo sutil */
+            box-shadow: 0 0 8px 3px rgba(128, 0, 32, 0.4);
             outline: none;
         }
         .input-glow-effect::placeholder {
             color: #9ca3af;
         }
-        /* Estilos actualizados para el botón "Volver" */
         .button-secondary {
             background-color: white;
-            color: #800020; /* Bordo-dark text */
+            color: #800020;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
-            border: 1px solid #800020; /* CAMBIO AQUÍ: borde de 1px */
-            /* Propiedades para que ocupe el ancho y centre el texto */
+            border: 1px solid #800020;
             display: inline-flex;
             justify-content: center;
             align-items: center;
             width: 100%;
         }
         .button-secondary:hover {
-            background-color: #f2f2f2; /* Light gray on hover */
-            border-color: #5e0016; /* Darker bordo on hover */
-            color: #5e0016; /* Darker bordo text on hover */
+            background-color: #f2f2f2;
+            border-color: #5e0016;
+            color: #5e0016;
         }
-        /* Estilos actualizados para el botón "Generar Cuenta" */
         .button-primary {
-            background-color: #800020; /* Bordo-dark background */
+            background-color: #800020;
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-            border: 2px solid #800020; /* Mantener borde de 2px para este botón */
-            /* Propiedades para que ocupe el ancho y centre el texto */
+            border: 2px solid #800020; 
             display: inline-flex;
             justify-content: center;
             align-items: center;
             width: 100%;
         }
         .button-primary:hover {
-            background-color: #6a001a; /* Darker bordo on hover */
-            border-color: #6a001a; /* Darker bordo on hover */
+            background-color: #6a001a;
+            border-color: #6a001a;
         }
         .card-style {
             background-color: white;

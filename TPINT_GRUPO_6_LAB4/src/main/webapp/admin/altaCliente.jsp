@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Alta Cliente</title>
+<title>Alta de Cliente</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,18 +17,22 @@
                 font-family: 'Montserrat', sans-serif;
             }
         }
+
         .input-glow-on-hover-focus:hover {
             box-shadow: 0 0 8px 2px rgba(128, 128, 128, 0.2);
         }
+
         .input-glow-on-hover-focus:focus {
             box-shadow: none;
         }
+
         .form-radio {
             color: #850321;
         }
     </style>
 </head>
-<body class="bg-cover bg-center bg-no-repeat bg-fixed p-8 antialiased text-gray-900" style="background-image: url('../imagenes/5594016.jpg');">
+<body class="bg-cover bg-center bg-no-repeat bg-fixed p-8 antialiased text-gray-900"
+    style="background-image: url('../imagenes/5594016.jpg');">
     <div class="max-w-3xl md:max-w-5xl mx-auto bg-white p-10 md:p-12 rounded-2xl shadow-2xl">
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 tracking-tight">
             Alta Cliente
@@ -38,32 +42,28 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 mb-6">
                 <div>
                     <label for="dni" class="block mb-2 text-gray-700 font-medium">DNI:</label>
-                    <input type="text" id="dni" name="dni" required placeholder="Ej: 12345678"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="text" id="dni" name="dni" required placeholder="Ej: 12345678" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
 
                 <div>
                     <label for="cuil" class="block mb-2 text-gray-700 font-medium">CUIL:</label>
-                    <input type="text" id="cuil" name="cuil" required placeholder="Ej: 27-12345678-9"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="text" id="cuil" name="cuil" required placeholder="Ej: 27-12345678-9" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
 
                 <div>
                     <label for="nombre" class="block mb-2 text-gray-700 font-medium">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: Ana"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: Ana" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
 
                 <div>
                     <label for="apellido" class="block mb-2 text-gray-700 font-medium">Apellido:</label>
-                    <input type="text" id="apellido" name="apellido" required placeholder="Ej: López"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="text" id="apellido" name="apellido" required placeholder="Ej: López" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
@@ -88,24 +88,21 @@
 
                 <div>
                     <label for="telefono" class="block mb-2 text-gray-700 font-medium">Teléfono:</label>
-                    <input type="tel" id="telefono" name="telefono" placeholder="Ej: 11 2345 6789"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="tel" id="telefono" name="telefono" placeholder="Ej: 11 2345 6789" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
 
                 <div>
                     <label for="fecha" class="block mb-2 text-gray-700 font-medium">Fecha de Nacimiento:</label>
-                    <input type="date" id="fecha" name="fecha"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="date" id="fecha" name="fecha" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out" required>
                 </div>
 
                 <div>
                     <label for="nacionalidad" class="block mb-2 text-gray-700 font-medium">Nacionalidad:</label>
-                    <select name="nacionalidad"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <select name="nacionalidad" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                         <option value="">Seleccione una nacionalidad</option>
@@ -119,8 +116,7 @@
 
                 <div>
                     <label for="provincia" class="block mb-2 text-gray-700 font-medium">Provincia:</label>
-                    <select name="provincia" id="provincia"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <select name="provincia" id="provincia" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                         <option value="">Seleccione una provincia</option>
@@ -144,8 +140,7 @@
 
                 <div>
                     <label for="localidad" class="block mb-2 text-gray-700 font-medium">Localidad:</label>
-                    <select name="localidad" id="localidad"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <select name="localidad" id="localidad" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                         <option value="">Seleccione una localidad</option>
@@ -166,33 +161,35 @@
 
                 <div>
                     <label for="email" class="block mb-2 text-gray-700 font-medium">Email:</label>
-                    <input type="email" id="email" name="email" required placeholder="Ej: ana.lopez@gmail.com"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="email" id="email" name="email" required placeholder="Ej: ana.lopez@gmail.com" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
 
                 <div>
                     <label for="username" class="block mb-2 text-gray-700 font-medium">Nombre de Usuario:</label>
-                    <input type="text" id="username" name="username" required placeholder="Ej: alopez"
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="text" id="username" name="username" required placeholder="Ej: alopez" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
 
                 <div>
                     <label for="password" class="block mb-2 text-gray-700 font-medium">Clave:</label>
-                    <input type="password" id="password" name="password" required placeholder="Letras mayúsculas, minúsculas, números y símbolos."
-                        class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="password" id="password" name="password" required
+                        placeholder="Letras mayúsculas, minúsculas, números y símbolos." class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
             </div>
 
-            <div class="flex items-center justify-center pt-4">
+            <!-- Botones -->
+            <div class="flex items-center justify-between pt-4 gap-4">
+                <a href="gestionDeClientes.jsp"
+                    class="py-3 px-8 text-center bg-gray-100 border border-gray-400 rounded-lg text-base font-semibold w-full hover:bg-gray-300 transition duration-200 ease-in-out">
+                    Volver
+                </a>
                 <input type="submit" value="Registrar Cliente"
-                    class="py-3 px-8 bg-white text-black border border-black rounded-lg cursor-pointer w-full text-base font-bold
-                            hover:bg-black hover:text-white transition duration-200 ease-in-out">
+                    class="py-3 px-8 bg-white text-black border border-black rounded-lg cursor-pointer w-full text-base font-bold hover:bg-black hover:text-white transition duration-200 ease-in-out" />
             </div>
         </form>
     </div>

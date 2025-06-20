@@ -52,7 +52,7 @@
             <section class="px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
 
-                    <a href="" class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
+                    <a href="gestionDeClientes.jsp" class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
                         <i class="fa-solid fa-users fa-2xl mb-6" style="color: #ffffff;"></i> <h3 class="text-2xl font-semibold mb-2">Gestión de Clientes</h3>
                         <p class="text-sm opacity-90 leading-relaxed">
                             Administre altas, bajas y modificaciones de clientes, incluyendo usuarios y contraseñas.
