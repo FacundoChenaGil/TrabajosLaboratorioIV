@@ -66,7 +66,7 @@
                         </p>
                     </a>
 
-                    <a href="" class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
+                    <a href="gestionDePrestamos.jsp" class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
                         <i class="fa-solid fa-money-bill-transfer fa-2xl mb-6" style="color: #ffffff;"></i> <h3 class="text-2xl font-semibold mb-2">Autorización de Préstamos</h3>
                         <p class="text-sm opacity-90 leading-relaxed">
                             Autorice o rechace préstamos solicitados por clientes. Al aprobar, el monto se acredita y se generan las cuotas.
