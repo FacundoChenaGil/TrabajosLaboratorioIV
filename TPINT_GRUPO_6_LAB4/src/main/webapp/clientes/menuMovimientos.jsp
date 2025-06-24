@@ -24,7 +24,7 @@
 			<p class="text-gray-600 text-base">Accedé rápidamente a tus
 				operaciones bancarias más frecuentes.</p>
 		</div>
-		<div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8">
+		<form class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8">
 			<!-- Tarjeta 1 -->
 			<a href="#"
 				class="relative w-full h-52 border-2 border-gray-200
@@ -101,7 +101,7 @@
 						préstamo personalizado con tasas competitivas.</p>
 				</div>
 			</a>
-		</div>
+		</form>
 	</main>
 
 </body>
