@@ -5,10 +5,31 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-	// Cambia estos valores según tu configuración de MySQL
-    private static final String URL = "jdbc:mysql://localhost:3306/bancoutn?useSSL=false&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
+	public static Conexion instancia;
+	private Connection connection;
+	
+	private Conexion()
+	{
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bancoutn?useSSL=false","root","root");
+			this.connection.setAutoCommit(false);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static Conexion getConexion()   
+	{								
+		if(instancia == null)
+		{
+			instancia = new Conexion();
+		}
+		return instancia;
+	}
 
     private Conexion() {
     }
