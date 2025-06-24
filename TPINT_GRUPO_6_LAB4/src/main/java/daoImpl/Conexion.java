@@ -31,31 +31,22 @@ public class Conexion {
 		return instancia;
 	}
 
-    private Conexion() {
-    }
+	public Connection getSQLConexion() 
+	{
+		return this.connection;
+	}
+	
+	public void cerrarConexion()
+	{
+		try 
+		{
+			this.connection.close();
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		instancia = null;
+	}
 
-    public static Connection getConexion() throws SQLException {
-        Connection conn = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException e) {
-            System.err.println("Error");
-            throw new SQLException("Error: " + e.getMessage(), e);
-        } catch (SQLException e) {
-            System.err.println("Error al conectar con la base de datos: " + e.getMessage());
-            throw e; 
-        }
-        return conn;
-    }
-
-    public static void cerrarConexion(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                System.err.println("Error al cerrar la conexión: " + e.getMessage());
-            }
-        }
-    }
 }
