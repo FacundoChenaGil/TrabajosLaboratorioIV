@@ -119,7 +119,7 @@
     <main class="flex-1 p-5 overflow-y-auto max-w-7xl mx-auto">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-xl font-bold text-gray-800">Gestión de Cuentas Bancarias</h1>
-            <a href="altaCuenta.jsp" class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2 flex items-center space-x-2">
+            <a href="/TPINT_GRUPO_6_LAB4/TipoDeCuentaServlet?Param=precargaDdl" class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2 flex items-center space-x-2">
                 <i class="fa-solid fa-plus fa-sm" style="color: #ffffff;"></i>
                 <span>Generar Cuenta</span>
             </a>
