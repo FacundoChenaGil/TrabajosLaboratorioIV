@@ -99,7 +99,7 @@ body {
 			<h1 class="text-2xl font-bold text-center text-[#800020] mb-6">Alta
 				y Asignación de Cuenta</h1>
 
-			<form action="" method="post" id="formCrearCuenta">
+			<form action="<%= request.getContextPath() %>/CuentaServlet" method="post" id="formCrearCuenta">
 				<input type="hidden" name="action" value="alta">
 
 				<div class="mb-4">
@@ -114,7 +114,7 @@ body {
 						if (tiposDeCuenta != null) {
 							for (TiposDeCuentas tipo : tiposDeCuenta) {
 						%>
-						<option value="<%=tipo.getID() %>"><%=tipo.getDescripcion()%></option>
+						<option value="<%=tipo.getID()%>"><%=tipo.getDescripcion()%></option>
 						<%
 						}
 						}

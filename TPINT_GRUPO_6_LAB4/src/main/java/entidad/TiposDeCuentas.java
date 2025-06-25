@@ -19,7 +19,8 @@ public class TiposDeCuentas {
 	}
 	public void setID(int iD) {
 		ID = iD;
-	}D
+	}
+	
 	public String getDescripcion() {
 		return Descripcion;
 	}

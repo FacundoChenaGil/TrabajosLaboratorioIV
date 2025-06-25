@@ -33,6 +33,10 @@ public class TipoDeCuentaDaoImpl implements ITipoDeCuentaDao{
 	        System.err.println("Error al listar tipos de cuenta: " + e.getMessage());
 	        e.printStackTrace();
 	    }
+	    
+	    for(TiposDeCuentas tipo : lista) {
+	    	System.out.println(tipo.getDescripcion());
+	    }
 
 	    return lista;
 	}
