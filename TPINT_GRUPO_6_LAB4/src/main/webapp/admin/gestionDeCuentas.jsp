@@ -283,10 +283,10 @@ body {
 					%>
 					<tr>
 						<td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-							<form action="modificarCuenta.jsp" method="get"
+							<form action="${pageContext.request.contextPath}/CuentaServlet" method="get"
 								class="inline-block">
-								<input type="hidden" name="cuentaId"
-									value="<%=c.getNumeroCuenta()%>">
+								<input type="hidden" name="cbu"
+									value="<%=c.getCBU()%>">
 								<button type="submit" class="action-icon-button">
 									<i class="fa-regular fa-pen-to-square fa-xl"
 										style="color: #fa0000;"></i>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidad.Cuenta;
+import entidad.TiposDeCuentas;
 import negocio.ICuentaNegocio;
 import negocio.ITipoDeCuentaNegocio;
 import negocioImpl.CuentaNegocioImpl;
@@ -39,17 +40,29 @@ public class CuentaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String param = request.getParameter("Param");
+	    String cbu = request.getParameter("cbu");
 	    
 	    if ("mostrarTodo".equals(param)) {
 	        List<Cuenta> listaCuentas = cuentaNegocio.readAll();	        
 	        request.setAttribute("listaCuentas", listaCuentas);
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/gestionDeCuentas.jsp");
 	        dispatcher.forward(request, response);
+	    }
+	    else if (cbu != null) {
+	        Cuenta cuenta = cuentaNegocio.read(cbu);
+	        List<TiposDeCuentas> listaTiposCuenta = tipoCuentaNegocio.listarTiposDeCuentas();
+	        
+	        request.setAttribute("tiposCuenta", listaTiposCuenta);
+	        request.setAttribute("cuenta", cuenta);
+	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCuenta.jsp");
+	        dispatcher.forward(request, response);
 	    } else {
 	        System.out.println("Parametro no reconocido o no recibido");
 	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parámetro incorrecto o no recibido.");
 	    }
 		
+	    
 	}
 
 	/**

@@ -22,4 +22,14 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
 		return listaCuentas;
 	}
 
+
+	@Override
+	public Cuenta read(String cbu) {
+		Cuenta cuenta = new Cuenta();
+		
+		cuenta = cDao.read(cbu);
+		
+		return cuenta;
+	}
+
 }
