@@ -1,6 +1,7 @@
 package daoImpl;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.ITipoDeCuentaDao;
-import dao.TiposDeCuenta;
+import dao.ITipoDeCuentaDao;
 import entidad.Cliente;
 import entidad.TiposDeCuentas;
 
@@ -59,6 +60,8 @@ public class TipoDeCuentaDaoImpl implements ITipoDeCuentaDao{
         	rs = ps.executeQuery();
      		
         	if(rs.next()) {
+        		tdc = new TiposDeCuentas();
+       
         		tdc.setID(rs.getInt("ID_Tipo_Cuenta"));
         		tdc.setDescripcion(rs.getString("Descripcion"));
     

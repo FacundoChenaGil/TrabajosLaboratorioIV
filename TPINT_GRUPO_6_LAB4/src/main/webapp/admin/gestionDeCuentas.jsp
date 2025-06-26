@@ -161,6 +161,8 @@ body {
     List<Cuenta> cuentas = (List<Cuenta>) request.getAttribute("listaCuentas");
 %>
 
+
+
 	<main class="flex-1 p-5 overflow-y-auto max-w-7xl mx-auto">
 		<div class="flex justify-between items-center mb-6">
 			<h1 class="text-xl font-bold text-gray-800">Gestión de Cuentas
