@@ -200,66 +200,6 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <form action="modificarCuenta.jsp" method="get" class="inline-block">
-                                <input type="hidden" name="cuentaId" value="cuenta_001">
-                                <button type="submit" class="action-icon-button">
-                                    <i class="fa-regular fa-pen-to-square fa-xl" style="color: #fa0000;"></i>
-                                </button>
-                            </form>
-                            <button type="button" onclick="confirmarEliminar('cuenta_001');" class="action-icon-button ml-2">
-                                <i class="fa-regular fa-trash-can fa-xl" style="color: #fa0000;"></i>
-                            </button>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">12345</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1234-5678-90123456</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10/01/2022</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$15,200.50</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Caja de Ahorro</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Juan Perez</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Activa</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <form action="modificarCuenta.jsp" method="get" class="inline-block">
-                                <input type="hidden" name="cuentaId" value="cuenta_002">
-                                <button type="submit" class="action-icon-button">
-                                    <i class="fa-regular fa-pen-to-square fa-xl" style="color: #fa0000;"></i>
-                                </button>
-                            </form>
-                            <button type="button" onclick="confirmarEliminar('cuenta_002');" class="action-icon-button ml-2">
-                                <i class="fa-regular fa-trash-can fa-xl" style="color: #fa0000;"></i>
-                            </button>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">77778</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">9876-5432-10987654</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">05/03/2023</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$5,000.00</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Cuenta Corriente</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Maria Gomez</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Inactiva</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <form action="modificarCuenta.jsp" method="get" class="inline-block">
-                                <input type="hidden" name="cuentaId" value="cuenta_003">
-                                <button type="submit" class="action-icon-button">
-                                    <i class="fa-regular fa-pen-to-square fa-xl" style="color: #fa0000;"></i>
-                                </button>
-                            </form>
-                            <button type="button" onclick="confirmarEliminar('cuenta_003');" class="action-icon-button ml-2">
-                                <i class="fa-regular fa-trash-can fa-xl" style="color: #fa0000;"></i>
-                            </button>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">98765</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2468-1357-97531864</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">22/07/2021</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$2,100.75</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Caja de Ahorro</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Carlos López</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Activa</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <form action="modificarCuenta.jsp" method="get" class="inline-block">
                                 <input type="hidden" name="cuentaId" value="cuenta_004">
                                 <button type="submit" class="action-icon-button">
                                     <i class="fa-regular fa-pen-to-square fa-xl" style="color: #fa0000;"></i>
