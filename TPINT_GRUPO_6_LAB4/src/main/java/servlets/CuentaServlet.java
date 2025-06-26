@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidad.TiposDeCuentas;
+import entidad.Cuenta;
+import negocio.ICuentaNegocio;
 import negocio.ITipoDeCuentaNegocio;
+import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.TipoDeCuentaNegocioImpl;
 
 /**
@@ -20,8 +22,9 @@ import negocioImpl.TipoDeCuentaNegocioImpl;
 @WebServlet("/CuentaServlet")
 public class CuentaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private ITipoDeCuentaNegocio tipoCuentaNegocio = new TipoDeCuentaNegocioImpl();
+       
+	private ITipoDeCuentaNegocio tipoCuentaNegocio = new TipoDeCuentaNegocioImpl();;
+	private ICuentaNegocio cuentaNegocio = new CuentaNegocioImpl();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,8 +38,21 @@ public class CuentaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		
+		System.out.println(">> Entrando al doGet de CuentaServlet");
+	    String param = request.getParameter("Param");
+	    System.out.println("Parametro recibido: " + param);
+	    if ("mostrarTodo".equals(param)) {
+	        System.out.println("Param es mostrarTodo, cargando cuentas");
+	        List<Cuenta> listaCuentas = cuentaNegocio.readAll();
+	        System.out.println("Cuentas cargadas: " + (listaCuentas != null ? listaCuentas.size() : "null"));
+	        request.setAttribute("listaCuentas", listaCuentas);
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/gestionDeCuentas.jsp");
+	        dispatcher.forward(request, response);
+	    } else {
+	        System.out.println("Parametro no reconocido o no recibido");
+	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parámetro incorrecto o no recibido.");
+	    }
 		
 	}
 

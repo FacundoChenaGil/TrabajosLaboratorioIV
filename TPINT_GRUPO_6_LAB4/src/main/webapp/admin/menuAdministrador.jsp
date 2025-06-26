@@ -59,7 +59,7 @@
                         </p>
                     </a>
 
-                    <a href="gestionDeCuentas.jsp" class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
+                    <a href="${pageContext.request.contextPath}/CuentaServlet?Param=mostrarTodo" class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
                         <i class="fa-solid fa-landmark fa-2xl mb-6" style="color: #ffffff;"></i> <h3 class="text-2xl font-semibold mb-2">Gestión de Cuentas</h3>
                         <p class="text-sm opacity-90 leading-relaxed">
                             Gestione cuentas y su asignación a clientes (máximo 3 por cliente), con un monto inicial de $10.000.

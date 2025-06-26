@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDaoImpl implements IClienteDao {
+	
+	private UsuarioDaoImpl us;
+	
+	
+	
 	private Cliente cargarClienteDesdeResultSet(ResultSet rs) throws SQLException {
         Cliente cliente = new Cliente();
         cliente.setDni(rs.getString("DNI"));
@@ -62,7 +67,46 @@ public class ClienteDaoImpl implements IClienteDao {
 
     @Override
     public Cliente obtenerClientePorDni(String dni) {
+    	Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
+        Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         Cliente cliente = null;
+        
+        try {
+        	String sql = "SELECT * FROM clientes WHERE DNI = ?";
+        	ps = conn.prepareStatement(sql);
+        	ps.setString(1, dni);
+        	rs = ps.executeQuery();
+     		
+        	if(rs.next()) {
+        		cliente = new Cliente();
+        		
+        		cliente.setDni(rs.getString("DNI"));
+        		cliente.setCuil(rs.getString("CUIL"));
+        		cliente.setNombre(rs.getString("Nombre"));
+        		cliente.setApellido(rs.getString("Apellido"));
+        		cliente.setSexo(rs.getString("Sexo"));
+        		cliente.setNacionalidad(rs.getString("Nacionalidad"));
+        		Date sqlDate = rs.getDate("Fecha_Nacimiento");
+        		cliente.setFechaNacimiento(sqlDate != null ? sqlDate.toLocalDate() : null);
+        		cliente.setDireccion(rs.getString("Direccion"));
+        		cliente.setLocalidad(rs.getString("Localidad"));
+        		cliente.setProvincia(rs.getString("Provincia"));
+        		cliente.setCorreoElectronico(rs.getString("Correo_Electronico"));
+        		cliente.setTelefono(rs.getString("Telefono"));
+        		cliente.setUsuario(us.getUsuarioPorNombre(rs.getString("Usuario")));
+        		cliente.setActivo(rs.getBoolean("Activo"));
+        		
+        	}
+        }
+    	catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (ps != null) try { ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+    	
         return cliente;
     }
 

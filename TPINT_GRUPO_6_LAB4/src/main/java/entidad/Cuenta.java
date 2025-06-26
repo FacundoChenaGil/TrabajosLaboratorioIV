@@ -1,12 +1,13 @@
 package entidad;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Cuenta {
-	private int CBU;
+	private String CBU;
 	private String NumeroCuenta;
-	private LocalDateTime FechaCreacion;
+	private LocalDate FechaCreacion;
 	private BigDecimal Saldo;
 	private boolean Activa;
 	private TiposDeCuentas TipoCuenta;
@@ -16,7 +17,7 @@ public class Cuenta {
 		
 	}
 	
-	public Cuenta(int cBU, String numeroCuenta, LocalDateTime fechaCreacion, BigDecimal saldo, boolean activa,
+	public Cuenta(String cBU, String numeroCuenta, LocalDate fechaCreacion, BigDecimal saldo, boolean activa,
 			TiposDeCuentas tipoCuenta, entidad.Cliente cliente) {
 		CBU = cBU;
 		NumeroCuenta = numeroCuenta;
@@ -27,11 +28,11 @@ public class Cuenta {
 		Cliente = cliente;
 	}
 
-	public int getCBU() {
+	public String getCBU() {
 		return CBU;
 	}
 
-	public void setCBU(int cBU) {
+	public void setCBU(String cBU) {
 		CBU = cBU;
 	}
 
@@ -43,11 +44,11 @@ public class Cuenta {
 		NumeroCuenta = numeroCuenta;
 	}
 
-	public LocalDateTime getFechaCreacion() {
+	public LocalDate getFechaCreacion() {
 		return FechaCreacion;
 	}
 
-	public void setFechaCreacion(LocalDateTime fechaCreacion) {
+	public void setFechaCreacion(LocalDate fechaCreacion) {
 		FechaCreacion = fechaCreacion;
 	}
 

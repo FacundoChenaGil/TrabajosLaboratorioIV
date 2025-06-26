@@ -1,16 +1,25 @@
 package negocioImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import daoImpl.CuentaDaoImpl;
 import entidad.Cuenta;
 import negocio.ICuentaNegocio;
 
 public class CuentaNegocioImpl implements ICuentaNegocio {
+	
+	private CuentaDaoImpl cDao = new CuentaDaoImpl();
+
 
 	@Override
 	public List<Cuenta> readAll() {
 		
-		return null;
+		List<Cuenta> listaCuentas = new ArrayList<>();
+		
+		listaCuentas = cDao.readAll();
+		
+		return listaCuentas;
 	}
 
 }
