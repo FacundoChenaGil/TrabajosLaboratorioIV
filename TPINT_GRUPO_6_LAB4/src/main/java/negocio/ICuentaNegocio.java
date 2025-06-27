@@ -13,5 +13,6 @@ public interface ICuentaNegocio {
 	public List<Cuenta> readAll();
 	public Cuenta read(String cbu);
 	public boolean actualizarCuenta(Cuenta cuenta);
+	public boolean eliminarCuenta(String cbu);
 
 }

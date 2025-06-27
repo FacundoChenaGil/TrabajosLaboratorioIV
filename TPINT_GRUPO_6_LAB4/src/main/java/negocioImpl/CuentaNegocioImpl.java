@@ -72,4 +72,13 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
 		return actualizado;
 	}
 
+
+	@Override
+	public boolean eliminarCuenta(String cbu) {
+		
+		boolean eliminado = cDao.eliminarCuenta(cbu);
+		
+		return eliminado;
+	}
+
 }
