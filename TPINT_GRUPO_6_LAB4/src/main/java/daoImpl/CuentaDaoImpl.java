@@ -263,6 +263,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 			ps.setString(6, cuenta.getCBU());
 			
 			filasAfectadas = ps.executeUpdate();
+			conn.commit();
 
 		} catch (SQLException e) {
 	        System.err.println("Error actualizando cuenta: " + e.getMessage());
