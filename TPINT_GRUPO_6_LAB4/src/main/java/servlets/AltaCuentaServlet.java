@@ -32,7 +32,6 @@ public class AltaCuentaServlet extends HttpServlet {
 
 	public AltaCuentaServlet() {
 		super();
-		// --- ¡AQUÍ ES DONDE NECESITAS INICIALIZARLOS! ---
 		this.tipoCuentaNegocio = new TipoDeCuentaNegocioImpl();
 		this.cuentaNegocio = new CuentaNegocioImpl();
 		this.clienteNegocio = new ClienteNegocioImpl();
@@ -60,7 +59,6 @@ public class AltaCuentaServlet extends HttpServlet {
             String cbu = request.getParameter("cbu");
             String idTipoCuentaStr = request.getParameter("idTipoCuenta"); 
 
-            // --- 1. Validar y Parsear idTipoCuenta (crucial para conversión de tipo) ---
             try {
                 if (idTipoCuentaStr == null || idTipoCuentaStr.isEmpty()) {
                     errorMessage = "Debe seleccionar un tipo de cuenta."; 
@@ -70,18 +68,15 @@ public class AltaCuentaServlet extends HttpServlet {
             } catch (NumberFormatException e) {
                 errorMessage = "Error: El tipo de cuenta seleccionado no es válido.";
             }
-
-            // Si hay un error de parseo o selección de tipo de cuenta, se sale inmediatamente
+            
             if (errorMessage != null) {
                 request.setAttribute("error", errorMessage);
                 mantenerDatosFormulario(request, dniCliente, numeroCuenta, cbu, idTipoCuentaStr); 
                 doGet(request, response);
-                return; // Salida temprana
+                return;
             }
-
-            // --- 2. Validaciones de Negocio (retornando en cada fallo) ---
-            // Las validaciones de formato/presencia/longitud se asumen manejadas por el front-end.
-            if (!clienteNegocio.existeClienteActivo(dniCliente)) { // Asumo que cambiaste el nombre del método en IClienteNegocio a verificarClienteActivo
+            
+            if (!clienteNegocio.existeClienteActivo(dniCliente)) {
                 errorMessage = "El DNI del cliente no existe o no está activo en el sistema.";
                 request.setAttribute("error", errorMessage);
                 mantenerDatosFormulario(request, dniCliente, numeroCuenta, cbu, idTipoCuentaStr); 
@@ -98,7 +93,7 @@ public class AltaCuentaServlet extends HttpServlet {
             }
             
             if (cuentaNegocio.existeNumeroCuenta(numeroCuenta)) {
-                errorMessage = "El número de cuenta ingresado ya existe. Por favor, utilice otro.";
+                errorMessage = "El número de cuenta ingresado ya existe. Utilice otro.";
                 request.setAttribute("error", errorMessage);
                 mantenerDatosFormulario(request, dniCliente, numeroCuenta, cbu, idTipoCuentaStr); 
                 doGet(request, response);
@@ -106,7 +101,7 @@ public class AltaCuentaServlet extends HttpServlet {
             }
             
             if (cuentaNegocio.existeCBU(cbu)) {
-                errorMessage = "El CBU ingresado ya existe. Por favor, utilice otro.";
+                errorMessage = "El CBU ingresado ya existe. Utilice otro.";
                 request.setAttribute("error", errorMessage);
                 mantenerDatosFormulario(request, dniCliente, numeroCuenta, cbu, idTipoCuentaStr); 
                 doGet(request, response);
@@ -114,14 +109,13 @@ public class AltaCuentaServlet extends HttpServlet {
             }
             
             if (!cbu.contains(numeroCuenta)) {
-                errorMessage = "El número de cuenta NO se encuentra dentro del CBU proporcionado. Verifique.";
+                errorMessage = "El número de cuenta NO se encuentra dentro del CBU proporcionado.";
                 request.setAttribute("error", errorMessage);
                 mantenerDatosFormulario(request, dniCliente, numeroCuenta, cbu, idTipoCuentaStr); 
                 doGet(request, response);
                 return;
             }
 
-            // --- 3. Proceder con la Inserción si todas las validaciones pasaron ---
             try {
                 Cliente cliente = new Cliente();
                 cliente.setDni(dniCliente); 
@@ -141,14 +135,14 @@ public class AltaCuentaServlet extends HttpServlet {
                 int resultadoDB = cuentaNegocio.insertarCuenta(cuenta);
 
                 if (resultadoDB == 1) {
-                    request.setAttribute("mensaje", "La cuenta fue creada correctamente. Número de cuenta: " + numeroCuenta);
-                    // Limpiar datos del formulario al éxito
+                    request.setAttribute("mensaje", "Cuenta fue creada exitosamente. Número de cuenta: " + numeroCuenta);
+                    // Limpiar datos del formulario
                     request.setAttribute("dniCliente", "");
                     request.setAttribute("numeroCuenta", "");
                     request.setAttribute("cbu", "");
                     request.setAttribute("idTipoCuenta", ""); 
                 } else {
-                    errorMessage = "No se pudo agregar la cuenta debido a un problema interno de base de datos. Intente nuevamente.";
+                    errorMessage = "No se pudo agregar la cuenta debido a un problema interno en la base de datos. Intente nuevamente.";
                     request.setAttribute("error", errorMessage);
                     mantenerDatosFormulario(request, dniCliente, numeroCuenta, cbu, idTipoCuentaStr);
                 }
