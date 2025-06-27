@@ -124,35 +124,47 @@ public class CuentaDaoImpl implements ICuentaDao {
 	@Override
 	public int insertarCuenta(Cuenta cuenta) {
 		String query = "INSERT INTO Cuentas (CBU, Numero_Cuenta, Fecha_Creacion, Saldo, Activa, ID_Tipo_Cuenta, DNI) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		Connection conn = null;
-		PreparedStatement ps = null;
-		int filasAfectadas = 0;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int filasAfectadas = 0;
 
-		try {
-			conn = Conexion.getConexion().getSQLConexion();
-			ps = conn.prepareStatement(query);
-			ps.setString(1, cuenta.getCBU());
-			ps.setString(2, cuenta.getNumeroCuenta());
-			ps.setDate(3, Date.valueOf(cuenta.getFechaCreacion()));
-			ps.setBigDecimal(4, cuenta.getSaldo());
-			ps.setBoolean(5, cuenta.isActiva());
-			ps.setInt(6, cuenta.getTipoCuenta().getID());
-			ps.setString(7, cuenta.getCliente().getDni());
+        try {
+            conn = Conexion.getConexion().getSQLConexion();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, cuenta.getCBU());
+            ps.setString(2, cuenta.getNumeroCuenta());
+            ps.setDate(3, Date.valueOf(cuenta.getFechaCreacion()));
+            ps.setBigDecimal(4, cuenta.getSaldo());
+            ps.setBoolean(5, cuenta.isActiva());
+            ps.setInt(6, cuenta.getTipoCuenta().getID());
+            ps.setString(7, cuenta.getCliente().getDni());
 
-			filasAfectadas = ps.executeUpdate();
+            filasAfectadas = ps.executeUpdate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (ps != null)
-					ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+            if (filasAfectadas > 0) {
+                conn.commit();
+            } else {
+                conn.rollback();
+            }
 
-		return filasAfectadas;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return filasAfectadas;
 	}
 
 	@Override
