@@ -51,13 +51,13 @@
   <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
 
   <main class="flex-grow p-6">
-    <h1 class="text-2xl font-bold text-blue-900 mb-6">Nueva Transferencia</h1>
+    <h1 class="text-2xl font-bold text-red-900 mb-6">Nueva Transferencia</h1>
 
     <!-- Paso 1: Ingreso de CBU -->
     <div class="bg-white shadow p-6 rounded mb-6">
       <label class="block mb-2 font-semibold">Ingresar CBU destino</label>
       <input type="text" class="border p-2 rounded w-full mb-4" placeholder="CBU del destinatario">
-      <button onclick="mostrarDatos()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+      <button onclick="mostrarDatos()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
         Buscar destinatario
       </button>
     </div>
@@ -85,7 +85,7 @@
         <!-- Simulamos pasar el CBU del destinatario -->
         <input type="hidden" name="cbu" value="1234567890123456789012">
 
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
           Confirmar transferencia
         </button>
       </form>

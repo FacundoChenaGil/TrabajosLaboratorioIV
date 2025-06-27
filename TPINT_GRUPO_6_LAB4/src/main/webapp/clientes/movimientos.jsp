@@ -63,7 +63,7 @@
 <body class="bg-gray-100 min-h-screen p-6">
 <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
 
-<h1 class="text-2xl font-bold mb-6 text-blue-900">Historial de Movimientos</h1>
+<h1 class="text-2xl font-bold mb-6 text-red-900">Historial de Movimientos</h1>
 
 <form method="get" class="mb-6 flex flex-wrap gap-4">
     <select name="tipo" class="border p-2 rounded">
@@ -76,7 +76,7 @@
     <input type="date" name="fechaDesde" class="border p-2 rounded" value="<%= fechaDesde != null ? fechaDesde : "" %>" />
     <input type="date" name="fechaHasta" class="border p-2 rounded" value="<%= fechaHasta != null ? fechaHasta : "" %>" />
 
-    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
         Filtrar
     </button>
 </form>
@@ -85,7 +85,7 @@
     <p class="text-red-600 font-semibold">No se encontraron movimientos con los criterios seleccionados.</p>
 <% } else { %>
     <table class="table-auto w-full bg-white shadow rounded-lg">
-        <thead class="bg-blue-600 text-white">
+        <thead class="bg-red-600 text-white">
             <tr>
                 <th class="px-4 py-2">Fecha</th>
                 <th class="px-4 py-2">Tipo</th>

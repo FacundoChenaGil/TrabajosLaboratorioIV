@@ -7,12 +7,6 @@
         response.sendRedirect(request.getContextPath() + "/login.jsp?error=notAuthorized");
         return;
     }
-    String username = (String) session.getAttribute("username");
- // Datos simulados — luego los vas a traer desde la base
-    String tipoCuenta = "Caja de ahorro";
-    String cbu = "1234567890123456789012";
-    double saldo = 120000.00;
-    String estadoCuenta = "Activa";
 %>
 
 <!DOCTYPE html>
@@ -23,30 +17,35 @@
   <title>Dashboard Cliente</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex flex-col min-h-screen">
-
-  <!-- Navbar y header -->
+<body class="bg-gray-100 min-h-screen p-6">
+<!-- Navbar y header -->
   <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+    <h1 class="text-3xl font-bold mb-6">¡Bienvenido a tu panel, cliente! 👋</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="bg-white rounded-2xl shadow p-5 hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold mb-2">👤 Mi cuenta</h3>
+            <p class="text-gray-600 text-sm">Visualiza los datos de tu cuenta.</p>
+        </div>
 
-  <!-- Contenido principal -->
-  <main class="flex-grow flex items-center justify-center p-6">
-    <div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-lg w-full">
-      <h2 class="text-3xl font-extrabold text-green-700 mb-6">
-        Bienvenido, <%= username %>
-      </h2>
+        <!-- Card 2 -->
+        <div class="bg-white rounded-2xl shadow p-5 hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold mb-2"> 🔄  Transferencias</h3>
+            <p class="text-gray-600 text-sm">Realizá transferencias a tus propias cuentas o a terceros.</p>
+        </div>
 
-      <!-- Información de la cuenta -->
-      <div class="text-left space-y-3 text-gray-700 text-lg">
-        <p><strong>Tipo de cuenta:</strong> <%= tipoCuenta %></p>
-        <p><strong>CBU:</strong> <%= cbu %></p>
-        <p><strong>Saldo actual:</strong> $<%= String.format("%.2f", saldo) %></p>
-        <p><strong>Estado de la cuenta:</strong> <%= estadoCuenta %></p>
-      </div>
+        <!-- Card 3 -->
+        <div class="bg-white rounded-2xl shadow p-5 hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold mb-2">📄 Historial</h3>
+            <p class="text-gray-600 text-sm">Revisá tus últimos movimientos, pagos y transferencias.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white rounded-2xl shadow p-5 hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold mb-2">💳 Préstamos</h3>
+            <p class="text-gray-600 text-sm">Consultá el estado de tus préstamos o solicitá uno nuevo.</p>
+        </div>
     </div>
-  </main>
-
-  <!-- Footer -->
-  <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
-
 </body>
 </html>

@@ -6,7 +6,7 @@
     // Obtener el nombre de usuario de la sesión
     String username = (String) session.getAttribute("username");
 %>
-<header class="bg-gradient-to-r from-blue-700 to-blue-900 text-white p-4 shadow-lg">
+<header class="bg-gradient-to-r from-red-700 to-red-900 text-white p-4 shadow-lg">
   <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
     <div class="flex items-center mb-4 md:mb-0">
       <h1 class="text-3xl font-extrabold tracking-tight">Banco UTN</h1>
@@ -16,7 +16,7 @@
       <% if (userRole == null) { %>
         <!-- No logueado -->
         <a href="<%= request.getContextPath() %>/" class="text-white hover:text-blue-200 text-lg font-medium">Inicio</a>
-        <a href="<%= request.getContextPath() %>/login.jsp" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full">Iniciar Sesión</a>
+        <a href="<%= request.getContextPath() %>/login.jsp"  class="border border-white text-white hover:bg-white hover:text-red-700 font-semibold py-2 px-4 rounded-full transition"> Iniciar Sesión</a>
 
       <% } else if (userRole.equals("admin")) { %>
         <!-- Admin -->
@@ -25,9 +25,17 @@
         <a href="<%= request.getContextPath() %>/LogoutServlet" class="bg-red-600 hover:bg-red-700 py-2 px-4 rounded-full">Cerrar Sesión</a>
 
       <% } else if ("cliente".equals(userRole)) { %>
-        <!-- Cliente -->
+		   <!-- Cliente -->
         <ul class="flex space-x-6 relative items-center">
-          <li><a href="<%= request.getContextPath() %>/clientes/dashboard.jsp" class="hover:text-gray-300">Mi cuenta</a></li>
+          <!-- HOME -->
+          <li>
+            <a href="<%= request.getContextPath() %>/clientes/dashboard.jsp" class="hover:text-gray-300 font-medium">🏠 Home</a>
+          </li>
+
+          <!-- Mi cuenta -->
+          <li>
+            <a href="<%= request.getContextPath() %>/clientes/miCuenta.jsp" class="hover:text-gray-300">Mi cuenta</a>
+          </li>
 
           <!-- Historial -->
           <li class="relative">
@@ -65,7 +73,7 @@
     </nav>
   </div>
 
-  <!-- Script de menú -->
+  <!-- Script para ocultar/mostrar submenús -->
   <script>
     function toggleMenu(id) {
       const menus = document.querySelectorAll("ul[id$='Menu']");
@@ -87,3 +95,5 @@
     });
   </script>
 </header>
+		      
+        
