@@ -1,6 +1,7 @@
 package daoImpl;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,6 +46,57 @@ public class UsuarioDaoImpl implements IUsuarioDao {
         }
 		
 		return us;
+	}
+	
+	@Override
+	public boolean existeUsuario(String nombreUsuario) {
+	    String sql = "SELECT COUNT(*) FROM Usuarios WHERE Usuario = ?";
+	    boolean existe = false;
+
+	    try (Connection conn = Conexion.getConexion().getSQLConexion();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setString(1, nombreUsuario);
+	        ResultSet rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            existe = rs.getInt(1) > 0;
+	        }
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return existe;
+	}
+	
+	@Override
+	public boolean insertarUsuario(Usuario usuario) {
+	    boolean exito = false;
+
+	    try {
+	        // Crear nueva conexión directa
+	        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bancoutn?useSSL=false", "root", "root");
+
+	        String sql = "INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario, Activo) VALUES (?, ?, ?, 1)";
+	        PreparedStatement ps = conn.prepareStatement(sql);
+	        ps.setString(1, usuario.getUsuario());
+	        ps.setString(2, usuario.getClave());
+	        ps.setInt(3, usuario.getTipoUsuario().getIdTipoUsuario());
+
+	        int filas = ps.executeUpdate();
+	        if (filas > 0) {
+	            exito = true;
+	        }
+
+	        ps.close();
+	        conn.close();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return exito;
 	}
 
 }

@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date; // Para convertir LocalDate a java.sql.Date
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +52,43 @@ public class ClienteDaoImpl implements IClienteDao {
     }
 	
 	@Override
-    public boolean agregarCliente(Cliente cliente) {
-        return false;
-    }
+	public boolean agregarCliente(Cliente cliente) {
+	    boolean exito = false;
+
+	    try {
+	        // Crear nueva conexión directamente
+	        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bancoutn?useSSL=false", "root", "root");
+
+	        String sql = "INSERT INTO Clientes (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, Direccion, Localidad, Provincia, CorreoElectronico, Telefono, Usuario, Activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+	        PreparedStatement ps = conn.prepareStatement(sql);
+	        ps.setString(1, cliente.getDni());
+	        ps.setString(2, cliente.getCuil());
+	        ps.setString(3, cliente.getNombre());
+	        ps.setString(4, cliente.getApellido());
+	        ps.setString(5, cliente.getSexo());
+	        ps.setString(6, cliente.getNacionalidad());
+	        ps.setDate(7, java.sql.Date.valueOf(cliente.getFechaNacimiento()));
+	        ps.setString(8, cliente.getDireccion());
+	        ps.setString(9, cliente.getLocalidad());
+	        ps.setString(10, cliente.getProvincia());
+	        ps.setString(11, cliente.getCorreoElectronico());
+	        ps.setString(12, cliente.getTelefono());
+	        ps.setString(13, cliente.getUsuario().getUsuario());
+
+	        int filas = ps.executeUpdate();
+	        if (filas > 0) {
+	            exito = true;
+	        }
+
+	        ps.close();
+	        conn.close();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return exito;
+	}
 
     @Override
     public boolean modificarCliente(Cliente cliente) {

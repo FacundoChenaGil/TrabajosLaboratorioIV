@@ -37,9 +37,16 @@
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 tracking-tight">
             Alta Cliente
         </h1>
+        	<% if (request.getAttribute("error") != null) { %>
+    <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4 text-center font-semibold">
+        <%= request.getAttribute("error") %>
+    </div>
+<% } %>
+        
         <hr class="border-t border-gray-300 my-8">
-        <form action="" method="">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 mb-6">
+	      <form action="<%=request.getContextPath()%>/ClienteServlet" method="post">
+	    <input type="hidden" name="accion" value="alta">
+	            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 mb-6">
                 <div>
                     <label for="dni" class="block mb-2 text-gray-700 font-medium">DNI:</label>
                     <input type="text" id="dni" name="dni" required placeholder="Ej: 12345678" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
@@ -72,15 +79,15 @@
                     <label class="block mb-2 text-gray-700 font-medium">Género:</label>
                     <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2 justify-center">
                         <label class="inline-flex items-center">
-                            <input type="radio" id="masculino" name="genero" value="Masculino" required
+                            <input type="radio" id="masculino" name="sexo" value="Masculino" required
                                 class="form-radio w-5 h-5"> <span class="ml-2 text-gray-700">Masculino</span>
                         </label>
                         <label class="inline-flex items-center">
-                            <input type="radio" id="femenino" name="genero" value="Femenino" required
+                            <input type="radio" id="femenino" name="sexo" value="Femenino" required
                                 class="form-radio w-5 h-5"> <span class="ml-2 text-gray-700">Femenino</span>
                         </label>
                         <label class="inline-flex items-center">
-                            <input type="radio" id="otro" name="genero" value="Otro" required
+                            <input type="radio" id="otro" name="sexo" value="Otro" required
                                 class="form-radio w-5 h-5"> <span class="ml-2 text-gray-700">Otro</span>
                         </label>
                     </div>
@@ -161,21 +168,21 @@
 
                 <div>
                     <label for="email" class="block mb-2 text-gray-700 font-medium">Email:</label>
-                    <input type="email" id="email" name="email" required placeholder="Ej: ana.lopez@gmail.com" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="email" id="email" name="correo" required placeholder="Ej: ana.lopez@gmail.com" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
 
                 <div>
                     <label for="username" class="block mb-2 text-gray-700 font-medium">Nombre de Usuario:</label>
-                    <input type="text" id="username" name="username" required placeholder="Ej: alopez" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
+                    <input type="text" id="username" name="usuario" required placeholder="Ej: alopez" class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>
 
                 <div>
                     <label for="password" class="block mb-2 text-gray-700 font-medium">Clave:</label>
-                    <input type="password" id="password" name="password" required
+                    <input type="password" id="password" name="clave" required
                         placeholder="Letras mayúsculas, minúsculas, números y símbolos." class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
