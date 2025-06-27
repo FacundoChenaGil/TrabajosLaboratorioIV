@@ -121,10 +121,10 @@ public class Prestamo {
 
 	@Override
 	public String toString() {
-		return "Prestamo [id_prestamo=" + id_prestamo + ", dni=" + dni + ", fecha_solicitud=" + fecha_solicitud
-				+ ", importe_pedido=" + importe_pedido + ", importe_pagar=" + importe_pagar + ", plazo_pago="
-				+ plazo_pago + ", cant_cuotas=" + cant_cuotas + ", importe_cuota=" + importe_cuota + ", id_tipo_estado="
-				+ id_tipo_estado + ", id_cuenta_acreditacion=" + id_cuenta_acreditacion + "]";
+		return "ID: " + id_prestamo + ", DNI:" + dni + ", Fecha se solicitud: " + fecha_solicitud
+				+ ", Importe pedido: " + importe_pedido + ", Importe a pagar: " + importe_pagar + ", Plazo de pago: "
+				+ plazo_pago + ", Cantidad de cuotas: " + cant_cuotas + ", Importe de cuota:" + importe_cuota + ", ID tipo de Estado="
+				+ id_tipo_estado + ", ID cuenta de acreditación: " + id_cuenta_acreditacion ;
 	}
 	
 	
