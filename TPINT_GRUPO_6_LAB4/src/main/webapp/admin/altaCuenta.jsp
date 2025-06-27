@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="entidad.TiposDeCuentas" %>
+<%@ page import="java.util.List"%>
+<%@ page import="entidad.TiposDeCuentas"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,6 +92,14 @@ body {
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 	<%
 	List<TiposDeCuentas> tiposDeCuenta = (List<TiposDeCuentas>) request.getAttribute("tiposCuenta");
+	
+	String mensajeError = (String) request.getAttribute("error");
+	String mensajeExito = (String) request.getAttribute("mensaje");
+
+	String dniClienteValue = (String) request.getAttribute("dniCliente");
+	String numeroCuentaValue = (String) request.getAttribute("numeroCuenta");
+	String cbuValue = (String) request.getAttribute("cbu");
+	String idTipoCuentaSelected = (String) request.getAttribute("idTipoCuenta");
 	%>
 
 	<main class="w-full max-w-lg p-4">
@@ -99,24 +107,30 @@ body {
 			<h1 class="text-2xl font-bold text-center text-[#800020] mb-6">Alta
 				y Asignación de Cuenta</h1>
 
-			<form action="<%= request.getContextPath() %>/CuentaServlet" method="post" id="formCrearCuenta">
-				<input type="hidden" name="action" value="alta">
+			<form action="AltaCuentaServlet" method="post" id="formCrearCuenta">
+				<input type="hidden" name="action" value="Guardar">
 
 				<div class="mb-4">
 					<label for="tipoCuenta"
 						class="block text-sm font-medium text-gray-700 mb-1">Tipo
-						de Cuenta:</label> <select id="tipoCuenta" name="idTipoCuenta"
+						de Cuenta:</label> 
+					<select id="tipoCuenta" name="idTipoCuenta"
 						class="mt-1 block w-full pl-3 pr-8 py-2 text-base border-gray-300 focus:outline-none focus:ring-[#800020] focus:border-[#800020] rounded-md input-glow-effect"
 						required>
-						<!-- <option value="">Seleccione un tipo de cuenta</option> -->
+						<option value="">Seleccione un tipo de cuenta</option>
 
 						<%
 						if (tiposDeCuenta != null) {
 							for (TiposDeCuentas tipo : tiposDeCuenta) {
+								String selected = "";
+								if (idTipoCuentaSelected != null && idTipoCuentaSelected.equals(String.valueOf(tipo.getID()))) {
+									selected = "selected";
+								}
 						%>
-						<option value="<%=tipo.getID()%>"><%=tipo.getDescripcion()%></option>
+						<option value="<%=tipo.getID()%>" <%=selected%>>
+							<%=tipo.getDescripcion()%></option>
 						<%
-						}
+							}
 						}
 						%>
 					</select>
@@ -125,34 +139,43 @@ body {
 				<div class="mb-4">
 					<label for="dniCliente"
 						class="block text-sm font-medium text-gray-700 mb-1">DNI
-						del Cliente:</label> <input type="text" id="dniCliente" name="dniCliente"
-						placeholder="Ej: 12345678"
+						del Cliente:</label> 
+					<input type="text" id="dniCliente" name="dniCliente"
+						placeholder="Ej: 12345678" minlength="7" maxlength="8"
+						pattern="\d+"
 						class="mt-1 block w-full pl-3 pr-3 py-2 rounded-md leading-5 bg-white text-base input-glow-effect"
-						required>
+						required title="Solo se aceptan números"
+						value="<%=dniClienteValue != null ? dniClienteValue : ""%>">
 				</div>
 
 				<div class="mb-4">
 					<label for="numeroCuenta"
 						class="block text-sm font-medium text-gray-700 mb-1">Número
-						de Cuenta:</label> <input type="text" id="numeroCuenta"
-						name="numeroCuenta" placeholder="Ej: 12345"
+						de Cuenta:</label> 
+					<input type="text" id="numeroCuenta"
+						name="numeroCuenta" pattern="\d+" minlength="13" maxlength="13"
+						placeholder="1234567890123"
 						class="mt-1 block w-full pl-3 pr-3 py-2 rounded-md leading-5 bg-white text-base input-glow-effect"
-						required>
+						required title="Solo se aceptan números"
+						value="<%=numeroCuentaValue != null ? numeroCuentaValue : ""%>">
 				</div>
 
 				<div class="mb-4">
 					<label for="cbu"
 						class="block text-sm font-medium text-gray-700 mb-1">CBU:</label>
-					<input type="text" id="cbu" name="cbu"
-						placeholder="Ej: 0000000000000000000000"
+					<input type="text" id="cbu" name="cbu" minlength="22"
+						maxlength="22" placeholder="Ej: 0000000000000000000000"
+						pattern="\d+"
 						class="mt-1 block w-full pl-3 pr-3 py-2 rounded-md leading-5 bg-white text-base input-glow-effect"
-						required>
+						required title="Solo se aceptan números"
+						value="<%=cbuValue != null ? cbuValue : ""%>">
 				</div>
 
 				<div class="mb-6">
 					<label for="montoInicial"
 						class="block text-sm font-medium text-gray-700 mb-1">Monto
-						Inicial:</label> <input type="text" id="montoInicial" name="montoInicial"
+						Inicial:</label> 
+					<input type="text" id="montoInicial" name="montoInicial"
 						value="10000.00"
 						class="mt-1 block w-full pl-3 pr-3 py-2 text-base border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
 						readonly>
@@ -165,13 +188,86 @@ body {
 						<a href="gestionDeCuentas.jsp" class="button-secondary">Volver</a>
 					</div>
 					<div class="flex-1">
-						<button type="submit" class="button-primary">Generar
-							Cuenta</button>
+						<input type="submit" name="action" value="Guardar"
+							class="button-primary cursor-pointer w-full py-2 rounded-md text-white font-semibold bg-[#800020] hover:bg-[#6a001a]" />
 					</div>
 				</div>
 			</form>
 		</div>
+
+		<!-- Div oculto para pasar los mensajes del servidor a JavaScript -->
+		<div id="serverMessages" style="display:none;"
+		     data-error-message="<%=mensajeError != null ? mensajeError : ""%>"
+		     data-success-message="<%=mensajeExito != null ? mensajeExito : ""%>">
+		</div>
+
+		<!-- Modal de Error -->
+		<div id="modalError"
+			class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
+			<div
+				class="bg-white border-l-4 border-red-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+				<h2 class="text-lg font-bold text-red-800 mb-2">
+					<i class="fa-solid fa-triangle-exclamation"></i> Error
+				</h2>
+				<p id="mensajeError" class="text-gray-800 mb-4"></p>
+				<div class="text-right">
+					<button type="button" onclick="cerrarModalError()"
+						class="bg-red-800 text-white px-4 py-2 rounded hover:bg-red-900">Cerrar</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal de Exito -->
+		<div id="modalExito"
+			class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
+			<div
+				class="bg-white border-l-4 border-green-700 p-6 rounded-lg shadow-lg max-w-sm w-full relative">
+				<h2 class="text-lg font-bold text-green-700 mb-2">
+					<i class="fa-solid fa-circle-check"></i> Éxito
+				</h2>
+				<p id="mensajeExito" class="text-gray-800 mb-4"></p>
+				<div class="text-right">
+					<button type="button" onclick="cerrarModalExito()"
+						class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800">Cerrar</button>
+				</div>
+			</div>
+		</div>
 	</main>
-</body>
+
+	
+	<script>
+		//FUNCIONES PARA EL MODAL DE ERROR
+		function mostrarModalError(message) {
+			document.getElementById('mensajeError').textContent = message;
+			document.getElementById('modalError').classList.remove('hidden');
+		}
+
+		function cerrarModalError() {
+			document.getElementById('modalError').classList.add('hidden');
+		}
+
+		//FUNCIONES PARA EL MODAL DE ÉXITO
+		function mostrarModalExito(message) {
+			document.getElementById('mensajeExito').textContent = message;
+			document.getElementById('modalExito').classList.remove('hidden');
+		}
+
+		function cerrarModalExito() {
+			document.getElementById('modalExito').classList.add('hidden');
+		}
+
+		//LÓGICA PARA MOSTRAR MODALES AUTOMÁTICAMENTE AL CARGAR LA PÁGINA
+		window.onload = function() {
+			const serverMessagesContainer = document.getElementById('serverMessages');
+			const errorMessage = serverMessagesContainer.dataset.errorMessage;
+			const successMessage = serverMessagesContainer.dataset.successMessage;
+
+			if (errorMessage && errorMessage !== "null" && errorMessage !== "") {
+				mostrarModalError(errorMessage);
+			} else if (successMessage && successMessage !== "null" && successMessage !== "") {
+				mostrarModalExito(successMessage);
+			}
+		};
+	</script>
 </body>
 </html>

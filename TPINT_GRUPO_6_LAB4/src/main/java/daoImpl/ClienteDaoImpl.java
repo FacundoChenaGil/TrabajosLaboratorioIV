@@ -156,4 +156,35 @@ public class ClienteDaoImpl implements IClienteDao {
         Cliente cliente = null;
         return cliente;
     }
+
+	@Override
+	public boolean existeClienteActivo(String dni) {
+		PreparedStatement statement = null;
+        ResultSet rs = null;
+        Connection conexion = Conexion.getConexion().getSQLConexion();
+        boolean existe = false;
+
+        String consulta = "SELECT COUNT(*) FROM Clientes WHERE DNI = ? AND Activo = 1"; 
+        try {
+            statement = conexion.prepareStatement(consulta);
+            statement.setString(1, dni);
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                if (rs.getInt(1) > 0) {
+                    existe = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return existe;
+	}
 }

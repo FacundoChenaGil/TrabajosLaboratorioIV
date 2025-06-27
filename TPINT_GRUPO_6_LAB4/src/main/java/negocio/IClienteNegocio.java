@@ -1,5 +1,5 @@
 package negocio;
 
-public class IClienteNegocio {
-
+public interface IClienteNegocio {
+	public boolean existeClienteActivo(String dni);
 }

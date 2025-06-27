@@ -14,7 +14,10 @@ public interface IClienteDao {
     public List<Cliente> obtenerTodosLosClientes();
     public List<Cliente> obtenerClientesPaginado(int offset, int limit, String busqueda, String filtroProvincia); // Con paginación y filtros
     public int contarClientes(String busqueda, String filtroProvincia); // Para la paginación
-
+    
+    //ExisteClienteActivo
+    public boolean existeClienteActivo(String dni);
+    
     // Métodos adicionales si los necesitas para la lógica del negocio
     public Cliente obtenerClientePorUsuario(String usuario); // Para cuando un cliente inicia sesión
 }

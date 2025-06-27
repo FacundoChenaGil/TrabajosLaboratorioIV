@@ -32,4 +32,28 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
 		return cuenta;
 	}
 
+
+	@Override
+	public int insertarCuenta(Cuenta cuenta) {
+		return cDao.insertarCuenta(cuenta);
+	}
+
+
+	@Override
+	public boolean existeCBU(String cbu) {
+		return cDao.existeCBU(cbu);
+	}
+
+
+	@Override
+	public boolean existeNumeroCuenta(String numeroCuenta) {
+		return cDao.existeNumeroCuenta(numeroCuenta);
+	}
+
+
+	@Override
+	public int contarCuentasPorDni(String dni) {
+		return cDao.contarCuentasPorDni(dni);
+	}
+
 }
