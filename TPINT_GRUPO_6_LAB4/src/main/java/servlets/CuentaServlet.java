@@ -122,6 +122,20 @@ public class CuentaServlet extends HttpServlet {
 	            dispatcher.forward(request, response);
 	        }
 	    }
+	    
+	    if ("eliminar".equals(action)) {
+			String cbu = request.getParameter("cbu");
+
+			boolean eliminado = cuentaNegocio.eliminarCuenta(cbu);
+
+			if (eliminado) {
+				response.sendRedirect(request.getContextPath() + "/CuentaServlet?Param=mostrarTodo");
+			} else {
+				//Por si despues queremos enviar mensajes al jsp
+				// request.setAttribute("mensajeError", "No se pudo inactivar la cuenta. Por favor, intente de nuevo.");
+				response.sendRedirect(request.getContextPath() + "/CuentaServlet?Param=mostrarTodo");
+			}
+		}
 		
 	}
 

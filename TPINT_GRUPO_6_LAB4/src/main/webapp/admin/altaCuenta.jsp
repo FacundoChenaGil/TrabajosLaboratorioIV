@@ -185,7 +185,7 @@ body {
 
 				<div class="flex space-x-4 mt-6">
 					<div class="flex-1">
-						<a href="gestionDeCuentas.jsp" class="button-secondary">Volver</a>
+						<a href="/TPINT_GRUPO_6_LAB4/CuentaServlet?Param=mostrarTodo" class="button-secondary">Volver</a>
 					</div>
 					<div class="flex-1">
 						<input type="submit" name="action" value="Guardar"

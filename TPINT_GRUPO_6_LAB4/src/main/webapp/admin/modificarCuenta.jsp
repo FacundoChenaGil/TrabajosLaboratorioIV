@@ -150,7 +150,7 @@ body {
 
 			<div class="flex justify-end space-x-4 mt-6">
 				<div class="flex-1">
-					<a href="gestionDeCuentas.jsp"
+					<a href="/TPINT_GRUPO_6_LAB4/CuentaServlet?Param=mostrarTodo"
 						class="inline-flex justify-center items-center w-full px-6 py-3 border border-bordo-dark 
                               rounded-md text-sm font-bold text-bordo-dark bg-white 
                               hover:bg-bordo-light-bg hover:shadow-md 

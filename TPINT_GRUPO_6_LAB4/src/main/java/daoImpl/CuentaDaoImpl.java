@@ -293,8 +293,8 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 	@Override
 	public boolean eliminarCuenta(String cbu) {
-		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
-		Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		Conexion conexionSingleton = Conexion.getConexion();
+		Connection conn = conexionSingleton.getSQLConexion(); 
 		PreparedStatement ps = null;
 		int filasAfectadas = 0;
 		
@@ -307,16 +307,16 @@ public class CuentaDaoImpl implements ICuentaDao {
 		        filasAfectadas = ps.executeUpdate();
 
 		        if (filasAfectadas == 1) {
-		            conn.commit(); // Confirmamos los cambios
+		            conn.commit();
 		            return true;
 		        } else {
-		            conn.rollback(); // Revertimos si no se afectó ninguna fila
+		            conn.rollback();
 		        }
 
 		    } catch (SQLException e) {
 		        System.err.println("Error al eliminar (baja lógica) la cuenta con CBU " + cbu + ": " + e.getMessage());
 		        try {
-		            conn.rollback(); // Revertimos en caso de error
+		            conn.rollback();
 		        } catch (SQLException ex) {
 		            ex.printStackTrace();
 		        }
@@ -328,7 +328,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 		        }
 		    }
 
-		    return false; // Si algo falla, devolvemos false
+		    return false;
 	}
 
 }
