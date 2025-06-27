@@ -15,4 +15,12 @@ public class TipoDeCuentaNegocioImpl implements ITipoDeCuentaNegocio{
 	public List<TiposDeCuentas> listarTiposDeCuentas() {
 		 return tipoCuentaDao.listarTiposDeCuentas();
 	}
+
+	@Override
+	public TiposDeCuentas getTipoCuentaPorID(int idTipoCuenta) {
+		
+		TiposDeCuentas tipoCuenta = tipoCuentaDao.getTipoCuentaPorID(idTipoCuenta);
+		
+		return tipoCuenta;
+	}
 }

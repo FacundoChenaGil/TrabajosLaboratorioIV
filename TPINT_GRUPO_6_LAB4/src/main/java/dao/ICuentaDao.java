@@ -11,4 +11,5 @@ public interface ICuentaDao {
     public int contarCuentasPorDni(String dni);
 	public List<Cuenta> readAll();
 	public Cuenta read(String cbu);
+	public boolean actualizarCuenta(Cuenta cuenta);
 }

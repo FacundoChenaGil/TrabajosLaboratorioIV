@@ -11,6 +11,7 @@ import java.util.List;
 import dao.ICuentaDao;
 import entidad.Cliente;
 import entidad.Cuenta;
+import entidad.TiposDeCuentas;
 
 public class CuentaDaoImpl implements ICuentaDao {
 
@@ -241,6 +242,40 @@ public class CuentaDaoImpl implements ICuentaDao {
             }
         }
         return contador;
+	}
+
+	@Override
+	public boolean actualizarCuenta(Cuenta cuenta) {
+		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
+		Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		PreparedStatement ps = null;
+		int filasAfectadas = 0;
+
+		try {
+			String sql = "UPDATE cuentas SET Numero_Cuenta = ?, DNI = ?, Saldo = ?, ID_Tipo_Cuenta = ?, Activa = ? WHERE CBU = ?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, cuenta.getNumeroCuenta());
+			ps.setString(2, cuenta.getCliente().getDni());
+			ps.setBigDecimal(3, cuenta.getSaldo());
+			ps.setInt(4, cuenta.getTipoCuenta().getID());
+			ps.setBoolean(5, cuenta.isActiva());
+			ps.setString(6, cuenta.getCBU());
+			
+			filasAfectadas = ps.executeUpdate();
+
+		} catch (SQLException e) {
+	        System.err.println("Error actualizando cuenta: " + e.getMessage());
+	        e.printStackTrace();
+	    } finally {
+	        try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+	    }
+		
+		if(filasAfectadas == 1) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

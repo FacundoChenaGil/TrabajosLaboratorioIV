@@ -3,13 +3,20 @@ package negocioImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import daoImpl.ClienteDaoImpl;
 import daoImpl.CuentaDaoImpl;
+import daoImpl.TipoDeCuentaDaoImpl;
+import entidad.Cliente;
 import entidad.Cuenta;
+import entidad.TiposDeCuentas;
 import negocio.ICuentaNegocio;
 
 public class CuentaNegocioImpl implements ICuentaNegocio {
 	
 	private CuentaDaoImpl cDao = new CuentaDaoImpl();
+	private ClienteDaoImpl clDao = new ClienteDaoImpl();
+	private TipoDeCuentaDaoImpl tcDao = new TipoDeCuentaDaoImpl();
+	
 
 
 	@Override
@@ -54,6 +61,15 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
 	@Override
 	public int contarCuentasPorDni(String dni) {
 		return cDao.contarCuentasPorDni(dni);
+	}
+
+
+	@Override
+	public boolean actualizarCuenta(Cuenta cuenta) {
+		
+		boolean actualizado = cDao.actualizarCuenta(cuenta);
+		
+		return actualizado;
 	}
 
 }
