@@ -34,7 +34,6 @@
             <button onclick="toggleMenu('historialMenu')" class="hover:text-gray-300">Historial</button>
             <ul id="historialMenu" class="absolute hidden bg-white text-black mt-2 rounded shadow-md w-48 z-50">
               <li><a href="movimientos.jsp" class="block px-4 py-2 hover:bg-gray-200">Movimientos recientes</a></li>
-              <li><a href="movimientosPorFecha.jsp" class="block px-4 py-2 hover:bg-gray-200">Filtrar por</a></li>
             </ul>
           </li>
 
@@ -43,7 +42,6 @@
             <button onclick="toggleMenu('transferenciasMenu')" class="hover:text-gray-300">Transferencias</button>
             <ul id="transferenciasMenu" class="absolute hidden bg-white text-black mt-2 rounded shadow-md w-48 z-50">
               <li><a href="nuevaTransferencia.jsp" class="block px-4 py-2 hover:bg-gray-200">Nueva</a></li>
-              <li><a href="historialTransferencias.jsp" class="block px-4 py-2 hover:bg-gray-200">Historial</a></li>
             </ul>
           </li>
 
