@@ -7,11 +7,11 @@ INSERT INTO Tipos_Movimiento (Descripcion) VALUES ('Alta de cuenta'), ('Alta de 
 INSERT INTO Tipos_Estado_Prestamo (Descripcion) VALUES ('Pendiente'), ('Aprobado'), ('Rechazado'), ('Finalizado');
 
 -- Creación de un usuario administrador por defecto
-INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('admin', 'admin', 1);
-INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente', 'cliente', 2);
-INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente2', 'cliente', 2);
-INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente3', 'cliente', 2);
-INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente4', 'cliente', 2);
+INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('admin', '$2a$10$C1yPfWB4xDJUmcmBKKOjO.TIgLqGl9DOp838zZOwSMRoJujeSmqYW', 1);
+INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente', '$2a$10$9C2LCcwVYTja4wBYsudKDOX2bRtbpGHYw9Fc4ZphBk9FFS/hE49h2', 2);
+INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente2', '$2a$10$x/LBt9pVlw4a.gxfOIszruSE9ugbjoJHpgWylBwn.R5N7CbdkdZXK', 2);
+INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente3', '$2a$10$3b7O8TK0pCFmwFafzxgzT.t4uPGceE2B3WkjFwY9gIlPjjoSB4SFy', 2);
+INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente4', '$2a$10$wCen2c0eaLs7NolArv7An.MYdbTE8kvPnThzii5zsZh1oCx.xbrke', 2);
 
 INSERT INTO Clientes (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, Fecha_Nacimiento, Direccion, Localidad, Provincia, Correo_Electronico, Telefono, Usuario) VALUES
 ('30123456', '20301234561', 'Juan', 'Pérez', 'M', 'Argentina', '1983-05-20', 'Av. Siempre Viva 742', 'Springfield', 'Buenos Aires', 'juan.perez@email.com', '1111111111', 'cliente'),

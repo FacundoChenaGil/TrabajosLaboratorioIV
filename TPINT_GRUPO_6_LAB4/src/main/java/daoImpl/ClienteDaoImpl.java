@@ -187,6 +187,23 @@ public class ClienteDaoImpl implements IClienteDao {
     }
 
     @Override
+    public boolean existeCorreoElectronico(String correo) {
+        String sql = "SELECT COUNT(*) FROM Clientes WHERE Correo_Electronico = ? AND Activo = 1";
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bancoutn?useSSL=false", "root", "root");
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, correo);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public Cliente obtenerClientePorUsuario(String usuarioStr) {
         Cliente cliente = null;
         return cliente;
