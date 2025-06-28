@@ -1,135 +1,121 @@
 package entidad;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Prestamo {
+public class Prestamo{
 	
-	private int id_prestamo;
-	private String dni;
-	private LocalDateTime fecha_solicitud;
-	private float importe_pedido;
-	private float importe_pagar;
-	private int plazo_pago;
-	private int cant_cuotas;
+	private int idPrestamo;
+	private LocalDate fecha_creacion;
+	private LocalDate fecha_fin;
+	private float importe_a_pagar;
+	private float monto_pedido;
+	private int plazo_de_pago;
 	private float importe_cuota;
-	private int id_tipo_estado;
-	private String id_cuenta_acreditacion;
+	private int cant_cuotas;
+	private int idTipoEstado;
+	private int idCuenta;
 	
-	
-	// Constructores
 	public Prestamo () {
-		
 	}
-		
-	public Prestamo(String dni, LocalDateTime fecha_solicitud, float importe_pedido, float importe_pagar,
-			int plazo_pago, int cant_cuotas, float importe_cuota, int id_tipo_estado, String id_cuenta_acreditacion) {
-
-		this.dni = dni;
-		this.fecha_solicitud = fecha_solicitud;
-		this.importe_pedido = importe_pedido;
-		this.importe_pagar = importe_pagar;
-		this.plazo_pago = plazo_pago;
-		this.cant_cuotas = cant_cuotas;
-		this.importe_cuota = importe_cuota;
-		this.id_tipo_estado = id_tipo_estado;
-		this.id_cuenta_acreditacion = id_cuenta_acreditacion;
-		
-		//Getters y Setters
-		
 	
+	
+	
+	
+	public Prestamo(int idPrestamo, LocalDate fecha_creacion, LocalDate fecha_fin, float importe_a_pagar,
+			float monto_pedido, int plazo_de_pago, float importe_cuota, int cant_cuotas, int idTipoEstado,
+			int idCuenta) {
 		
-	}
-
-	public int getId_prestamo() {
-		return id_prestamo;
-	}
-
-	/*public void setId_prestamo(int id_prestamo) {
-		this.id_prestamo = id_prestamo;*/
-
-	public String getDni() {
-		return dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-
-	public LocalDateTime getFecha_solicitud() {
-		return fecha_solicitud;
-	}
-
-	public void setFecha_solicitud(LocalDateTime fecha_solicitud) {
-		this.fecha_solicitud = fecha_solicitud;
-	}
-
-	public float getImporte_pedido() {
-		return importe_pedido;
-	}
-
-	public void setImporte_pedido(float importe_pedido) {
-		this.importe_pedido = importe_pedido;
-	}
-
-	public float getImporte_pagar() {
-		return importe_pagar;
-	}
-
-	public void setImporte_pagar(float importe_pagar) {
-		this.importe_pagar = importe_pagar;
-	}
-
-	public int getPlazo_pago() {
-		return plazo_pago;
-	}
-
-	public void setPlazo_pago(int plazo_pago) {
-		this.plazo_pago = plazo_pago;
-	}
-
-	public int getCant_cuotas() {
-		return cant_cuotas;
-	}
-
-	public void setCant_cuotas(int cant_cuotas) {
+		this.idPrestamo = idPrestamo;
+		this.fecha_creacion = fecha_creacion;
+		this.fecha_fin = fecha_fin;
+		this.importe_a_pagar = importe_a_pagar;
+		this.monto_pedido = monto_pedido;
+		this.plazo_de_pago = plazo_de_pago;
+		this.importe_cuota = importe_cuota;
 		this.cant_cuotas = cant_cuotas;
+		this.idTipoEstado = idTipoEstado;
+		this.idCuenta = idCuenta;
 	}
 
+
+	public int getIdPrestamo() {
+		return idPrestamo;
+	}
+	public void setIdPrestamo(int idPrestamo) {
+		this.idPrestamo = idPrestamo;
+	}
+	public LocalDate getFecha_creacion() {
+		return fecha_creacion;
+	}
+	public void setFecha_creacion(LocalDate fecha_creacion) {
+		this.fecha_creacion = fecha_creacion;
+	}
+	public LocalDate getFecha_fin() {
+		return fecha_fin;
+	}
+	public void setFecha_fin(LocalDate fecha_fin) {
+		this.fecha_fin = fecha_fin;
+	}
+	public float getImporte_a_pagar() {
+		return importe_a_pagar;
+	}
+	public void setImporte_a_pagar(float importe_a_pagar) {
+		this.importe_a_pagar = importe_a_pagar;
+	}
+	public float getMonto_pedido() {
+		return monto_pedido;
+	}
+	public void setMonto_pedido(float monto_pedido) {
+		this.monto_pedido = monto_pedido;
+	}
+	public int getPlazo_de_pago() {
+		return plazo_de_pago;
+	}
+	public void setPlazo_de_pago(int plazo_de_pago) {
+		this.plazo_de_pago = plazo_de_pago;
+	}
 	public float getImporte_cuota() {
 		return importe_cuota;
 	}
-
 	public void setImporte_cuota(float importe_cuota) {
 		this.importe_cuota = importe_cuota;
 	}
-
-	public int getId_tipo_estado() {
-		return id_tipo_estado;
+	public int getCant_cuotas() {
+		return cant_cuotas;
 	}
-
-	public void setId_tipo_estado(int id_tipo_estado) {
-		this.id_tipo_estado = id_tipo_estado;
+	public void setCant_cuotas(int cant_cuotas) {
+		this.cant_cuotas = cant_cuotas;
 	}
-
-	public String getId_cuenta_acreditacion() {
-		return id_cuenta_acreditacion;
+	public int getIdTipoEstado() {
+		return idTipoEstado;
 	}
-
-	public void setId_cuenta_acreditacion(String id_cuenta_acreditacion) {
-		this.id_cuenta_acreditacion = id_cuenta_acreditacion;
+	public void setIdTipoEstado(int idTipoEstado) {
+		this.idTipoEstado = idTipoEstado;
 	}
-
+	public int getIdCuenta() {
+		return idCuenta;
+	}
+	public void setIdCuenta(int idCuenta) {
+		this.idCuenta = idCuenta;
+	}
+	
+	
+	
+	
 	@Override
 	public String toString() {
-		return "ID: " + id_prestamo + ", DNI:" + dni + ", Fecha se solicitud: " + fecha_solicitud
-				+ ", Importe pedido: " + importe_pedido + ", Importe a pagar: " + importe_pagar + ", Plazo de pago: "
-				+ plazo_pago + ", Cantidad de cuotas: " + cant_cuotas + ", Importe de cuota:" + importe_cuota + ", ID tipo de Estado="
-				+ id_tipo_estado + ", ID cuenta de acreditación: " + id_cuenta_acreditacion ;
+		return "IdPrestamo: " + idPrestamo + ", Fecha_creacion:" + fecha_creacion + ", Fecha_fin: " + fecha_fin
+				+ ", Importe_a_pagar: " + importe_a_pagar + ", Monto_pedido:" + monto_pedido + ", Plazo_de_pago:"
+				+ plazo_de_pago + ", importe_cuota=" + importe_cuota + ", cant_cuotas=" + cant_cuotas
+				+ ", IdTipoEstado:" + idTipoEstado + ", IdCuenta:" + idCuenta ;
 	}
+
+
+
 	
+
 	
-	
-	
+
 }
-
-
