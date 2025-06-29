@@ -74,6 +74,8 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 		return prestamo;
 	}
 
+	// OBTENER TODOS LOS PRÉSTAMOS
+	
 	private static final String SELECT_ACTIVOS = "SELECT * FROM Prestamos WHERE Id_Tipo_Estado != " + ESTADO_ELIMINADO;
 
 	public List<Prestamo> obtenerTodos() {
