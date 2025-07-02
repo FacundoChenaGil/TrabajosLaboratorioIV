@@ -8,6 +8,7 @@ import daoImpl.CuentaDaoImpl;
 import daoImpl.TipoDeCuentaDaoImpl;
 import entidad.Cliente;
 import entidad.Cuenta;
+import entidad.CuentaPrestamoddlDTO;
 import entidad.TiposDeCuentas;
 import negocio.ICuentaNegocio;
 
@@ -79,6 +80,17 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
 		boolean eliminado = cDao.eliminarCuenta(cbu);
 		
 		return eliminado;
+	}
+
+
+	@Override
+	public List<CuentaPrestamoddlDTO> CargarDDL(String dni) {
+		
+		List<CuentaPrestamoddlDTO> cuentasDDL = new ArrayList<>();
+		
+		cuentasDDL = cDao.CargarDDl(dni);
+		
+		return cuentasDDL;
 	}
 
 }

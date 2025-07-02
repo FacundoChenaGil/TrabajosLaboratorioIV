@@ -11,6 +11,7 @@ import java.util.List;
 import dao.ICuentaDao;
 import entidad.Cliente;
 import entidad.Cuenta;
+import entidad.CuentaPrestamoddlDTO;
 import entidad.TiposDeCuentas;
 
 public class CuentaDaoImpl implements ICuentaDao {
@@ -330,5 +331,54 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 		    return false;
 	}
+	
+	public List<CuentaPrestamoddlDTO> CargarDDl(String dni) {
+		List<CuentaPrestamoddlDTO> listaCuentasDDL = new ArrayList<>();
+		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
+		Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT CBU, Numero_Cuenta FROM Cuentas WHERE DNI = ?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, dni);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				CuentaPrestamoddlDTO cuenta = new CuentaPrestamoddlDTO();
+
+				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
+
+				listaCuentasDDL.add(cuenta);
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("ERROR DAO: Error al obtener las cuentas en DDL de SolicitarPrestamo.jsp " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if (ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			// NO CERRAR LA CONEXIÓN DEL SINGLETON AQUÍ
+		}
+		
+		
+		return listaCuentasDDL;
+		
+	}
+	
+	
 
 }

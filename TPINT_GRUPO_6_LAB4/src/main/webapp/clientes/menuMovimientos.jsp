@@ -85,7 +85,7 @@
 			</a>
 
 			<!-- Tarjeta 4 -->
-			<a href="#"
+			<a href="<%=request.getContextPath()%>/CuentaServlet?Param=solicitarPrestamo"
 				class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
 				<div
 					class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">

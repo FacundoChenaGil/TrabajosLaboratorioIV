@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,9 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import entidad.Cliente;
 import entidad.Cuenta;
+import entidad.CuentaPrestamoddlDTO;
 import entidad.TiposDeCuentas;
 import negocio.ICuentaNegocio;
 import negocio.ITipoDeCuentaNegocio;
@@ -63,11 +66,37 @@ public class CuentaServlet extends HttpServlet {
 	        
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCuenta.jsp");
 	        dispatcher.forward(request, response);
-	    } else {
+	    }
+	    else if("solicitarPrestamo".equals(param)) {
+	    	HttpSession session = request.getSession(false);
+	    	String usuarioSession = null;
+	    	List<CuentaPrestamoddlDTO> listaCuentas = new ArrayList<>();
+	    	
+	    	if(session != null && session.getAttribute("username") != null) {
+	    		usuarioSession = request.getSession().getAttribute("username").toString();
+	    	}
+	    	else {
+	    		response.sendRedirect(request.getContextPath() + "/login.jsp");
+	    		return;
+	    	}
+	    	
+	    	String dni = clienteNegocio.obtenerDNIPorUsuario(usuarioSession);
+	    	
+		    listaCuentas = cuentaNegocio.CargarDDL(dni);
+		    
+		    request.setAttribute("listaCuentasDDL", listaCuentas);
+		    
+		    RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/solicitarPrestamo.jsp");
+	        dispatcher.forward(request, response);
+		    
+	    }
+	    else {
 	        System.out.println("Parametro no reconocido o no recibido");
 	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parámetro incorrecto o no recibido.");
 	    }
 		
+	    
+	    
 	    
 	}
 

@@ -13,7 +13,11 @@ import entidad.Usuario;
 public class UsuarioDaoImpl implements IUsuarioDao {
 	
 	private TipoUsuarioDaoImpl tu;
-
+	
+	public UsuarioDaoImpl() {
+        this.tu = new TipoUsuarioDaoImpl(); 
+    }
+	
 	@Override
 	public Usuario getUsuarioPorNombre(String usuario) {
 		

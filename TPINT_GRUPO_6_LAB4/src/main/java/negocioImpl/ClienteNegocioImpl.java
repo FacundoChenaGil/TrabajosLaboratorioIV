@@ -60,4 +60,12 @@ public class ClienteNegocioImpl implements IClienteNegocio {
     public Cliente obtenerClientePorDni(String dni) {
         return clienteDao.obtenerClientePorDni(dni);
     }
+
+	@Override
+	public String obtenerDNIPorUsuario(String usuario) {
+		
+		String dni = clienteDao.obtenerDNIPorUsuario(usuario);
+		
+		return dni;
+	}
 }

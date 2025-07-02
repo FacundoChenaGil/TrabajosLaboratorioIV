@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
         Usuario usuario = usuarioDao.getUsuarioPorNombre(username);
         
         // 3. Validar credenciales
-        if (usuario.isActivo()) {
+        if (!usuario.isActivo()) {
             errorMessage = "Su cuenta esta inhabilitada.";
             request.setAttribute("loginError", errorMessage);
             request.getRequestDispatcher("/login.jsp").forward(request, response);

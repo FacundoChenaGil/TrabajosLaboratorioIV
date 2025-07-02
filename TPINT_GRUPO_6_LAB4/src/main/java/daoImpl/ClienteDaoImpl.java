@@ -239,4 +239,38 @@ public class ClienteDaoImpl implements IClienteDao {
         }
         return existe;
 	}
+
+	@Override
+	public String obtenerDNIPorUsuario(String usuario) {
+		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
+        Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String dni = null;
+        
+        try {
+        	String sql = "SELECT DNI FROM Clientes WHERE Usuario = ?";
+        	
+        	ps = conn.prepareStatement(sql);
+        	ps.setString(1, usuario);
+            rs = ps.executeQuery();
+            
+            if(rs.next()) {
+            	dni = rs.getString("DNI");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace(); // log o manejo de errores
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                // No cierres conn si usás conexión compartida tipo Singleton
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return dni;
+	}
 }

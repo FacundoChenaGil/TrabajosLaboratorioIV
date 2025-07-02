@@ -3,6 +3,7 @@ package negocio;
 import java.util.List;
 
 import entidad.Cuenta;
+import entidad.CuentaPrestamoddlDTO;
 
 public interface ICuentaNegocio {
 	
@@ -14,5 +15,6 @@ public interface ICuentaNegocio {
 	public Cuenta read(String cbu);
 	public boolean actualizarCuenta(Cuenta cuenta);
 	public boolean eliminarCuenta(String cbu);
+	public List<CuentaPrestamoddlDTO> CargarDDL(String dni);
 
 }
