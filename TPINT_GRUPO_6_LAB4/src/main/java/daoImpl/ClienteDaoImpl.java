@@ -54,13 +54,15 @@ public class ClienteDaoImpl implements IClienteDao {
 	@Override
 	public boolean agregarCliente(Cliente cliente) {
 	    boolean exito = false;
+	    Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
+        Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+        PreparedStatement ps = null;
 
 	    try {
 	        // Crear nueva conexión directamente
-	        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bancoutn?useSSL=false", "root", "root");
 
-	        String sql = "INSERT INTO Clientes (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, Direccion, Localidad, Provincia, CorreoElectronico, Telefono, Usuario, Activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
-	        PreparedStatement ps = conn.prepareStatement(sql);
+	        String sql = "INSERT INTO Clientes (DNI, CUIL, Nombre, Apellido, Sexo, Nacionalidad, Fecha_Nacimiento, Direccion, Localidad, Provincia, Correo_Electronico, Telefono, Usuario, Activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, cliente.getDni());
 	        ps.setString(2, cliente.getCuil());
 	        ps.setString(3, cliente.getNombre());
@@ -77,6 +79,7 @@ public class ClienteDaoImpl implements IClienteDao {
 
 	        int filas = ps.executeUpdate();
 	        if (filas > 0) {
+	            conn.commit(); // ← esto guarda los cambios
 	            exito = true;
 	        }
 

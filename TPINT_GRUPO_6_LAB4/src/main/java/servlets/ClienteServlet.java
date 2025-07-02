@@ -18,14 +18,25 @@ import entidad.TipoUsuario;
 import entidad.Usuario;
 import negocio.IClienteNegocio;
 import negocioImpl.ClienteNegocioImpl;
+import util.PasswordHasher;
+import negocio.IUsuarioNegocio;
+import negocioImpl.UsuarioNegocioImpl;
 
 
 @WebServlet("/ClienteServlet")
 public class ClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	IClienteNegocio clienteNegocio = new ClienteNegocioImpl();
+	IUsuarioNegocio usuarioNegocio = new UsuarioNegocioImpl();
+
+	public ClienteServlet(IClienteNegocio clienteNegocio, IUsuarioNegocio usuarioNegocio) {
+		this.clienteNegocio = clienteNegocio;
+		this.usuarioNegocio = usuarioNegocio;
+	}
 
 	public ClienteServlet() {
-		super();
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -58,24 +69,34 @@ public class ClienteServlet extends HttpServlet {
 
 				// Crear Usuario
 				Usuario usuario = new Usuario();
+				
 				usuario.setUsuario(request.getParameter("username"));
-				usuario.setClave(request.getParameter("password"));
+				
+				String claveHasheada = PasswordHasher.hashPassword(request.getParameter("password"));
+				
+				usuario.setClave(claveHasheada);
+				
+				
 				TipoUsuario tipoUsuario = new TipoUsuario();
 				tipoUsuario.setIdTipoUsuario(2); // 2 = Cliente
 				usuario.setTipoUsuario(tipoUsuario);
+				
+				
+				//boolean exitoUsuario = usuarioNegocio.altaUsuario(usuario);
 				cliente.setUsuario(usuario);
 
 				System.out.println("🔐 [Alta Cliente] Datos del usuario listos.");
+				System.out.println("🔍 Contraseña ingresada: " + request.getParameter("password"));
 
 				// Negocio
-				IClienteNegocio clienteNegocio = new ClienteNegocioImpl();
+				
 				System.out.println("📡 [Alta Cliente] Llamando a clienteNegocio.registrarCliente...");
 
 				boolean exito = clienteNegocio.registrarCliente(cliente);
 
 				if (exito) {
 					System.out.println("✅ [Alta Cliente] Cliente registrado correctamente.");
-					response.sendRedirect("admin/gestionClientes.jsp");
+					response.sendRedirect("admin/gestionDeClientes.jsp");
 				} else {
 					System.out.println("⚠️ [Alta Cliente] Falló el alta del cliente (cliente ya existe o error interno).");
 					request.setAttribute("error", "El DNI, correo o usuario ya existen.");
