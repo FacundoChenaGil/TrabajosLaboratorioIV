@@ -20,7 +20,7 @@
       <a href="pagarPrestamo.jsp" class="block bg-white text-[#D14444] font-semibold text-center py-3 rounded-lg shadow hover:bg-gray-50 transition">
         Pagar Préstamo
       </a>
-      <a href="hitorialPagodePrestamos.jsp" class="block bg-white text-[#D14444] font-semibold text-center py-3 rounded-lg shadow hover:bg-gray-50 transition">
+      <a href="<%=request.getContextPath()%>/SeleccionarPrestamoServlet" class="block bg-white text-[#D14444] font-semibold text-center py-3 rounded-lg shadow hover:bg-gray-50 transition">
         Ver Historial de Pagos
       </a>
     </div>

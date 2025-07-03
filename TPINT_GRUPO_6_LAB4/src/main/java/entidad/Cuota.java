@@ -4,81 +4,114 @@ import java.time.LocalDate;
 
 public class Cuota {
 
-	private int ID_Cuota;
-	private int ID_Prestamo;
-	private int Numero_Cuota;
-	private float Importe;
-	private LocalDate Fecha_Vencimiento;
-	private LocalDate Fecha_Pago;
-
+	private int idCuota;
+	private int idPrestamo;
+	private int numeroCuota;
+	private float importe;
+	private LocalDate fechaVencimiento;
+	private LocalDate fechaPago;
+	private String numeroCuenta;
+	
 	// Constructores
 	public Cuota() {
 
 	}
 
-	public Cuota(int iD_Prestamo, int numero_Cuota, float importe, LocalDate fecha_Vencimiento, LocalDate fecha_Pago) {
-		ID_Prestamo = iD_Prestamo;
-		Numero_Cuota = numero_Cuota;
-		Importe = importe;
-		Fecha_Vencimiento = fecha_Vencimiento;
-		Fecha_Pago = fecha_Pago;
+	
+	public Cuota(int idCuota, int idPrestamo, int numeroCuota, float importe, LocalDate fechaVencimiento,
+			LocalDate fechaPago, String numeroCuenta) {
+		super();
+		this.idCuota = idCuota;
+		this.idPrestamo = idPrestamo;
+		this.numeroCuota = numeroCuota;
+		this.importe = importe;
+		this.fechaVencimiento = fechaVencimiento;
+		this.fechaPago = fechaPago;
+		this.numeroCuenta = numeroCuenta;
+	}
+
+
+	public int getIdCuota() {
+		return idCuota;
+	}
+
+
+	public void setIdCuota(int idCuota) {
+		this.idCuota = idCuota;
+	}
+
+
+	public int getIdPrestamo() {
+		return idPrestamo;
 	}
 
 	// getters y setters
-	public int getID_Cuota() {
-		return ID_Cuota;
+
+	public void setIdPrestamo(int idPrestamo) {
+		this.idPrestamo = idPrestamo;
 	}
 
-	public void setID_Cuota(int iD_Cuota) {
-		ID_Cuota = iD_Cuota;
+
+	public int getNumeroCuota() {
+		return numeroCuota;
 	}
 
-	public int getID_Prestamo() {
-		return ID_Prestamo;
+
+	public void setNumeroCuota(int numeroCuota) {
+		this.numeroCuota = numeroCuota;
 	}
 
-	public void setID_Prestamo(int iD_Prestamo) {
-		ID_Prestamo = iD_Prestamo;
-	}
-
-	public int getNumero_Cuota() {
-		return Numero_Cuota;
-	}
-
-	public void setNumero_Cuota(int numero_Cuota) {
-		Numero_Cuota = numero_Cuota;
-	}
 
 	public float getImporte() {
-		return Importe;
+		return importe;
 	}
+
 
 	public void setImporte(float importe) {
-		Importe = importe;
+		this.importe = importe;
 	}
 
-	public LocalDate getFecha_Vencimiento() {
-		return Fecha_Vencimiento;
+
+	public LocalDate getFechaVencimiento() {
+		return fechaVencimiento;
 	}
 
-	public void setFecha_Vencimiento(LocalDate fecha_Vencimiento) {
-		Fecha_Vencimiento = fecha_Vencimiento;
+
+	public void setFechaVencimiento(LocalDate fechaVencimiento) {
+		this.fechaVencimiento = fechaVencimiento;
 	}
 
-	public LocalDate getFecha_Pago() {
-		return Fecha_Pago;
+
+	public LocalDate getFechaPago() {
+		return fechaPago;
 	}
 
-	public void setFecha_Pago(LocalDate fecha_Pago) {
-		Fecha_Pago = fecha_Pago;
+
+	public void setFechaPago(LocalDate fechaPago) {
+		this.fechaPago = fechaPago;
 	}
 
-	// Método toString
+
+	public String getNumeroCuenta() {
+		return numeroCuenta;
+	}
+
+
+	public void setNumeroCuenta(String numeroCuenta) {
+		this.numeroCuenta = numeroCuenta;
+	}
 
 	@Override
 	public String toString() {
-		return "ID_Cuota: " + ID_Cuota + ", ID_Prestamo:" + ID_Prestamo + ", Numero_Cuota: " + Numero_Cuota
-				+ ", Importe: " + Importe + ", Fecha_Vencimiento: " + Fecha_Vencimiento + ", Fecha_Pago: " + Fecha_Pago;
+	    return "Cuota:" + idCuota + ", ID Prestamo:" + idPrestamo + ", Número Cuota:" + numeroCuota
+	            + ", Importe=" + importe + ", Fecha Vencimiento:" + fechaVencimiento + ", Fecha Pago:" + fechaPago
+	            + ", Numero Cuenta:" + numeroCuenta;
 	}
 
+
+
+
+
+
+	
 }
