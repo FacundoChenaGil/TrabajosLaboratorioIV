@@ -51,6 +51,7 @@ public class CuentaServlet extends HttpServlet {
 	    String param = request.getParameter("Param");
 	    String cbu = request.getParameter("cbu");
 	    
+	    
 	    if ("mostrarTodo".equals(param)) {
 	        List<Cuenta> listaCuentas = cuentaNegocio.readAll();	        
 	        request.setAttribute("listaCuentas", listaCuentas);

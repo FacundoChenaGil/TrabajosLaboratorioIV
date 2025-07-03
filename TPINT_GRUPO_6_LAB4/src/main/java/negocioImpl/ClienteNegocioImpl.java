@@ -1,5 +1,8 @@
 package negocioImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dao.IClienteDao;
 import dao.IUsuarioDao;
 import daoImpl.ClienteDaoImpl;
@@ -67,5 +70,15 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 		String dni = clienteDao.obtenerDNIPorUsuario(usuario);
 		
 		return dni;
+	}
+
+	@Override
+	public List<Cliente> obtenerClientes() {
+		
+		List<Cliente> listaClientes = new ArrayList<>();
+		
+		listaClientes = clienteDao.obtenerTodosLosClientes();
+		
+		return listaClientes;
 	}
 }
