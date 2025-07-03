@@ -30,6 +30,7 @@ public class Cuota {
 		this.numeroCuenta = numeroCuenta;
 	}
 
+	// getters y setters
 
 	public int getIdCuota() {
 		return idCuota;
@@ -45,7 +46,6 @@ public class Cuota {
 		return idPrestamo;
 	}
 
-	// getters y setters
 
 	public void setIdPrestamo(int idPrestamo) {
 		this.idPrestamo = idPrestamo;
