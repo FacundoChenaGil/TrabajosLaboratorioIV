@@ -133,16 +133,11 @@ layer base {body { font-family:'Montserrat', sans-serif;
 				<div>
 					<label for="nacionalidad"
 						class="block mb-2 text-gray-700 font-medium">Nacionalidad:</label>
-					<select name="nacionalidad"
+					<select id="nacionalidad" name="nacionalidad" 
 						class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                                 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
                                 input-glow-on-hover-focus transition duration-300 ease-in-out">
-						<option value="">Seleccione una nacionalidad</option>
-						<option value="Argentina">Argentina</option>
-						<option value="Brasil">Brasil</option>
-						<option value="Chile">Chile</option>
-						<option value="Uruguay">Uruguay</option>
-						<option value="Paraguay">Paraguay</option>
+						<option value="">Cargando nacionalidades...</option>
 					</select>
 				</div>
 
@@ -213,12 +208,32 @@ layer base {body { font-family:'Montserrat', sans-serif;
 		</form>
 	</div>
 
+
 	<script>
 	document.addEventListener("DOMContentLoaded", () => {
+	  const selectNacionalidad = document.getElementById("nacionalidad");
 	  const selectProvincia = document.getElementById("provincia");
 	  const selectLocalidad = document.getElementById("localidad");
 	
-	  // Cargar provincias
+	  // --- NACIONALIDADES ---
+	  fetch("https://restcountries.com/v3.1/all?fields=name")
+	    .then(res => res.json())
+	    .then(data => {
+	      const nombres = data.map(pais => pais.name.common).sort();
+	      selectNacionalidad.innerHTML = "<option value=''>Seleccione una nacionalidad</option>";
+	      nombres.forEach(nombre => {
+	        const option = document.createElement("option");
+	        option.value = nombre;
+	        option.textContent = nombre;
+	        selectNacionalidad.appendChild(option);
+	      });
+	    })
+	    .catch(error => {
+	      console.error("Error al cargar nacionalidades:", error);
+	      selectNacionalidad.innerHTML = "<option>Error al cargar</option>";
+	    });
+	
+	  // --- PROVINCIAS ---
 	  fetch("https://apis.datos.gob.ar/georef/api/provincias")
 	    .then(res => res.json())
 	    .then(data => {
@@ -232,7 +247,7 @@ layer base {body { font-family:'Montserrat', sans-serif;
 	      });
 	    });
 	
-	  // Cuando se selecciona una provincia
+	  // --- LOCALIDADES por provincia ---
 	  selectProvincia.addEventListener("change", () => {
 	    const provinciaSeleccionada = selectProvincia.value;
 	
@@ -242,9 +257,9 @@ layer base {body { font-family:'Montserrat', sans-serif;
 	      return;
 	    }
 	
-	    // Cargar localidades
 	    const url = "https://apis.datos.gob.ar/georef/api/localidades?provincia=" +
 	      encodeURIComponent(provinciaSeleccionada) + "&max=1000";
+	
 	    fetch(url)
 	      .then(res => res.json())
 	      .then(data => {
@@ -265,7 +280,6 @@ layer base {body { font-family:'Montserrat', sans-serif;
 	  });
 	});
 	</script>
-
 
 </body>
 </html>
