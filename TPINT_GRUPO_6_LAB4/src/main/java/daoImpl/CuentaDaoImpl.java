@@ -1,5 +1,6 @@
 package daoImpl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -379,6 +380,84 @@ public class CuentaDaoImpl implements ICuentaDao {
 		
 	}
 	
+	@Override
+	public BigDecimal obtenerSaldo(String cbu) {
+	    BigDecimal saldo = null;
+
+	    try (Connection conn = Conexion.getNuevaConexion();
+	         PreparedStatement stmt = conn.prepareStatement("SELECT Saldo FROM Cuentas WHERE CBU = ? AND Activa = 1")) {
+
+	        stmt.setString(1, cbu);
+	        ResultSet rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            saldo = rs.getBigDecimal("Saldo");
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return saldo;
+	}
 	
+	@Override
+	public boolean actualizarSaldo(String cbu, BigDecimal nuevoSaldo) {
+	    boolean actualizado = false;
+
+	    try (Connection conn = Conexion.getNuevaConexion();
+	         PreparedStatement stmt = conn.prepareStatement("UPDATE Cuentas SET Saldo = ? WHERE CBU = ? AND Activa = 1")) {
+
+	        stmt.setBigDecimal(1, nuevoSaldo);
+	        stmt.setString(2, cbu);
+
+	        actualizado = stmt.executeUpdate() > 0;
+	        conn.commit(); 
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return actualizado;
+	}
+	
+	public String obtenerDniTitular(String cbu) {
+	    String dni = null;
+	    try {
+	        Connection conn = Conexion.getConexion().getSQLConexion();
+	        PreparedStatement stmt = conn.prepareStatement("SELECT DNI FROM Cuentas WHERE CBU = ?");
+	        stmt.setString(1, cbu);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            dni = rs.getString("DNI");
+	        }
+	        conn.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return dni;
+	}
+
+	public String obtenerNombreTitular(String cbu) {
+	    String nombre = null;
+	    try {
+	        Connection conn = Conexion.getConexion().getSQLConexion();
+	        PreparedStatement stmt = conn.prepareStatement(
+	            "SELECT cl.Nombre FROM Cuentas cu JOIN Clientes cl ON cu.DNI = cl.DNI WHERE cu.CBU = ?");
+	        stmt.setString(1, cbu);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            nombre = rs.getString("Nombre");
+	        }
+	        conn.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return nombre;
+	}
 
 }
+
+	
+
+

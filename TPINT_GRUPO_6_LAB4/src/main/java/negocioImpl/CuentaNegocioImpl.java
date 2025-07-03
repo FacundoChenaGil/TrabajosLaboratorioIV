@@ -1,5 +1,6 @@
 package negocioImpl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,5 +93,25 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
 		
 		return cuentasDDL;
 	}
+	
+	@Override
+    public BigDecimal obtenerSaldo(String cbu) {
+        return cDao.obtenerSaldo(cbu);
+    }
+
+    @Override
+    public boolean actualizarSaldo(String cbu, BigDecimal nuevoSaldo) {
+        return cDao.actualizarSaldo(cbu, nuevoSaldo);
+    }
+    
+    @Override
+    public String obtenerNombreTitular(String cbu) {
+        return cDao.obtenerNombreTitular(cbu);
+    }
+
+    @Override
+    public String obtenerDniTitular(String cbu) {
+        return cDao.obtenerDniTitular(cbu);
+    }
 
 }
