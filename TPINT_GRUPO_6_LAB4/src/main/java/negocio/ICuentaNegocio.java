@@ -1,9 +1,11 @@
 package negocio;
 
 import java.util.List;
+import java.math.BigDecimal;
 
 import entidad.Cuenta;
 import entidad.CuentaPrestamoddlDTO;
+
 
 public interface ICuentaNegocio {
 	
@@ -16,5 +18,11 @@ public interface ICuentaNegocio {
 	public boolean actualizarCuenta(Cuenta cuenta);
 	public boolean eliminarCuenta(String cbu);
 	public List<CuentaPrestamoddlDTO> CargarDDL(String dni);
+	BigDecimal obtenerSaldo(String cbu);
+    boolean actualizarSaldo(String cbu, BigDecimal nuevoSaldo);
+    public String obtenerNombreTitular(String cbu);
+    public String obtenerDniTitular(String cbu);
+
+	
 
 }

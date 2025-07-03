@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="entidad.Cliente"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +39,11 @@
     </style>
 </head>
 <body class="bg-gray-200 min-h-screen">
+
+	<%
+		List<Cliente> listaClientes = (List<Cliente>) request.getAttribute("listaClientes");
+	%>
+
 
     <main class="max-w-7xl mx-auto p-6">
 
@@ -85,6 +92,10 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 text-sm text-gray-800">
+                	<%
+                		if(listaClientes != null && !listaClientes.isEmpty()) {
+                			for(Cliente cliente : listaClientes) {
+                	%>
                     <tr>
                         <td class="px-4 py-3 whitespace-nowrap flex items-center gap-4">
                             <!-- Editar -->
@@ -107,21 +118,33 @@
                                     style="font-family: FontAwesome; color: #ff0000; font-size: 1.25rem;">
                             </form>
                         </td>
-                        <td class="px-4 py-3">12345678</td>
-                        <td class="px-4 py-3">27-12345678-9</td>
-                        <td class="px-4 py-3">Ana</td>
-                        <td class="px-4 py-3">López</td>
-                        <td class="px-4 py-3">Femenino</td>
-                        <td class="px-4 py-3">01/01/1990</td>
-                        <td class="px-4 py-3">11 2345 6789</td>
-                        <td class="px-4 py-3">Argentina</td>
-                        <td class="px-4 py-3">Buenos Aires</td>
-                        <td class="px-4 py-3">Tigre</td>
-                        <td class="px-4 py-3">Corrientes 123</td>
-                        <td class="px-4 py-3">ana.lopez@gmail.com</td>
-                        <td class="px-4 py-3">ana123</td>
-                        <td class="px-4 py-3">Activo</td>
+                        <td class="px-4 py-3"><%=cliente.getDni() %></td>
+                        <td class="px-4 py-3"><%=cliente.getCuil() %></td>
+                        <td class="px-4 py-3"><%=cliente.getNombre() %></td>
+                        <td class="px-4 py-3"><%=cliente.getApellido() %></td>
+                        <td class="px-4 py-3"><%=cliente.getSexo() %></td>
+                        <td class="px-4 py-3"><%=cliente.getFechaNacimiento() %></td>
+                        <td class="px-4 py-3"><%=cliente.getTelefono() %></td>
+                        <td class="px-4 py-3"><%=cliente.getNacionalidad() %></td>
+                        <td class="px-4 py-3"><%=cliente.getProvincia() %></td>
+                        <td class="px-4 py-3"><%=cliente.getLocalidad() %></td>
+                        <td class="px-4 py-3"><%=cliente.getDireccion() %></td>
+                        <td class="px-4 py-3"><%=cliente.getCorreoElectronico() %></td>
+                        <td class="px-4 py-3"><%=cliente.getUsuario().getUsuario() %></td>
+                        <td class="px-4 py-3"><%=cliente.isActivo() %></td>
                     </tr>
+                    <%
+                		}
+                		}else {
+                    %>
+                    	tr>
+						<td colspan="8"
+							class="px-6 py-4 text-sm text-gray-500 text-center">No se
+							encontraron clientes.</td>
+					</tr>
+					<%
+					}
+					%>
                 </tbody>
             </table>
         </div>

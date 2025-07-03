@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import entidad.Cuenta;
@@ -15,4 +16,9 @@ public interface ICuentaDao {
 	public boolean actualizarCuenta(Cuenta cuenta);
 	public boolean eliminarCuenta(String cbu);
 	public List<CuentaPrestamoddlDTO> CargarDDl(String dni);
+	public BigDecimal obtenerSaldo(String cbu);
+	public boolean actualizarSaldo(String cbu, BigDecimal nuevoSaldo);
+	public String obtenerNombreTitular(String cbu);
+	public String obtenerDniTitular(String cbu);
+
 }
