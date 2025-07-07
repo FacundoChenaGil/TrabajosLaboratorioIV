@@ -3,7 +3,7 @@
 <%
     // Protección básica: Si no hay rol o no es admin, redirigir al login
     String userRole = (String) session.getAttribute("userRole");
-    if (userRole == null || !userRole.equals("admin")) {
+    if (userRole == null || !userRole.equals("administrador")) {
         response.sendRedirect(request.getContextPath() + "/login.jsp?error=notAuthorized");
         return;
     }

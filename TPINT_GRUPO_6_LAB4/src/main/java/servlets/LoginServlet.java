@@ -68,8 +68,8 @@ public class LoginServlet extends HttpServlet {
         }
         
         // 4. Obtener el rol del usuario
-        String userRole = obtenerRolUsuario(usuario);
-        
+        String userRole = usuario.getTipoUsuario().getDescripcion().toLowerCase();
+
         // 5. Configurar la sesión
         HttpSession session = request.getSession();
         session.setAttribute("usuario", usuario);
@@ -89,24 +89,6 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("loginError", errorMessage);
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
-    }
-
-    private String obtenerRolUsuario(Usuario usuario) {
-        // 1. Si no hay tipo de usuario, devolver "cliente" como valor por defecto
-        if (usuario.getTipoUsuario() == null) {
-            return "cliente";
-        }
-        
-        // 2. Obtener la descripción del tipo de usuario
-        String descripcion = usuario.getTipoUsuario().getDescripcion();
-        
-        // 3. Validar y limpiar la descripción
-        if (descripcion == null || descripcion.trim().isEmpty()) {
-            return "cliente";
-        }
-        
-        // 4. Convertir a minúsculas y devolver
-        return descripcion.trim().toLowerCase();
     }
 
     /**
