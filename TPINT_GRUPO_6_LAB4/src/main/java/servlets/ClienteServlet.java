@@ -122,6 +122,8 @@ public class ClienteServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String estadoStr = request.getParameter("estado");
 			
+			String emailOriginal = request.getParameter("emailOriginal");
+			
 			// Convertir y validar datos
 			LocalDate fechaNacimiento = LocalDate.parse(fechaNacimientoStr);
 			boolean activa = "1".equals(estadoStr);
@@ -142,24 +144,39 @@ public class ClienteServlet extends HttpServlet {
 			cliente.setCorreoElectronico(email);
 			cliente.setActivo(activa);
 			
+			if(!email.equals(emailOriginal)) {
+				if(clienteNegocio.existeCorreoElectronico(email)) {
+					request.setAttribute("mensajeError", "El email ingresado no existe.");
+					request.setAttribute("cliente", cliente);
+					request.setAttribute("listaClientes", clienteNegocio.obtenerClientes());
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCliente.jsp");
+					dispatcher.forward(request, response);
+					return;
+				}
+			}
 			
+			int actualizado = clienteNegocio.modificarCliente(cliente);
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			if (actualizado == 1) {
+				request.setAttribute("mensajeExito", "El cliente fue modificado correctamente.");
+				response.sendRedirect("ClienteServlet?Param=mostrarClientes");
+			} else {
+				request.setAttribute("mensajeError", "No se pudo actualizar el cliente.");
+				request.setAttribute("cliente", cliente);
+				request.setAttribute("listaClientes", clienteNegocio.obtenerClientes());
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCliente.jsp");
+				dispatcher.forward(request, response);
+			}
+		}
+		else if ("eliminar".equals(accion)) {
+		    String dni = request.getParameter("dni");
+		    boolean eliminado = clienteNegocio.eliminarCliente(dni);
+
+		    response.sendRedirect(request.getContextPath() + "/ClienteServlet?Param=mostrarClientes");
 		}
 		else {
 			request.setAttribute("error", "Acción no válida.");
-			request.getRequestDispatcher("admin/altaCliente.jsp").forward(request, response);
+			request.getRequestDispatcher("admin/gestionDeClientes.jsp").forward(request, response);
 		}
 	}
 	
@@ -168,9 +185,9 @@ public class ClienteServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("➡️ Entró a doGet");
 	    String param = request.getParameter("Param");
-
+	    String dni = request.getParameter("dni");
+	    
 	    if("mostrarClientes".equals(param)) {
 	        List<Cliente> listaClientes = clienteNegocio.obtenerClientes();
 
@@ -178,9 +195,17 @@ public class ClienteServlet extends HttpServlet {
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/gestionDeClientes.jsp");
 	        dispatcher.forward(request, response);
 	    }
+	    else if(dni != null) {
+	    	Cliente cliente = clienteNegocio.obtenerClientePorDni(dni);
+	    	
+	    	request.setAttribute("cliente", cliente);
+	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCliente.jsp");
+	        dispatcher.forward(request, response);
+	    	
+	    }
 	    else {
 	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parámetro incorrecto o no recibido.");
 	    }
 	}
 	
-}
+} 

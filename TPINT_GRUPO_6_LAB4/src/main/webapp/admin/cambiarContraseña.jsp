@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "entidad.Usuario" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,18 +30,50 @@
 </head>
 <body class="bg-cover bg-center bg-no-repeat bg-fixed antialiased text-gray-900 h-screen flex items-center justify-center p-4"
     style="background-image: url('5594016.jpg');">
+    
+    <%
+    Usuario usuario = new Usuario();
+    usuario = (Usuario) request.getAttribute("usuario");
+    %>
+    
     <div class="max-w-xl w-full bg-white p-10 md:p-12 rounded-2xl shadow-2xl">
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 tracking-tight">
             Cambiar Contraseña
         </h1>
+        
+        <%
+		String mensajeError = (String) request.getAttribute("mensajeError");
+		String mensajeExito = (String) request.getAttribute("mensajeExito");
+		if (mensajeError != null) {
+		%>
+		<div
+			class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6"
+			role="alert">
+			<strong class="font-bold">Error: </strong> <span
+				class="block sm:inline"><%=mensajeError%></span>
+		</div>
+		<%
+		} else if (mensajeExito != null) {
+		%>
+		<div
+			class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6"
+			role="alert">
+			<strong class="font-bold">¡Éxito! </strong> <span
+				class="block sm:inline"><%=mensajeExito%></span>
+		</div>
+		<%
+		}
+		%>
+        
         <hr class="border-t border-gray-300 my-6">
 
-        <form action="" method="">
+        <form action="<%=request.getContextPath()%>/UsuarioServlet" method="post">
+        <input type="hidden" name="nombreUsuario" value="<%= usuario.getUsuario() %>">
             <div class="space-y-6">
                 <!-- Usuario -->
                 <div>
                     <label for="username" class="block mb-2 text-gray-700 font-medium">Nombre de Usuario:</label>
-                    <input type="text" id="username" name="username" value="alopez" disabled
+                    <input type="text" id="username" name="username" value="<%= usuario.getUsuario() %>" disabled
                         class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-gray-100 text-gray-600 text-base
                         cursor-not-allowed input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>

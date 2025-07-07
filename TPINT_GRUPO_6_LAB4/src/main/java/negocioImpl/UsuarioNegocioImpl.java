@@ -1,6 +1,7 @@
 package negocioImpl;
 
 import daoImpl.UsuarioDaoImpl;
+import util.PasswordHasher;
 import entidad.Usuario;
 import negocio.IUsuarioNegocio;
 
@@ -22,6 +23,23 @@ public class UsuarioNegocioImpl implements IUsuarioNegocio {
 		boolean exito = usuarioDao.insertarUsuario(usuario); 
 		
 		return exito;
+	}
+
+	@Override
+	public Usuario getUsuarioPorNombre(String usuario) {
+		Usuario us = usuarioDao.getUsuarioPorNombre(usuario);
+		
+		return us;
+	}
+
+	@Override
+	public boolean modificarClave(Usuario usuario) {
+		
+		String claveHasheada = PasswordHasher.hashPassword(usuario.getClave());
+		usuario.setClave(claveHasheada);
+		
+		boolean actualizada = usuarioDao.modificarClave(usuario);
+		return actualizada;
 	}
 
 }

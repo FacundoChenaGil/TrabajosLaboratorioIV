@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "entidad.Cliente" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,83 +33,125 @@
 </head>
 <body class="bg-cover bg-center bg-no-repeat bg-fixed p-8 antialiased text-gray-900"
   style="background-image: url('../imagenes/5594016.jpg')">
+  
+  <%
+  Cliente cliente = (Cliente) request.getAttribute("cliente");
+  boolean isActivo = cliente.isActivo();
+  String generoCliente = cliente.getSexo();
+  %>
+  
+  <script>
+   const nacionalidadCliente = "<%= cliente.getNacionalidad() %>";
+   const provinciaCliente = "<%= cliente.getProvincia() %>";
+   const localidadCliente = "<%= cliente.getLocalidad() %>";
+  </script>
+  
+  
   <div class="max-w-3xl md:max-w-5xl mx-auto bg-white p-10 md:p-12 rounded-2xl shadow-2xl">
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 tracking-tight">
       Modificar Cliente
     </h1>
+    
+    <%
+		String mensajeError = (String) request.getAttribute("mensajeError");
+		String mensajeExito = (String) request.getAttribute("mensajeExito");
+		if (mensajeError != null) {
+		%>
+		<div
+			class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6"
+			role="alert">
+			<strong class="font-bold">Error: </strong> <span
+				class="block sm:inline"><%=mensajeError%></span>
+		</div>
+		<%
+		} else if (mensajeExito != null) {
+		%>
+		<div
+			class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6"
+			role="alert">
+			<strong class="font-bold">¡Éxito! </strong> <span
+				class="block sm:inline"><%=mensajeExito%></span>
+		</div>
+		<%
+		}
+		%>
+    
+    
     <hr class="border-t border-gray-300 my-8" />
     <form action="ClienteServlet" method="post">
+    <input type="hidden" name="accion" value="modificar">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 mb-6">
         <!-- DNI -->
         <div>
           <label for="dni" class="block mb-2 text-gray-700 font-medium">DNI:</label>
-          <input type="text" id="dni" name="dni" required value="12345678"
+          <input type="text" id="dni" name="dni" required value="<%=cliente.getDni() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
         <!-- CUIL -->
         <div>
           <label for="cuil" class="block mb-2 text-gray-700 font-medium">CUIL:</label>
-          <input type="text" id="cuil" name="cuil" required value="27-12345678-9"
+          <input type="text" id="cuil" name="cuil" required value="<%=cliente.getCuil() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
         <!-- Nombre -->
         <div>
           <label for="nombre" class="block mb-2 text-gray-700 font-medium">Nombre:</label>
-          <input type="text" id="nombre" name="nombre" required value="Ana"
+          <input type="text" id="nombre" name="nombre" required value="<%=cliente.getNombre() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
         <!-- Apellido -->
         <div>
           <label for="apellido" class="block mb-2 text-gray-700 font-medium">Apellido:</label>
-          <input type="text" id="apellido" name="apellido" required value="López"
+          <input type="text" id="apellido" name="apellido" required value="<%=cliente.getApellido() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
-        <!-- Género -->
-        <div>
-          <label class="block mb-2 text-gray-700 font-medium">Género:</label>
-          <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2 justify-center">
-            <label class="inline-flex items-center">
-              <input type="radio" name="genero" value="Masculino" class="form-radio w-5 h-5" />
-              <span class="ml-2 text-gray-700">Masculino</span>
-            </label>
-            <label class="inline-flex items-center">
-              <input type="radio" name="genero" value="Femenino" checked class="form-radio w-5 h-5" />
-              <span class="ml-2 text-gray-700">Femenino</span>
-            </label>
-            <label class="inline-flex items-center">
-              <input type="radio" name="genero" value="Otro" class="form-radio w-5 h-5" />
-              <span class="ml-2 text-gray-700">Otro</span>
-            </label>
-          </div>
-        </div>
+		<!-- Género -->
+		<div>
+			<label class="block mb-2 text-gray-700 font-medium">Género:</label>
+			<div class="mt-2 flex flex-wrap gap-x-6 gap-y-2 justify-center">
+				<label class="inline-flex items-center"> <input
+					type="radio" name="genero" value="M"
+					class="form-radio w-5 h-5"
+					<%="M".equals(generoCliente) ? "checked" : ""%> /> <span
+					class="ml-2 text-gray-700">Masculino</span>
+				</label> <label class="inline-flex items-center"> <input
+					type="radio" name="genero" value="F"
+					class="form-radio w-5 h-5"
+					<%="F".equals(generoCliente) ? "checked" : ""%> /> <span
+					class="ml-2 text-gray-700">Femenino</span>
+				</label> <label class="inline-flex items-center"> <input
+					type="radio" name="genero" value="O"
+					class="form-radio w-5 h-5"
+					<%="O".equals(generoCliente) ? "checked" : ""%> /> <span
+					class="ml-2 text-gray-700">Otro</span>
+				</label>
+			</div>
+		</div>
 
-        <!-- Teléfono -->
+				<!-- Teléfono -->
         <div>
           <label for="telefono" class="block mb-2 text-gray-700 font-medium">Teléfono:</label>
-          <input type="tel" id="telefono" name="telefono" value="1123456789"
+          <input type="tel" id="telefono" name="telefono" value="<%=cliente.getTelefono() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
         <!-- Fecha de nacimiento -->
         <div>
           <label for="fecha" class="block mb-2 text-gray-700 font-medium">Fecha de Nacimiento:</label>
-          <input type="date" id="fecha" name="fecha" value="1990-01-01"
+          <input type="date" id="fecha" name="fecha" value="<%=cliente.getFechaNacimiento() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" required />
         </div>
 
         <!-- Nacionalidad -->
         <div>
           <label for="nacionalidad" class="block mb-2 text-gray-700 font-medium">Nacionalidad:</label>
-          <select name="nacionalidad"
+          <select name="nacionalidad" id="nacionalidad"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
             <option value="">Seleccione una nacionalidad</option>
-            <option value="Argentina" selected>Argentina</option>
-            <option value="Brasil">Brasil</option>
-            <option value="Chile">Chile</option>
           </select>
         </div>
 
@@ -117,8 +161,6 @@
           <select name="provincia" id="provincia"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
             <option value="">Seleccione una provincia</option>
-            <option value="Buenos Aires" selected>Buenos Aires</option>
-            <option value="CABA">CABA</option>
           </select>
         </div>
 
@@ -128,23 +170,22 @@
           <select name="localidad" id="localidad"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
             <option value="">Seleccione una localidad</option>
-            <option value="San Isidro">San Isidro</option>
-            <option value="Tigre" selected>Tigre</option>
           </select>
         </div>
 
         <!-- Dirección -->
         <div>
           <label for="direccion" class="block mb-2 text-gray-700 font-medium">Dirección:</label>
-          <input type="text" id="direccion" name="direccion" required value="Corrientes 123"
+          <input type="text" id="direccion" name="direccion" required value="<%= cliente.getDireccion() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
         <!-- Email -->
         <div>
           <label for="email" class="block mb-2 text-gray-700 font-medium">Email:</label>
-          <input type="email" id="email" name="email" required value="ana.lopez@gmail.com"
+          <input type="email" id="email" name="email" required value=<%= cliente.getCorreoElectronico() %>
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
+          <input type="hidden" name="emailOriginal" value="<%= cliente.getCorreoElectronico() %>">
         </div>
 
         <!-- Estado -->
@@ -152,8 +193,8 @@
           <label for="estado" class="block mb-2 text-gray-700 font-medium">Estado:</label>
           <select id="estado" name="estado"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
-            <option value="1" selected>Activo</option>
-            <option value="0">Inactivo</option>
+            <option value="0" <%=!isActivo ? "selected" : ""%>>Inactiva</option>
+			<option value="1" <%=isActivo ? "selected" : ""%>>Activa</option>
           </select>
         </div>
       </div>
@@ -167,5 +208,86 @@
       </div>
     </form>
   </div>
+	  <script>
+	  document.addEventListener("DOMContentLoaded", () => {
+	    const selectNacionalidad = document.getElementById("nacionalidad");
+	    const selectProvincia = document.getElementById("provincia");
+	    const selectLocalidad = document.getElementById("localidad");
+	
+	    // --- NACIONALIDADES ---
+	    fetch("https://restcountries.com/v3.1/all?fields=name")
+	      .then(res => res.json())
+	      .then(data => {
+	        const nombres = data.map(pais => pais.name.common).sort();
+	        selectNacionalidad.innerHTML = "<option value=''>Seleccione una nacionalidad</option>";
+	        nombres.forEach(nombre => {
+	          const option = document.createElement("option");
+	          option.value = nombre;
+	          option.textContent = nombre;
+	          if (nombre === nacionalidadCliente) option.selected = true;
+	          selectNacionalidad.appendChild(option);
+	        });
+	      })
+	      .catch(error => {
+	        console.error("Error al cargar nacionalidades:", error);
+	        selectNacionalidad.innerHTML = "<option>Error al cargar</option>";
+	      });
+	
+	    // --- PROVINCIAS ---
+	    fetch("https://apis.datos.gob.ar/georef/api/provincias")
+	      .then(res => res.json())
+	      .then(data => {
+	        const provincias = data.provincias.map(p => p.nombre).sort();
+	        selectProvincia.innerHTML = "<option value=''>Seleccionar provincia...</option>";
+	        provincias.forEach(nombre => {
+	          const option = document.createElement("option");
+	          option.value = nombre;
+	          option.textContent = nombre;
+	          if (nombre === provinciaCliente) option.selected = true;
+	          selectProvincia.appendChild(option);
+	        });
+	
+	        // Cargar localidades después de seleccionar la provincia correcta
+	        if (provinciaCliente) {
+	          selectProvincia.dispatchEvent(new Event("change"));
+	        }
+	      });
+	
+	    // --- LOCALIDADES por provincia ---
+	    selectProvincia.addEventListener("change", () => {
+	      const provinciaSeleccionada = selectProvincia.value;
+	
+	      if (!provinciaSeleccionada) {
+	        selectLocalidad.innerHTML = "<option value=''>Seleccioná una provincia primero</option>";
+	        selectLocalidad.disabled = true;
+	        return;
+	      }
+	
+	      const url = "https://apis.datos.gob.ar/georef/api/localidades?provincia=" +
+	        encodeURIComponent(provinciaSeleccionada) + "&max=1000";
+	
+	      fetch(url)
+	        .then(res => res.json())
+	        .then(data => {
+	          const localidades = data.localidades.map(l => l.nombre).sort();
+	          selectLocalidad.innerHTML = "<option value=''>Seleccionar localidad...</option>";
+	          localidades.forEach(nombre => {
+	            const option = document.createElement("option");
+	            option.value = nombre;
+	            option.textContent = nombre;
+	            if (nombre === localidadCliente) option.selected = true;
+	            selectLocalidad.appendChild(option);
+	          });
+	          selectLocalidad.disabled = false;
+	        })
+	        .catch(err => {
+	          console.error("Error al cargar localidades:", err);
+	          selectLocalidad.innerHTML = "<option>Error al cargar localidades</option>";
+	        });
+	    });
+	  });
+	</script>
+  
+  
 </body>
 </html>

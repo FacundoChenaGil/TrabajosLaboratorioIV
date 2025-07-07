@@ -214,7 +214,7 @@ table {
 						<td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
 							<form action="${pageContext.request.contextPath}/CuentaServlet"
 								method="get" class="inline-block">
-								<input type="hidden" name="action" value="editar"> <input
+								<input
 									type="hidden" name="cbu" value="<%=c.getCBU()%>">
 								<button type="submit" class="action-icon-button">
 									<i class="fa-regular fa-pen-to-square fa-xl"
