@@ -122,6 +122,8 @@ public class ClienteServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String estadoStr = request.getParameter("estado");
 			
+			String emailOriginal = request.getParameter("emailOriginal");
+			
 			// Convertir y validar datos
 			LocalDate fechaNacimiento = LocalDate.parse(fechaNacimientoStr);
 			boolean activa = "1".equals(estadoStr);
@@ -142,14 +144,22 @@ public class ClienteServlet extends HttpServlet {
 			cliente.setCorreoElectronico(email);
 			cliente.setActivo(activa);
 			
+			if(!email.equals(emailOriginal)) {
+				if(clienteNegocio.existeCorreoElectronico(email)) {
+					request.setAttribute("mensajeError", "El email ingresado no existe.");
+					request.setAttribute("cliente", cliente);
+					request.setAttribute("listaClientes", clienteNegocio.obtenerClientes());
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCliente.jsp");
+					dispatcher.forward(request, response);
+					return;
+				}
+			}
+			
 			int actualizado = clienteNegocio.modificarCliente(cliente);
 			
 			if (actualizado == 1) {
 				request.setAttribute("mensajeExito", "El cliente fue modificado correctamente.");
-				request.setAttribute("cliente", cliente);
-				request.setAttribute("listaClientes", clienteNegocio.obtenerClientes());
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCliente.jsp");
-				dispatcher.forward(request, response);
+				response.sendRedirect("ClienteServlet?Param=mostrarClientes");
 			} else {
 				request.setAttribute("mensajeError", "No se pudo actualizar el cliente.");
 				request.setAttribute("cliente", cliente);

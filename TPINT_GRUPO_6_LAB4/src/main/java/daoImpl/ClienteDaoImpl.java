@@ -17,7 +17,9 @@ public class ClienteDaoImpl implements IClienteDao {
 	
 	private UsuarioDaoImpl us;
 	
-	
+	public ClienteDaoImpl() {
+	    this.us = new UsuarioDaoImpl();
+	}
 	
 	private Cliente cargarClienteDesdeResultSet(ResultSet rs) throws SQLException {
         Cliente cliente = new Cliente();

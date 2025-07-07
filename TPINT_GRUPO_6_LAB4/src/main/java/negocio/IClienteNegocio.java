@@ -12,5 +12,6 @@ public interface IClienteNegocio {
 	public List<Cliente> obtenerClientes();
 	public int modificarCliente(Cliente cliente);
 	public Cliente obtenerClientePorUsuario(String usuario);
+	public boolean existeCorreoElectronico(String correo);
 	
 }

@@ -94,4 +94,9 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 	public Cliente obtenerClientePorUsuario(String usuario) {
 	    return clienteDao.obtenerClientePorUsuario(usuario);
 	}
+
+	@Override
+	public boolean existeCorreoElectronico(String correo) {
+		return clienteDao.existeCorreoElectronico(correo);
+	}
 }
