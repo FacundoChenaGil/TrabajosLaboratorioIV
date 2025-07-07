@@ -132,7 +132,6 @@ public class UsuarioDaoImpl implements IUsuarioDao {
 	    } finally {
 	        try {
 	            if (ps != null) ps.close();
-	            if (conn != null) conn.close();
 	        } catch (Exception ex) {
 	            ex.printStackTrace();
 	        }

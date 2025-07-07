@@ -75,6 +75,7 @@ public class UsuarioServlet extends HttpServlet {
 	    	
 	    	if(!clave.equals(claveAValidar)) {
 	    		request.setAttribute("mensajeError", "Las claves no coinciden.");
+	    		request.setAttribute("usuario", usuario);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/cambiarContraseña.jsp");
 				dispatcher.forward(request, response);
 				return;
@@ -87,12 +88,12 @@ public class UsuarioServlet extends HttpServlet {
 	    	
 	    	if(actualizada) {
 	    		request.setAttribute("mensajeExito", "La clave se actualizó correctamente.");
-	    		request.setAttribute("listaClientes", clienteNegocio.obtenerClientes());
-	    		RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/gestionDeClientes.jsp");
+	    		request.setAttribute("usuario", usuario);
+	    		RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/cambiarContraseña.jsp");
 	    		dispatcher.forward(request, response);
 	    	} else {
 				request.setAttribute("mensajeError", "No se pudo actualizar la clave.");
-				request.setAttribute("listaClientes", clienteNegocio.obtenerClientes());
+				request.setAttribute("usuario", usuario);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/cambiarContraseña.jsp");
 				dispatcher.forward(request, response);
 			}

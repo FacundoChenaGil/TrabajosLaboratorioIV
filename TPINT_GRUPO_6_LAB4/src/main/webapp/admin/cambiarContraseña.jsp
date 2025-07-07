@@ -101,7 +101,7 @@
 
             <!-- Botones -->
             <div class="flex items-center justify-between pt-8 gap-4">
-                <a href="gestionDeClientes.jsp"
+                <a href="<%=request.getContextPath()%>/ClienteServlet?Param=mostrarClientes"
                     class="py-3 px-8 text-center bg-gray-100 border border-gray-400 rounded-lg text-base font-semibold w-full hover:bg-gray-300 transition duration-200 ease-in-out">
                     Volver
                 </a>
