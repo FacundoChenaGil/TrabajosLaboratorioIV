@@ -266,14 +266,15 @@ public class CuentaDaoImpl implements ICuentaDao {
 		int filasAfectadas = 0;
 
 		try {
-			String sql = "UPDATE cuentas SET Saldo = ?, ID_Tipo_Cuenta = ?, Activa = ? WHERE CBU = ?";
+			String sql = "UPDATE cuentas SET Numero_Cuenta = ?, DNI = ?, Saldo = ?, ID_Tipo_Cuenta = ?, Activa = ? WHERE CBU = ?";
 			
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, cuenta.getCliente().getDni());
-			ps.setBigDecimal(2, cuenta.getSaldo());
-			ps.setInt(3, cuenta.getTipoCuenta().getID());
-			ps.setBoolean(4, cuenta.isActiva());
-			ps.setString(5, cuenta.getCBU());
+			ps.setString(1, cuenta.getNumeroCuenta());
+			ps.setString(2, cuenta.getCliente().getDni());
+			ps.setBigDecimal(3, cuenta.getSaldo());
+			ps.setInt(4, cuenta.getTipoCuenta().getID());
+			ps.setBoolean(5, cuenta.isActiva());
+			ps.setString(6, cuenta.getCBU());
 			
 			filasAfectadas = ps.executeUpdate();
 			conn.commit();
@@ -288,8 +289,9 @@ public class CuentaDaoImpl implements ICuentaDao {
 		if(filasAfectadas == 1) {
 			return true;
 		}
-		
-		return false;
+		else {
+			return false;
+		}
 	}
 
 	@Override
