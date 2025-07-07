@@ -79,6 +79,7 @@
     
     <hr class="border-t border-gray-300 my-8" />
     <form action="ClienteServlet" method="post">
+    <input type="hidden" name="accion" value="modificar">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 mb-6">
         <!-- DNI -->
         <div>
@@ -113,17 +114,17 @@
 			<label class="block mb-2 text-gray-700 font-medium">Género:</label>
 			<div class="mt-2 flex flex-wrap gap-x-6 gap-y-2 justify-center">
 				<label class="inline-flex items-center"> <input
-					type="radio" name="genero" value="Masculino"
+					type="radio" name="genero" value="M"
 					class="form-radio w-5 h-5"
 					<%="M".equals(generoCliente) ? "checked" : ""%> /> <span
 					class="ml-2 text-gray-700">Masculino</span>
 				</label> <label class="inline-flex items-center"> <input
-					type="radio" name="genero" value="Femenino"
+					type="radio" name="genero" value="F"
 					class="form-radio w-5 h-5"
 					<%="F".equals(generoCliente) ? "checked" : ""%> /> <span
 					class="ml-2 text-gray-700">Femenino</span>
 				</label> <label class="inline-flex items-center"> <input
-					type="radio" name="genero" value="Otro"
+					type="radio" name="genero" value="O"
 					class="form-radio w-5 h-5"
 					<%="O".equals(generoCliente) ? "checked" : ""%> /> <span
 					class="ml-2 text-gray-700">Otro</span>
