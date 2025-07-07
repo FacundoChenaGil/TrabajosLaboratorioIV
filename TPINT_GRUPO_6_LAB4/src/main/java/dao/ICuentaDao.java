@@ -21,5 +21,10 @@ public interface ICuentaDao {
 	public String obtenerNombreTitular(String cbu);
 	public String obtenerDniTitular(String cbu);
 	public String obtenerCBUPorDNI(String dni);
+	public List<Cuenta> obtenerCuentasPorDni(String dni);
+	public Cuenta obtenerPorNumero(String numeroCuenta);
+	boolean actualizarSaldoPorNumeroCuenta(String numeroCuenta, BigDecimal nuevoSaldo);
+	
+
 
 }

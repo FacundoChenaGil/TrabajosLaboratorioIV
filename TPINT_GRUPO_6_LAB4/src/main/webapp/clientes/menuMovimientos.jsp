@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Panel de Movimientos Cliente</title>
 <style>
 .clip-diagonal {
 	clip-path: polygon(70% 0%, 100% 0%, 100% 100%, 20% 100%);
@@ -64,7 +64,7 @@
 			</a>
 
 			<!-- Tarjeta 3 -->
-			<a href="#"
+			<a href="<%=request.getContextPath()%>/CargarPagoPrestamosServlet"
 				class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
 				<div
 					class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">

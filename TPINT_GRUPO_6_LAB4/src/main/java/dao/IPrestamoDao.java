@@ -13,5 +13,6 @@ public interface IPrestamoDao {
 	//OTROS MÉTODOS
 	public Prestamo obtenerPrestamoPorId(int IdPrestamo);
 	public List<Prestamo> obtenerPrestamosPorDni(String dni);
+	
 
 }

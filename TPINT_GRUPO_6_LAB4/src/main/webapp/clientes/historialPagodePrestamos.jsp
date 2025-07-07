@@ -27,7 +27,7 @@
 					<option value="${prestamo.idPrestamo}"
 						<c:if test="${prestamo.idPrestamo == idPrestamoSeleccionado}">selected</c:if>>
 
-						#${prestamo.idPrestamo} - Monto: $${prestamo.monto_pedido}</option>
+						#${prestamo.idPrestamo} - Monto: $${prestamo.montoPedido}</option>
 				</c:forEach>
 			</select>
 

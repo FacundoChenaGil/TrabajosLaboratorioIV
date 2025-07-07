@@ -29,22 +29,22 @@ public class SeleccionarPrestamoServlet extends HttpServlet {
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        System.out.println("Entré al servlet");
+        System.out.println("Entré al servlet"); // Borrar
        
         
         // Simulamos sesión
-        String dni = "35111222";
-        session.setAttribute("dniCliente", dni);
+        String dni = "35111222";   //Borrar
+        session.setAttribute("dniCliente", dni);//Borrar
 
-        System.out.println("DNI: " + dni); 
+        System.out.println("DNI: " + dni); //Borrar
 
         IPrestamoNegocio prestamoNegocio = new PrestamoNegocioImpl();
         List<Prestamo> prestamos = prestamoNegocio.obtenerPrestamosPorDni(dni);
 
-        System.out.println("Préstamos encontrados: " + prestamos.size()); 
+        System.out.println("Préstamos encontrados: " + prestamos.size()); // Borrar Prueba
 
-        for (Prestamo p : prestamos) {
-            System.out.println("ID: " + p.getIdPrestamo() + " - Monto: " + p.getMonto_pedido());
+        for (Prestamo p : prestamos) {     // Borrar prueba
+            System.out.println("ID: " + p.getIdPrestamo() + " - Monto: " + p.getMontoPedido());//Borrar prueba
         }
 
         request.setAttribute("prestamos", prestamos);

@@ -12,13 +12,14 @@ import entidad.Cuenta;
 import entidad.CuentaPrestamoddlDTO;
 import entidad.TiposDeCuentas;
 import negocio.ICuentaNegocio;
+import dao.ICuentaDao;
 
 public class CuentaNegocioImpl implements ICuentaNegocio {
 	
 	private CuentaDaoImpl cDao = new CuentaDaoImpl();
 	private ClienteDaoImpl clDao = new ClienteDaoImpl();
 	private TipoDeCuentaDaoImpl tcDao = new TipoDeCuentaDaoImpl();
-	
+	private ICuentaDao cuentaDao = new CuentaDaoImpl();
 
 
 	@Override
@@ -118,4 +119,21 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
         return cDao.obtenerCBUPorDNI(dni);
     }
 
+    public List<Cuenta> obtenerCuentasPorDni(String dni) {
+        return cuentaDao.obtenerCuentasPorDni(dni);
+    }
+    
+    public Cuenta obtenerPorNumero(String numeroCuenta) {
+        ICuentaDao cuentaDao = new CuentaDaoImpl();
+        return cuentaDao.obtenerPorNumero(numeroCuenta);
+    }
+    
+    public boolean actualizarSaldoPorNumeroCuenta(String numeroCuenta, BigDecimal nuevoSaldo) {
+        ICuentaDao cuentaDao = new CuentaDaoImpl();
+        return cuentaDao.actualizarSaldoPorNumeroCuenta(numeroCuenta, nuevoSaldo);
+    }
+    
+    
+    
 }
+

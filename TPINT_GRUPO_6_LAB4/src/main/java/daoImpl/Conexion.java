@@ -57,18 +57,17 @@ public class Conexion {
 	}*/
 	
 	public static Connection getNuevaConexion() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/bancoutn?useSSL=false", "root", "root"
-			);
-			connection.setAutoCommit(false);
-			return connection;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-
+        try {
+        	Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/bancoutn?useSSL=false", "root", "root"
+            );
+            connection.setAutoCommit(false); 
+            return connection;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
+
