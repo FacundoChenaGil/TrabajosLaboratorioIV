@@ -463,6 +463,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 	    PreparedStatement stmt = null;
 	    ResultSet rs = null;
 
+
 	    try {
 	        conn = Conexion.getNuevaConexion();
 	        String query = "SELECT CBU FROM cuentas WHERE DNI = ?";
@@ -493,6 +494,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 	    }
 	    return cbu;
 	}
+
 
 	public List<Cuenta> obtenerCuentasPorDni(String dni) {
 	    List<Cuenta> cuentas = new ArrayList<>();
