@@ -99,4 +99,9 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 	public boolean existeCorreoElectronico(String correo) {
 		return clienteDao.existeCorreoElectronico(correo);
 	}
+
+	@Override
+	public boolean eliminarCliente(String dni) {
+		return clienteDao.eliminarCliente(dni);
+	}
 }

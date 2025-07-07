@@ -13,5 +13,6 @@ public interface IClienteNegocio {
 	public int modificarCliente(Cliente cliente);
 	public Cliente obtenerClientePorUsuario(String usuario);
 	public boolean existeCorreoElectronico(String correo);
+	public boolean eliminarCliente(String dni);
 	
 }

@@ -49,6 +49,55 @@
     th, td {
         white-space: nowrap;
     }
+    
+    #modalConfirmacion {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #modalConfirmacion > div {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        max-width: 400px;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #modalConfirmacion button {
+        cursor: pointer;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: background-color 0.2s ease;
+    }
+
+    #modalConfirmacion button:hover {
+        opacity: 0.9;
+    }
+
+    #modalConfirmacion button:first-of-type {
+        background-color: #ef4444;
+        color: white;
+    }
+
+    #modalConfirmacion button:last-of-type {
+        background-color: #e5e7eb;
+        color: #374151;
+    }
 </style>
 </head>
 <body class="bg-gray-200 min-h-screen">
@@ -103,13 +152,13 @@
                                style="font-family: FontAwesome; color: #ff0000; font-size: 1.25rem;">
                     </form>
 
-                    <button type="button" onclick="abrirModal('<%=cliente.getDni()%>')" class="icon-input" title="Eliminar"
+                    <button type="button" onclick="confirmarEliminar('<%=cliente.getDni()%>')" class="icon-input" title="Eliminar"
                             style="font-family: FontAwesome; color: #ff0000; font-size: 1.25rem;">
                         &#xf2ed;
                     </button>
 
-                    <form action="<%=request.getContextPath()%>/ClienteServlet" method="get">
-                        <input type="hidden" name="nombreUsuario" value="<%=cliente.getUsuario().getUsuario()%>">
+                    <form action="cambiarContraseña.jsp" method="get">
+                        <input type="hidden" name="dni" value="<%=cliente.getDni()%>">
                         <input type="submit" class="icon-input" title="Cambiar Clave" value='&#xf084;'
                                style="font-family: FontAwesome; color: #ff0000; font-size: 1.25rem;">
                     </form>
@@ -142,20 +191,26 @@
     </div>
 </main>
 
-<!-- Modal Eliminar -->
-<div id="modalEliminar" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-white rounded-lg p-6 shadow-lg max-w-sm w-full">
-        <h2 class="text-lg font-semibold mb-4 text-gray-800">¿Está seguro de eliminar este cliente?</h2>
-        <form id="formEliminar" action="" method="post">
-            <input type="hidden" name="dni" id="dniEliminar" value="">
-            <div class="flex justify-center gap-4">
-                <button type="button" onclick="cerrarModal()"
-                        class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">No</button>
-                <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Sí</button>
-            </div>
-        </form>
-    </div>
-</div>
+<div id="modalConfirmacion">
+		<div>
+			<p class="text-lg font-semibold text-gray-800">¿Está seguro que
+				desea eliminar este cliente?</p>
+			<div class="flex justify-center space-x-4 mt-5">
+				<input type="button" value="Sí"
+					onclick="eliminarClienteConfirmado();"
+					class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+				<input type="button" value="No" onclick="cancelarEliminar();"
+					class="bg-gray-200 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2">
+			</div>
+		</div>
+	</div>
+	
+	<form id="formEliminar"
+		action="/TPINT_GRUPO_6_LAB4/ClienteServlet"
+		method="post" style="display: none;">
+		<input type="hidden" name="accion" value="eliminar"> <input
+			type="hidden" name="dni" id="dniEliminar">
+	</form>
 
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -164,19 +219,23 @@
 
 <script>
     let dniAEliminar = '';
-    const modal = document.getElementById('modalEliminar');
+	const modal = document.getElementById('modalConfirmacion');
 
-    function abrirModal(dni) {
-        dniAEliminar = dni;
-        document.getElementById('dniEliminar').value = dni;
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
+	function confirmarEliminar(dni) {
+		dniAEliminar = dni;
+		modal.style.display = 'flex';
+	}
 
-    function cerrarModal() {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    }
+	function eliminarClienteConfirmado() {
+	    document.getElementById('dniEliminar').value = dniAEliminar;
+	    document.getElementById('formEliminar').submit();
+	    modal.style.display = 'none';
+	}
+	
+	function cancelarEliminar() {
+		dniAEliminar = '';
+		modal.style.display = 'none';
+	}
 
     $(document).ready(function () {
         $('#clientesDataTable').DataTable({
@@ -185,6 +244,7 @@
                 url: 'https://cdn.datatables.net/plug-ins/2.0.0/i18n/es-ES.json'
             }
         });
+        modal.style.display = 'none';
     });
 </script>
 

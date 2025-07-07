@@ -168,6 +168,12 @@ public class ClienteServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		}
+		else if ("eliminar".equals(accion)) {
+		    String dni = request.getParameter("dni");
+		    boolean eliminado = clienteNegocio.eliminarCliente(dni);
+
+		    response.sendRedirect(request.getContextPath() + "/ClienteServlet?Param=mostrarClientes");
+		}
 		else {
 			request.setAttribute("error", "Acción no válida.");
 			request.getRequestDispatcher("admin/gestionDeClientes.jsp").forward(request, response);
