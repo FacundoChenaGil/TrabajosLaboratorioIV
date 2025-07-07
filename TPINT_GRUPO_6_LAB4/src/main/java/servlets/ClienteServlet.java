@@ -48,13 +48,10 @@ public class ClienteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("📩 [Servlet] Entró al ClienteServlet por POST");
 		String accion = request.getParameter("accion");
-		System.out.println("🧭 Acción recibida: " + accion);
 
 		if ("alta".equals(accion)) {
 			try {
-				System.out.println("➡️ [Alta Cliente] Comenzando carga de datos...");
 
 				// Crear Cliente
 				Cliente cliente = new Cliente();
@@ -71,7 +68,6 @@ public class ClienteServlet extends HttpServlet {
 				cliente.setCorreoElectronico(request.getParameter("email"));
 				cliente.setTelefono(request.getParameter("telefono"));
 
-				System.out.println("📦 [Alta Cliente] Datos del cliente listos.");
 
 				// Crear Usuario
 				Usuario usuario = new Usuario();
@@ -91,32 +87,77 @@ public class ClienteServlet extends HttpServlet {
 				//boolean exitoUsuario = usuarioNegocio.altaUsuario(usuario);
 				cliente.setUsuario(usuario);
 
-				System.out.println("🔐 [Alta Cliente] Datos del usuario listos.");
-				System.out.println("🔍 Contraseña ingresada: " + request.getParameter("password"));
-
 				// Negocio
 				
-				System.out.println("📡 [Alta Cliente] Llamando a clienteNegocio.registrarCliente...");
 
 				boolean exito = clienteNegocio.registrarCliente(cliente);
 
 				if (exito) {
-					System.out.println("✅ [Alta Cliente] Cliente registrado correctamente.");
 					response.sendRedirect("admin/gestionDeClientes.jsp");
 				} else {
-					System.out.println("⚠️ [Alta Cliente] Falló el alta del cliente (cliente ya existe o error interno).");
 					request.setAttribute("error", "El DNI, correo o usuario ya existen.");
 					request.getRequestDispatcher("admin/altaCliente.jsp").forward(request, response);
 				}
 			} catch (Exception e) {
-				System.out.println("❌ [Alta Cliente] Excepción al intentar registrar cliente: " + e.getMessage());
 				e.printStackTrace();
 
 				request.setAttribute("error", "Ocurrió un error inesperado al procesar el alta.");
 				request.getRequestDispatcher("admin/altaCliente.jsp").forward(request, response);
 			}
-		} else {
-			System.out.println("🚫 [ClienteServlet] Acción no reconocida: " + accion);
+		} 
+		else if("modificar".equals(accion)) {
+			
+			// Obtener parámetros del formulario
+			String dni = request.getParameter("dni");
+			String cuil = request.getParameter("cuil");
+			String nombre = request.getParameter("nombre");
+			String apellido = request.getParameter("apellido");
+			String genero = request.getParameter("genero");
+			String telefono = request.getParameter("telefono");
+			String fechaNacimientoStr = request.getParameter("fecha");
+			String nacionalidad = request.getParameter("nacionalidad");
+			String provincia = request.getParameter("provincia");
+			String localidad = request.getParameter("localidad");
+			String direccion = request.getParameter("direccion");
+			String email = request.getParameter("email");
+			String estadoStr = request.getParameter("estado");
+			
+			// Convertir y validar datos
+			LocalDate fechaNacimiento = LocalDate.parse(fechaNacimientoStr);
+			boolean activa = "1".equals(estadoStr);
+			
+			// Crear objeto Cliente
+			Cliente cliente = new Cliente();
+			cliente.setDni(dni);
+			cliente.setCuil(cuil);
+			cliente.setNombre(nombre);
+			cliente.setApellido(apellido);
+			cliente.setSexo(genero);
+			cliente.setTelefono(telefono);
+			cliente.setFechaNacimiento(fechaNacimiento);
+			cliente.setNacionalidad(nacionalidad);
+			cliente.setProvincia(provincia);
+			cliente.setLocalidad(localidad);
+			cliente.setDireccion(direccion);
+			cliente.setCorreoElectronico(email);
+			cliente.setActivo(activa);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		else {
 			request.setAttribute("error", "Acción no válida.");
 			request.getRequestDispatcher("admin/altaCliente.jsp").forward(request, response);
 		}

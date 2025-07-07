@@ -6,7 +6,7 @@ import java.util.List; // Para métodos que devuelvan listas de clientes
 public interface IClienteDao {
 	// Métodos para el ABML de clientes que el administrador usará
     public boolean agregarCliente(Cliente cliente);
-    public boolean modificarCliente(Cliente cliente);
+    public int modificarCliente(Cliente cliente);
     public boolean eliminarCliente(String dni); // Baja lógica
 
     // Métodos de búsqueda y listado

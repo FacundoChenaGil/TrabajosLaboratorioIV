@@ -10,5 +10,6 @@ public interface IClienteNegocio {
 	public boolean registrarCliente(Cliente cliente); 
 	public String obtenerDNIPorUsuario(String usuario);
 	public List<Cliente> obtenerClientes();
+	public int modificarCliente(Cliente cliente);
 	
 }

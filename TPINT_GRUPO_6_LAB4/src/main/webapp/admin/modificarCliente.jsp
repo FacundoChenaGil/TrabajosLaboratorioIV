@@ -36,7 +36,7 @@
       Modificar Cliente
     </h1>
     <hr class="border-t border-gray-300 my-8" />
-    <form action="" method="">
+    <form action="ClienteServlet" method="post">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6 mb-6">
         <!-- DNI -->
         <div>
@@ -152,8 +152,8 @@
           <label for="estado" class="block mb-2 text-gray-700 font-medium">Estado:</label>
           <select id="estado" name="estado"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
-            <option value="Activo" selected>Activo</option>
-            <option value="Inactivo">Inactivo</option>
+            <option value="1" selected>Activo</option>
+            <option value="0">Inactivo</option>
           </select>
         </div>
       </div>

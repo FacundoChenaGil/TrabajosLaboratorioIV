@@ -81,4 +81,12 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 		
 		return listaClientes;
 	}
+
+	@Override
+	public int modificarCliente(Cliente cliente) {
+		
+		int actualizado = clienteDao.modificarCliente(cliente);
+			
+		return actualizado;
+	}
 }
