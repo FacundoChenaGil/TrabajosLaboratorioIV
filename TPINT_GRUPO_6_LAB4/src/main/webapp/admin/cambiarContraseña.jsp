@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "entidad.Usuario" %>>
+<%@ page import = "entidad.Usuario" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,9 +40,35 @@
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 tracking-tight">
             Cambiar Contraseña
         </h1>
+        
+        <%
+		String mensajeError = (String) request.getAttribute("mensajeError");
+		String mensajeExito = (String) request.getAttribute("mensajeExito");
+		if (mensajeError != null) {
+		%>
+		<div
+			class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6"
+			role="alert">
+			<strong class="font-bold">Error: </strong> <span
+				class="block sm:inline"><%=mensajeError%></span>
+		</div>
+		<%
+		} else if (mensajeExito != null) {
+		%>
+		<div
+			class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6"
+			role="alert">
+			<strong class="font-bold">¡Éxito! </strong> <span
+				class="block sm:inline"><%=mensajeExito%></span>
+		</div>
+		<%
+		}
+		%>
+        
         <hr class="border-t border-gray-300 my-6">
 
-        <form action="" method="">
+        <form action="<%=request.getContextPath()%>/UsuarioServlet" method="post">
+        <input type="hidden" name="nombreUsuario" value="<%= usuario.getUsuario() %>">
             <div class="space-y-6">
                 <!-- Usuario -->
                 <div>

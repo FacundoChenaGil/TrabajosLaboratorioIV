@@ -103,4 +103,42 @@ public class UsuarioDaoImpl implements IUsuarioDao {
 	    return exito;
 	}
 
+	@Override
+	public boolean modificarClave(Usuario usuario) {
+		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
+	    Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+	    PreparedStatement ps = null;
+	    boolean exito = false;
+
+	    try {
+	        String sql = "UPDATE usuarios SET Clave = ? WHERE Usuario = ?";
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, usuario.getClave());
+	        ps.setString(2, usuario.getUsuario());
+
+	        int filasAfectadas = ps.executeUpdate();
+
+	        if (filasAfectadas > 0) {
+	            conn.commit(); // Guarda los cambios
+	            exito = true;
+	        }
+	    } catch (Exception e) {
+	        try {
+	            if (conn != null) conn.rollback(); // Revierte cambios si hay error
+	        } catch (Exception rollbackEx) {
+	            rollbackEx.printStackTrace();
+	        }
+	        e.printStackTrace(); // Imprime el error para debug
+	    } finally {
+	        try {
+	            if (ps != null) ps.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+
+	    return exito;	
+	}
+
 }

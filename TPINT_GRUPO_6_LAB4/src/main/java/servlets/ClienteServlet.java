@@ -187,7 +187,6 @@ public class ClienteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String param = request.getParameter("Param");
 	    String dni = request.getParameter("dni");
-	    String nombreUsuario = request.getParameter("nombreUsuario");
 	    
 	    if("mostrarClientes".equals(param)) {
 	        List<Cliente> listaClientes = clienteNegocio.obtenerClientes();
@@ -203,14 +202,6 @@ public class ClienteServlet extends HttpServlet {
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCliente.jsp");
 	        dispatcher.forward(request, response);
 	    	
-	    }
-	    else if(nombreUsuario != null) {
-	    	Usuario usuario = new Usuario();
-	    	usuario = usuarioNegocio.getUsuarioPorNombre(nombreUsuario);
-	    	
-	    	request.setAttribute("usuario", usuario);
-	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/cambiarContraseña.jsp");
-	        dispatcher.forward(request, response);
 	    }
 	    else {
 	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parámetro incorrecto o no recibido.");
