@@ -155,41 +155,33 @@ public class ClienteDaoImpl implements IClienteDao {
 
     @Override
     public boolean eliminarCliente(String dni) { // Baja lógica
-    	Conexion conexionSingleton = Conexion.getConexion();
-		Connection conn = conexionSingleton.getSQLConexion(); 
-		PreparedStatement ps = null;
-		int filasAfectadas = 0;
-		
-		 try {
-		        String sql = "UPDATE clientes SET Activo = 0 WHERE DNI = ?";
+    	PreparedStatement statement = null;
+        Connection conexion = Conexion.getConexion().getSQLConexion();
+        boolean estado = false;
 
-		        ps = conn.prepareStatement(sql);
-		        ps.setString(1, dni);
+        try {
+            String query = "UPDATE Clientes SET Activo = 0 WHERE DNI = ?";
+            statement = conexion.prepareStatement(query);
+            statement.setString(1, dni);
 
-		        filasAfectadas = ps.executeUpdate();
+            int filasAfectadas = statement.executeUpdate();
+            if (filasAfectadas > 0) {
+                conexion.commit();
+                estado = true;
+            } else {
+                conexion.rollback();
+            }
 
-		        if (filasAfectadas == 1) {
-		            conn.commit();
-		            return true;
-		        } else {
-		            conn.rollback();
-		        }
+        } catch (Exception e) {
+            try {
+                conexion.rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        }
 
-		    } catch (SQLException e) {
-		        try {
-		            conn.rollback();
-		        } catch (SQLException ex) {
-		            ex.printStackTrace();
-		        }
-		    } finally {
-		        try {
-		            if (ps != null) ps.close();
-		        } catch (SQLException e) {
-		            e.printStackTrace();
-		        }
-		    }
-
-		    return false;
+        return estado;
     }
 
     @Override
