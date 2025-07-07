@@ -89,4 +89,9 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 			
 		return actualizado;
 	}
+	
+	@Override
+	public Cliente obtenerClientePorUsuario(String usuario) {
+	    return clienteDao.obtenerClientePorUsuario(usuario);
+	}
 }

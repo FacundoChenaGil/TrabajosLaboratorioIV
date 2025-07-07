@@ -425,7 +425,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 	public String obtenerDniTitular(String cbu) {
 	    String dni = null;
 	    try {
-	        Connection conn = Conexion.getConexion().getSQLConexion();
+	        Connection conn = Conexion.getNuevaConexion();
 	        PreparedStatement stmt = conn.prepareStatement("SELECT DNI FROM Cuentas WHERE CBU = ?");
 	        stmt.setString(1, cbu);
 	        ResultSet rs = stmt.executeQuery();
@@ -442,7 +442,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 	public String obtenerNombreTitular(String cbu) {
 	    String nombre = null;
 	    try {
-	        Connection conn = Conexion.getConexion().getSQLConexion();
+	        Connection conn = Conexion.getNuevaConexion();
 	        PreparedStatement stmt = conn.prepareStatement(
 	            "SELECT cl.Nombre FROM Cuentas cu JOIN Clientes cl ON cu.DNI = cl.DNI WHERE cu.CBU = ?");
 	        stmt.setString(1, cbu);
@@ -455,6 +455,43 @@ public class CuentaDaoImpl implements ICuentaDao {
 	        e.printStackTrace();
 	    }
 	    return nombre;
+	}
+	
+	public String obtenerCBUPorDNI(String dni) {
+	    String cbu = null;
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        conn = Conexion.getNuevaConexion();
+	        String query = "SELECT CBU FROM cuentas WHERE DNI = ?";
+	        stmt = conn.prepareStatement(query);
+	        stmt.setString(1, dni);
+	        rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            cbu = rs.getString("CBU");
+	        }
+
+	        conn.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        try {
+	            if (conn != null) conn.rollback();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return cbu;
 	}
 
 }

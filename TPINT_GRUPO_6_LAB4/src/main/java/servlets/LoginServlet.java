@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import daoImpl.UsuarioDaoImpl;
 import entidad.Usuario;
+import negocioImpl.ClienteNegocioImpl;
+import entidad.Cliente;
 import entidad.TipoUsuario;
 import util.PasswordHasher;
 
@@ -24,6 +26,7 @@ import javax.servlet.http.*;
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
+    private ClienteNegocioImpl clienteNegocio = new ClienteNegocioImpl(); // NUEVO
 
     public LoginServlet() {
         super();
@@ -76,6 +79,11 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("username", usuario.getUsuario());
         session.setAttribute("userRole", userRole);
         
+        if (userRole.equals("cliente")) {
+            Cliente cliente = clienteNegocio.obtenerClientePorUsuario(username);
+            session.setAttribute("dniCliente", cliente.getDni());
+        }
+        
         // 6. Redirigir según el rol
         String redirectPath = userRole.equals("administrador") 
                             ? "/admin/dashboard.jsp" 
@@ -90,6 +98,10 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }
+    
+    
+    
+    
 
     /**
      * Maneja las solicitudes GET redirigiendo al formulario de login.

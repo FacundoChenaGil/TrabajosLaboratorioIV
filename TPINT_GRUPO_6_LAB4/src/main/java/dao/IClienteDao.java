@@ -25,4 +25,6 @@ public interface IClienteDao {
     
     public String obtenerDNIPorUsuario(String usuario);
     
+   
+    
 }

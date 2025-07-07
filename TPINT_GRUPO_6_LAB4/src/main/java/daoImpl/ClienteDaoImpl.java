@@ -261,10 +261,37 @@ public class ClienteDaoImpl implements IClienteDao {
     }
 
     @Override
-    public Cliente obtenerClientePorUsuario(String usuarioStr) {
-        Cliente cliente = null;
-        return cliente;
-    }
+    	public Cliente obtenerClientePorUsuario(String usuario) {
+    	    Cliente cliente = null;
+    	    Connection conn = null;
+    	    PreparedStatement stmt = null;
+    	    ResultSet rs = null;
+
+    	    try {
+    	        conn = Conexion.getNuevaConexion(); 
+    	        String query = "SELECT * FROM Clientes WHERE Usuario = ?";
+    	        stmt = conn.prepareStatement(query);
+    	        stmt.setString(1, usuario);
+    	        rs = stmt.executeQuery();
+
+    	        if (rs.next()) {
+    	            cliente = new Cliente();
+    	            cliente.setDni(rs.getString("DNI"));
+    	        }
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	    } finally {
+    	        try {
+    	            if (rs != null) rs.close();
+    	            if (stmt != null) stmt.close();
+    	        } catch (Exception e) {
+    	            e.printStackTrace();
+    	        }
+    	    }
+
+    	    return cliente;
+    	}
+    
 
 	@Override
 	public boolean existeClienteActivo(String dni) {

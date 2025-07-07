@@ -22,6 +22,7 @@ public interface ICuentaNegocio {
     boolean actualizarSaldo(String cbu, BigDecimal nuevoSaldo);
     public String obtenerNombreTitular(String cbu);
     public String obtenerDniTitular(String cbu);
+    public String obtenerCBUPorDNI(String dni);
 
 	
 

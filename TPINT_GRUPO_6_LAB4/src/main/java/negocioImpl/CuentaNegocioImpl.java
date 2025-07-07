@@ -113,5 +113,9 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
     public String obtenerDniTitular(String cbu) {
         return cDao.obtenerDniTitular(cbu);
     }
+    
+    public String obtenerCBUPorDNI(String dni) {
+        return cDao.obtenerCBUPorDNI(dni);
+    }
 
 }

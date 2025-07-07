@@ -17,18 +17,18 @@ public class TransferenciaServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	 // --- MENSAJE DE DEPURACIÓN CRÍTICO ---
-        System.out.println(">>> TransferenciaServlet - doPost() ha sido invocado. <<<");
-        // --- FIN DEL MENSAJE DE DEPURACIÓN ---
 
         HttpSession session = request.getSession();
         String accion = request.getParameter("accion");
-        String cbuOrigen = (String) session.getAttribute("cbuSeleccionado");
+        String dniCliente = (String) session.getAttribute("dniCliente");
         String cbuDestino = request.getParameter("cbuDestino");
         String montoStr = request.getParameter("monto");
 
         ICuentaNegocio cuentaNeg = new CuentaNegocioImpl();
         IMovimientoNegocio movNeg = new MovimientoNegocioImpl();
+        
+        String cbuOrigen = cuentaNeg.obtenerCBUPorDNI(dniCliente);
+
 
         if ("buscar".equals(accion)) {
             if (cbuDestino == null || cbuDestino.isEmpty()) {
@@ -44,6 +44,7 @@ public class TransferenciaServlet extends HttpServlet {
             return;
         }
         System.out.println("Accion: " + accion);
+        System.out.println("dniCliente: " + dniCliente);
         System.out.println("cbuOrigen: " + cbuOrigen);
         System.out.println("cbuDestino: " + cbuDestino);
         System.out.println("montoStr: " + montoStr);

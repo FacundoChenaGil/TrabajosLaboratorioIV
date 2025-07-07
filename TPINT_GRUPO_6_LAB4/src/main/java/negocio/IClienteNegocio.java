@@ -11,5 +11,6 @@ public interface IClienteNegocio {
 	public String obtenerDNIPorUsuario(String usuario);
 	public List<Cliente> obtenerClientes();
 	public int modificarCliente(Cliente cliente);
+	public Cliente obtenerClientePorUsuario(String usuario);
 	
 }
