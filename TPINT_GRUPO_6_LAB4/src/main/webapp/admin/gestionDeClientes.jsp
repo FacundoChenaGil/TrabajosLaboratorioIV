@@ -99,8 +99,8 @@
                     <tr>
                         <td class="px-4 py-3 whitespace-nowrap flex items-center gap-4">
                             <!-- Editar -->
-                            <form action="modificarCliente.jsp" method="get">
-                                <input type="hidden" name="dni" value="12345678">
+                            <form action="<%=request.getContextPath()%>/ClienteServlet" method="get">
+                                <input type="hidden" name="dni" value=<%=cliente.getDni() %>>
                                 <input type="submit" class="icon-input" title="Editar" value='&#xf044;'
                                     style="font-family: FontAwesome; color: #ff0000; font-size: 1.25rem;">
                             </form>

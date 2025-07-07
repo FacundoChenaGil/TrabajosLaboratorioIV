@@ -142,24 +142,25 @@ public class ClienteServlet extends HttpServlet {
 			cliente.setCorreoElectronico(email);
 			cliente.setActivo(activa);
 			
+			int actualizado = clienteNegocio.modificarCliente(cliente);
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			if (actualizado == 1) {
+				request.setAttribute("mensajeExito", "El cliente fue modificado correctamente.");
+				request.setAttribute("cliente", cliente);
+				request.setAttribute("listaClientes", clienteNegocio.obtenerClientes());
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCliente.jsp");
+				dispatcher.forward(request, response);
+			} else {
+				request.setAttribute("mensajeError", "No se pudo actualizar el cliente.");
+				request.setAttribute("cliente", cliente);
+				request.setAttribute("listaClientes", clienteNegocio.obtenerClientes());
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCliente.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
 		else {
 			request.setAttribute("error", "Acción no válida.");
-			request.getRequestDispatcher("admin/altaCliente.jsp").forward(request, response);
+			request.getRequestDispatcher("admin/gestionDeClientes.jsp").forward(request, response);
 		}
 	}
 	
@@ -168,15 +169,23 @@ public class ClienteServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("➡️ Entró a doGet");
 	    String param = request.getParameter("Param");
-
+	    String dni = request.getParameter("dni");
+	    
 	    if("mostrarClientes".equals(param)) {
 	        List<Cliente> listaClientes = clienteNegocio.obtenerClientes();
 
 	        request.setAttribute("listaClientes", listaClientes);
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/gestionDeClientes.jsp");
 	        dispatcher.forward(request, response);
+	    }
+	    else if(dni != null) {
+	    	Cliente cliente = clienteNegocio.obtenerClientePorDni(dni);
+	    	
+	    	request.setAttribute("cliente", cliente);
+	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCliente.jsp");
+	        dispatcher.forward(request, response);
+	    	
 	    }
 	    else {
 	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parámetro incorrecto o no recibido.");

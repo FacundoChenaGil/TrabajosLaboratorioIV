@@ -103,7 +103,7 @@ public class ClienteDaoImpl implements IClienteDao {
 		try {
 			String sql = "UPDATE clientes SET CUIL = ?, Nombre = ?, Apellido = ?, Sexo = ?, Nacionalidad = ?, "
 					+ "Fecha_Nacimiento = ?, Direccion = ?, Localidad = ?, Provincia = ?, Correo_Electronico = ?, "
-					+ "Telefono = ?, Usuario = ?, Activo = ? WHERE DNI = ?";
+					+ "Telefono = ?,  Activo = ? WHERE DNI = ?";
 			
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, cliente.getCuil());
@@ -117,9 +117,8 @@ public class ClienteDaoImpl implements IClienteDao {
 			ps.setString(9, cliente.getProvincia());
 			ps.setString(10, cliente.getCorreoElectronico());
 			ps.setString(11, cliente.getTelefono());
-			ps.setString(12, cliente.getUsuario().getUsuario());
-			ps.setBoolean(13, cliente.isActivo());
-			ps.setString(14, cliente.getDni());
+			ps.setBoolean(12, cliente.isActivo());
+			ps.setString(13, cliente.getDni());
 			
 			filasAfectadas = ps.executeUpdate();
 			

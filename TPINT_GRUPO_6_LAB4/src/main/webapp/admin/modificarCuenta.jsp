@@ -61,8 +61,6 @@ body {
 	boolean isActivo = cuenta.isActiva();
 	%>
 
-
-
 	<div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-lg">
 		<h1 class="text-2xl font-bold mb-6 text-center text-bordo-dark">Modificar
 			Cuenta Bancaria</h1>
