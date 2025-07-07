@@ -157,13 +157,10 @@
                         &#xf2ed;
                     </button>
 
-<<<<<<< Updated upstream
-                    <form action="cambiarContraseña.jsp" method="get">
-                        <input type="hidden" name="dni" value="<%=cliente.getDni()%>">
-=======
+
                     <form action="<%=request.getContextPath()%>/UsuarioServlet" method="get">
+                        <input type="hidden" name="dni" value="<%=cliente.getDni()%>">
                         <input type="hidden" name="nombreUsuario" value="<%=cliente.getUsuario().getUsuario()%>">
->>>>>>> Stashed changes
                         <input type="submit" class="icon-input" title="Cambiar Clave" value='&#xf084;'
                                style="font-family: FontAwesome; color: #ff0000; font-size: 1.25rem;">
                     </form>
