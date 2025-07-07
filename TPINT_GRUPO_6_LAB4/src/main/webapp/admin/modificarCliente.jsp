@@ -38,7 +38,7 @@
   Cliente cliente = (Cliente) request.getAttribute("cliente");
   boolean isActivo = cliente.isActivo();
   String generoCliente = cliente.getSexo();
-  %>>
+  %>
   
   <script>
    const nacionalidadCliente = "<%= cliente.getNacionalidad() %>";
