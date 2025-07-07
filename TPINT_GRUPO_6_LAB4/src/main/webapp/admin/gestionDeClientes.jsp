@@ -108,8 +108,8 @@
                         &#xf2ed;
                     </button>
 
-                    <form action="cambiarContraseña.jsp" method="get">
-                        <input type="hidden" name="dni" value="<%=cliente.getDni()%>">
+                    <form action="<%=request.getContextPath()%>/ClienteServlet" method="get">
+                        <input type="hidden" name="nombreUsuario" value="<%=cliente.getUsuario().getUsuario()%>">
                         <input type="submit" class="icon-input" title="Cambiar Clave" value='&#xf084;'
                                style="font-family: FontAwesome; color: #ff0000; font-size: 1.25rem;">
                     </form>

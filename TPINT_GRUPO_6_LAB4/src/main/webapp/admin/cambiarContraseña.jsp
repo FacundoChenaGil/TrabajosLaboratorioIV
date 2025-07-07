@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "entidad.Usuario" %>>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +30,12 @@
 </head>
 <body class="bg-cover bg-center bg-no-repeat bg-fixed antialiased text-gray-900 h-screen flex items-center justify-center p-4"
     style="background-image: url('5594016.jpg');">
+    
+    <%
+    Usuario usuario = new Usuario();
+    usuario = (Usuario) request.getAttribute("usuario");
+    %>
+    
     <div class="max-w-xl w-full bg-white p-10 md:p-12 rounded-2xl shadow-2xl">
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 tracking-tight">
             Cambiar Contraseña
@@ -40,7 +47,7 @@
                 <!-- Usuario -->
                 <div>
                     <label for="username" class="block mb-2 text-gray-700 font-medium">Nombre de Usuario:</label>
-                    <input type="text" id="username" name="username" value="alopez" disabled
+                    <input type="text" id="username" name="username" value="<%= usuario.getUsuario() %>" disabled
                         class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-gray-100 text-gray-600 text-base
                         cursor-not-allowed input-glow-on-hover-focus transition duration-300 ease-in-out">
                 </div>

@@ -24,4 +24,11 @@ public class UsuarioNegocioImpl implements IUsuarioNegocio {
 		return exito;
 	}
 
+	@Override
+	public Usuario getUsuarioPorNombre(String usuario) {
+		Usuario us = usuarioDao.getUsuarioPorNombre(usuario);
+		
+		return us;
+	}
+
 }
