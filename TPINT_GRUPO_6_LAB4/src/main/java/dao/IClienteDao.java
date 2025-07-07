@@ -1,6 +1,6 @@
 package dao;
 
-import entidad.Cliente; // Importa la clase Cliente
+import entidad.Cliente;
 import java.util.List; // Para métodos que devuelvan listas de clientes
 
 public interface IClienteDao {

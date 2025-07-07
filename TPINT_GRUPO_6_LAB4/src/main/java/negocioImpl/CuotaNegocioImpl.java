@@ -17,4 +17,13 @@ public class CuotaNegocioImpl implements ICuotaNegocio{
 		return cuotaDao.obtenerCuotasPagadasPorPrestamo(idPrestamo);
 		
 	}
+	public boolean marcarComoPagada(int idCuota, String numeroCuenta) {
+	    ICuotaDao cuotaDao = new CuotaDaoImpl();
+	    return cuotaDao.marcarComoPagada(idCuota, numeroCuenta);
+	}
+	
+	public Cuota obtenerPorId(int idCuota) {
+	    return cuotaDao.obtenerPorId(idCuota);
+	}
+	
 }

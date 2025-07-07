@@ -56,8 +56,8 @@ public class Cuenta {
 		return Saldo;
 	}
 
-	public void setSaldo(BigDecimal saldo) {
-		Saldo = saldo;
+	public void setSaldo(BigDecimal  f) {
+		Saldo = f;
 	}
 
 	public boolean isActiva() {

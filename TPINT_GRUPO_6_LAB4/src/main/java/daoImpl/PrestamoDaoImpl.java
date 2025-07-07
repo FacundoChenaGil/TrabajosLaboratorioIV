@@ -21,16 +21,16 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 	public boolean agregar(Prestamo prestamo) {
 		boolean insertExitoso = false;
 
-		try (Connection conexion = Conexion.getConexion().getSQLConexion();
+		try (Connection conexion = Conexion.getNuevaConexion();
 				PreparedStatement statement = conexion.prepareStatement(INSERT)) {
 
 			statement.setString(1, prestamo.getDNI());
-			statement.setDate(2, java.sql.Date.valueOf(prestamo.getFecha_creacion()));
-			statement.setFloat(3, (float) prestamo.getMonto_pedido());
-			statement.setInt(4, prestamo.getPlazo_de_pago());
-			statement.setFloat(5, (float) prestamo.getImporte_cuota());
-			statement.setInt(6, prestamo.getCant_cuotas());
-			statement.setFloat(7, (float) prestamo.getImporte_a_pagar());
+			statement.setDate(2, java.sql.Date.valueOf(prestamo.getFechaCreacion()));
+			statement.setFloat(3, (float) prestamo.getMontoPedido());
+			statement.setInt(4, prestamo.getPlazoPago());
+			statement.setFloat(5, (float) prestamo.getImporteCuota());
+			statement.setInt(6, prestamo.getCantidadCuotas());
+			statement.setFloat(7, (float) prestamo.getImporteAPagar());
 			statement.setInt(8, prestamo.getIdTipoEstado());
 			statement.setString(9, prestamo.getIdCuenta());
 
@@ -68,7 +68,7 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 	public Prestamo obtenerPrestamoPorId(int idPrestamo) {
         Prestamo prestamo = null;
 
-        try (Connection conexion = Conexion.getConexion().getSQLConexion();
+        try (Connection conexion = Conexion.getNuevaConexion();
              PreparedStatement statement = conexion.prepareStatement(SELECT_BY_ID)) {
 
             statement.setInt(1, idPrestamo);
@@ -91,7 +91,7 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 		String sql = "UPDATE Prestamos SET Id_Tipo_Estado = ? WHERE IdPrestamo = ?";
 		boolean bajaLogicaExitosa = false;
 
-		try (Connection conexion = Conexion.getConexion().getSQLConexion();
+		try (Connection conexion = Conexion.getNuevaConexion();
 				PreparedStatement statement = conexion.prepareStatement(sql)) {
 
 			statement.setInt(1, ESTADO_APROBADO);
@@ -116,12 +116,12 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 
 	    prestamo.setDNI(rs.getString("dni"));
 	    prestamo.setIdPrestamo(rs.getInt("idPrestamo"));
-	    prestamo.setFecha_creacion(rs.getDate("fechaCreacion").toLocalDate());
-	    prestamo.setMonto_pedido(rs.getFloat("montoPedido"));
-	    prestamo.setPlazo_de_pago(rs.getInt("plazoPago"));
-	    prestamo.setImporte_cuota(rs.getFloat("importeCuota"));
-	    prestamo.setCant_cuotas(rs.getInt("cantCuotas"));
-	    prestamo.setImporte_a_pagar(rs.getFloat("importePagar"));
+	    prestamo.setFechaCreacion(rs.getDate("fechaCreacion").toLocalDate());
+	    prestamo.setMontoPedido(rs.getFloat("montoPedido"));
+	    prestamo.setPlazoPago(rs.getInt("plazoPago"));
+	    prestamo.setImporteCuota(rs.getFloat("importeCuota"));
+	    prestamo.setCantidadCuotas(rs.getInt("cantCuotas"));
+	    prestamo.setImporteAPagar(rs.getFloat("importePagar"));
 	    prestamo.setIdTipoEstado(rs.getInt("idTipoEstado"));
 	    prestamo.setIdCuenta(rs.getString("idCuenta"));
 
@@ -140,15 +140,15 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 	public boolean modificar(Prestamo prestamo) {
 		boolean updateExitoso = false;
 
-		try (Connection conexion = Conexion.getConexion().getSQLConexion();
+		try (Connection conexion = Conexion.getNuevaConexion();
 				PreparedStatement statement = conexion.prepareStatement(UPDATE)) {
 
-			statement.setDate(1, java.sql.Date.valueOf(prestamo.getFecha_creacion()));
-			statement.setFloat(2, (float) prestamo.getMonto_pedido());
-			statement.setInt(3, prestamo.getPlazo_de_pago());
-			statement.setFloat(4, (float) prestamo.getImporte_cuota());
-			statement.setInt(5, prestamo.getCant_cuotas());
-			statement.setFloat(6, (float) prestamo.getImporte_a_pagar());
+			statement.setDate(1, java.sql.Date.valueOf(prestamo.getFechaCreacion()));
+			statement.setFloat(2, (float) prestamo.getMontoPedido());
+			statement.setInt(3, prestamo.getPlazoPago());
+			statement.setFloat(4, (float) prestamo.getImporteCuota());
+			statement.setInt(5, prestamo.getCantidadCuotas());
+			statement.setFloat(6, (float) prestamo.getImporteAPagar());
 			statement.setInt(7, prestamo.getIdTipoEstado());
 			statement.setString(8, prestamo.getIdCuenta());
 			statement.setInt(9, prestamo.getIdPrestamo());
@@ -182,7 +182,7 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 	            "FROM Prestamos " +
 	            "WHERE DNI = ? AND ID_Tipo_Estado = 2";
 
-	    try (Connection conexion = Conexion.getConexion().getSQLConexion();
+	    try (Connection conexion = Conexion.getNuevaConexion();
 	         PreparedStatement statement = conexion.prepareStatement(sql)) {
 
 	        statement.setString(1, dni);

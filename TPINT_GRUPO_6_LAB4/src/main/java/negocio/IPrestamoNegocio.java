@@ -9,4 +9,5 @@ public interface IPrestamoNegocio {
 	
 		public List<Prestamo>obtenerPrestamosPorDni(String dni);
 		
+		List<Prestamo> obtenerPrestamosConCuotasPendientesPorDni(String dni);
 }

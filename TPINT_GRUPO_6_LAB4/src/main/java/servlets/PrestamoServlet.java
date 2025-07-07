@@ -47,8 +47,16 @@ public class PrestamoServlet extends HttpServlet {
 			return;
 		}
 
-		int idPrestamo = Integer.parseInt(idPrestamoS);
-
+		int idPrestamo;
+		try {
+		    idPrestamo = Integer.parseInt(idPrestamoS);
+		} catch (NumberFormatException e) {
+		    request.setAttribute("error", "El ID de préstamo no es válido.");
+		    request.getRequestDispatcher("clientes/historialPagodePrestamos.jsp").forward(request, response);
+		    return;
+		}
+		
+		
 		ICuotaNegocio cuotaNegocio = new CuotaNegocioImpl();
 		List<Cuota> cuotasPagadas = cuotaNegocio.listarHistorialPagos(idPrestamo);
 
@@ -65,7 +73,7 @@ public class PrestamoServlet extends HttpServlet {
 		request.setAttribute("tamanoPagina", pageSize);
 		request.setAttribute("idPrestamoSeleccionado", idPrestamo);
 
-		System.out.println("Mostrando cuotas de la página: " + page);
+		System.out.println("Mostrando cuotas de la página: " + page); // Borrar prueba
 
 		request.getRequestDispatcher("clientes/historialPagodePrestamos.jsp").forward(request, response);
 	}

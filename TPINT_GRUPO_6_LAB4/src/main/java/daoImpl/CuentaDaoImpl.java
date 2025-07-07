@@ -432,7 +432,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 	        if (rs.next()) {
 	            dni = rs.getString("DNI");
 	        }
-	        conn.close();
+	       // conn.close();
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
@@ -450,7 +450,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 	        if (rs.next()) {
 	            nombre = rs.getString("Nombre");
 	        }
-	        conn.close();
+	       // conn.close();
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
@@ -462,6 +462,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 	    Connection conn = null;
 	    PreparedStatement stmt = null;
 	    ResultSet rs = null;
+
 
 	    try {
 	        conn = Conexion.getNuevaConexion();
@@ -494,7 +495,133 @@ public class CuentaDaoImpl implements ICuentaDao {
 	    return cbu;
 	}
 
+
+	public List<Cuenta> obtenerCuentasPorDni(String dni) {
+	    List<Cuenta> cuentas = new ArrayList<>();
+
+	    String sql = "SELECT * FROM Cuentas WHERE ACTIVA = 1 AND DNI = ?";
+	    
+	    try (Connection con = Conexion.getNuevaConexion();
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        stmt.setString(1, dni);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            Cuenta cuenta = new Cuenta();
+
+	            cuenta.setCBU(rs.getString("CBU"));
+	            cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
+
+	            Date fechaSQL = rs.getDate("Fecha_Creacion");
+	            if (fechaSQL != null) {
+	                cuenta.setFechaCreacion(fechaSQL.toLocalDate());
+	            }
+
+	            cuenta.setSaldo(rs.getBigDecimal("Saldo"));
+	            cuenta.setActiva(rs.getBoolean("Activa"));
+
+	            
+	            TiposDeCuentas tipo = new TiposDeCuentas();
+	            tipo.setID(rs.getInt("ID_Tipo_Cuenta"));
+	            cuenta.setTipoCuenta(tipo);
+
+	           
+	            Cliente cliente = new Cliente();
+	            cliente.setDni(dni);
+	            cuenta.setCliente(cliente);
+
+	            cuentas.add(cuenta);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return cuentas;
+	}
+	   
+	public boolean actualizarSaldoPorNumeroCuenta(String numeroCuenta, BigDecimal nuevoSaldo) {
+	    boolean actualizado = false;
+
+	    String sql = "UPDATE Cuentas SET Saldo = ? WHERE Numero_Cuenta = ? AND Activa = 1";
+
+	    try (Connection con = Conexion.getNuevaConexion();
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        stmt.setBigDecimal(1, nuevoSaldo);
+	        stmt.setString(2, numeroCuenta);
+
+	        actualizado = stmt.executeUpdate() > 0;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return actualizado;
+	}
+	
+	public Cuenta obtenerPorNumero(String numeroCuenta) {
+	    Cuenta cuenta = null;
+	    
+	    System.out.println(">>> [DEBUG] Usando getNuevaConexion()");  //borrar prueba
+
+	    String sql =  "SELECT c.*, " +
+	             "cli.DNI, cli.Nombre AS NombreCliente, cli.Apellido, " +
+	             "tipo.ID_Tipo_Cuenta, tipo.Descripcion AS Descripcion_TipoCuenta " +
+	             "FROM Cuentas c " +
+	             "INNER JOIN Clientes cli ON c.DNI = cli.DNI " + 
+	             "INNER JOIN tipos_cuenta tipo ON c.ID_Tipo_Cuenta = tipo.ID_Tipo_Cuenta " +
+	             "WHERE c.Numero_Cuenta = ? AND c.Activa = 1";
+
+	    try (Connection con = Conexion.getNuevaConexion(); //Cambiar esta línea es solo para evitar que una conexión cerrada nos tire error.
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        stmt.setString(1, numeroCuenta);
+	        ResultSet rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            cuenta = new Cuenta();
+	            cuenta.setCBU(rs.getString("CBU"));
+	            cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
+	            cuenta.setSaldo(rs.getBigDecimal("Saldo"));
+
+	            Date fechaSQL = rs.getDate("Fecha_Creacion");
+	            if (fechaSQL != null) {
+	                cuenta.setFechaCreacion(fechaSQL.toLocalDate());
+	            }
+
+	            cuenta.setActiva(rs.getBoolean("Activa"));
+
+	            // Cliente
+	            Cliente cliente = new Cliente();
+	            cliente.setDni(rs.getString("DNI"));
+	            cliente.setNombre(rs.getString("NombreCliente"));
+	            cliente.setApellido(rs.getString("Apellido"));
+	            cuenta.setCliente(cliente);
+
+	            // Tipo de Cuenta
+	            TiposDeCuentas tipo = new TiposDeCuentas();
+	            tipo.setID(rs.getInt("ID_Tipo_Cuenta"));
+	            tipo.setDescripcion(rs.getString("Descripcion_TipoCuenta"));
+	            cuenta.setTipoCuenta(tipo);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return cuenta;
+	}
+	
+	
 }
+
+	
+	
+	
+	
+
 
 	
 
