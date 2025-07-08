@@ -9,25 +9,19 @@ public class PrestamoBackup {
 	private LocalDateTime FechaSolicitud;
 	private BigDecimal ImportePedido;
 	private BigDecimal ImporteAPagar;
-	private int PlazoPagoMeses;
 	private int CantidadCuotas;
 	private BigDecimal Importe_Cuota;
 	private Cliente Cliente;
 	private TipoEstadoPrestamo TipoEstadoPrestamo;
 	private Cuenta CuentaAcreditada;
-	
-	
-	
-
 
 	public PrestamoBackup(int iDPrestamo, LocalDateTime fechaSolicitud, BigDecimal importePedido,
-			BigDecimal importeAPagar, int plazoPagoMeses, int cantidadCuotas, BigDecimal importe_Cuota,
+			BigDecimal importeAPagar, int cantidadCuotas, BigDecimal importe_Cuota,
 			entidad.Cliente cliente, entidad.TipoEstadoPrestamo tipoEstadoPrestamo, Cuenta cuentaAcreditada) {
 		IDPrestamo = iDPrestamo;
 		FechaSolicitud = fechaSolicitud;
 		ImportePedido = importePedido;
 		ImporteAPagar = importeAPagar;
-		PlazoPagoMeses = plazoPagoMeses;
 		CantidadCuotas = cantidadCuotas;
 		Importe_Cuota = importe_Cuota;
 		Cliente = cliente;
@@ -74,17 +68,6 @@ public class PrestamoBackup {
 	public void setImporteAPagar(BigDecimal importeAPagar) {
 		ImporteAPagar = importeAPagar;
 	}
-
-
-	public int getPlazoPagoMeses() {
-		return PlazoPagoMeses;
-	}
-
-
-	public void setPlazoPagoMeses(int plazoPagoMeses) {
-		PlazoPagoMeses = plazoPagoMeses;
-	}
-
 
 	public int getCantidadCuotas() {
 		return CantidadCuotas;

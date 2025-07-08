@@ -67,28 +67,30 @@ public class CuentaServlet extends HttpServlet {
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/modificarCuenta.jsp");
 			dispatcher.forward(request, response);
-		} else if ("solicitarPrestamo".equals(param)) {
+		} 
+		else if("cargarDDL".equals(param)) {
 			HttpSession session = request.getSession(false);
-			String usuarioSession = null;
+			
 			List<CuentaPrestamoddlDTO> listaCuentas = new ArrayList<>();
-
-			if (session != null && session.getAttribute("username") != null) {
-				usuarioSession = request.getSession().getAttribute("username").toString();
-			} else {
+			
+			if(session == null || session.getAttribute("username") == null) {
 				response.sendRedirect(request.getContextPath() + "/login.jsp");
 				return;
 			}
-
-			String dni = clienteNegocio.obtenerDNIPorUsuario(usuarioSession);
-
+			
+			String nombreUsuario = (String) session.getAttribute("username");
+			
+			String dni = clienteNegocio.obtenerDNIPorUsuario(nombreUsuario);
+			
 			listaCuentas = cuentaNegocio.CargarDDL(dni);
-
+			
 			request.setAttribute("listaCuentasDDL", listaCuentas);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/clientes/solicitarPrestamo.jsp");
 			dispatcher.forward(request, response);
-
-		} else {
+			
+		}
+		else {
 			System.out.println("Parametro no reconocido o no recibido");
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parámetro incorrecto o no recibido.");
 		}

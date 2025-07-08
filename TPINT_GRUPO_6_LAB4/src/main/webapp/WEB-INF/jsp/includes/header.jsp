@@ -58,7 +58,7 @@
             <button onclick="toggleMenu('prestamosMenu')" class="hover:text-gray-300">Préstamos</button>
             <ul id="prestamosMenu" class="absolute hidden bg-white text-black mt-2 rounded shadow-md w-48 z-50">
               <li><a href="prestamosActivos.jsp" class="block px-4 py-2 hover:bg-gray-200">Activos</a></li>
-              <li><a href="cuotasPendientes.jsp" class="block px-4 py-2 hover:bg-gray-200">Solicitar préstamo</a></li>
+              <li><a href="<%=request.getContextPath()%>/CuentaServlet?Param=cargarDDL" class="block px-4 py-2 hover:bg-gray-200">Solicitar préstamo</a></li>
             </ul>
           </li>
 

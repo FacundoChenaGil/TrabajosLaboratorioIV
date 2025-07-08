@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import = "entidad.CuentaPrestamoddlDTO" %>
+<%@ page import = "java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +14,11 @@
 <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
 
 <body>
+
+	<%
+	List<CuentaPrestamoddlDTO> listaCuentas = (List<CuentaPrestamoddlDTO>) request.getAttribute("listaCuentasDDL");
+	%>
+
 	<main
 		class="flex flex-grow flex-col gap-[27px] bg-[#fef9f9] justify-center items-center min-h-screen bg-white">
 
@@ -25,8 +32,18 @@
 				class="flex flex-col gap-[21px] px-[21px] py-[38px] bg-[#E75E5E] rounded-[9px] w-[292px]"
 				style="box-shadow: 7px 8px 4px rgba(0, 0, 0, 0.25)">
 				<div class="flex flex-col">
-					<label for="Seleccionar_Cuenta">Seleccionar Cuenta:</label> <Select
-						for="Seleccionar_Cuenta"></Select>
+					<label for="Seleccionar_Cuenta">Seleccionar Cuenta:</label>
+					 <select name="cuentaSeleccionada" id="cuenta" class="w-full border px-3 py-2 rounded">
+				        <% if (listaCuentas != null && !listaCuentas.isEmpty()) {
+				            for (entidad.CuentaPrestamoddlDTO cuenta : listaCuentas) { %>
+				                <option value="<%= cuenta.getCBU() %>">
+				                    CBU: <%= cuenta.getCBU() %> - Nº Cuenta: <%= cuenta.getNumeroCuenta() %>
+				                </option>
+				        <%  }
+				           } else { %>
+				            <option disabled selected>No hay cuentas disponibles</option>
+				        <% } %>
+				    </select>
 				</div>
 				<div class=" flex flex-col">
 					<label for="Monto_Solicitar">Monto a Solicitar:</label> <input

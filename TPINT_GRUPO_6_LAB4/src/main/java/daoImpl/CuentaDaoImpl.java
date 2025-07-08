@@ -707,7 +707,6 @@ public class CuentaDaoImpl implements ICuentaDao {
 	    return cuenta;
 	}
 	
-	
 }
 
 	

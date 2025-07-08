@@ -12,7 +12,7 @@ public class PrestamoBackupDaoImpl implements IPrestamoBackupDao {
 
 	@Override
 	public boolean AltaPrestamo(PrestamoBackup prestamo) {
-		String query = "INSERT INTO prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Plazo_Pago_Meses, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = null;
         PreparedStatement ps = null;
         boolean exito = false;
@@ -24,11 +24,10 @@ public class PrestamoBackupDaoImpl implements IPrestamoBackupDao {
 			ps.setTimestamp(2, Timestamp.valueOf(prestamo.getFechaSolicitud()));
 			ps.setBigDecimal(3, prestamo.getImportePedido());
 			ps.setBigDecimal(4, prestamo.getImporteAPagar());
-			ps.setInt(5, prestamo.getPlazoPagoMeses());
-			ps.setInt(6, prestamo.getCantidadCuotas());
-			ps.setBigDecimal(7, prestamo.getImporte_Cuota());
-			ps.setInt(8, prestamo.getTipoEstadoPrestamo().getIDTipoEstado());
-			ps.setString(9, prestamo.getCuentaAcreditada().getCbu());
+			ps.setInt(5, prestamo.getCantidadCuotas());
+			ps.setBigDecimal(6, prestamo.getImporte_Cuota());
+			ps.setInt(7, prestamo.getTipoEstadoPrestamo().getIDTipoEstado());
+			ps.setString(8, prestamo.getCuentaAcreditada().getCbu());
 			
 			int filasAfectadas = ps.executeUpdate();
 			
