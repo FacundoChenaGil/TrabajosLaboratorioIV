@@ -215,7 +215,7 @@ table {
 							<form action="${pageContext.request.contextPath}/CuentaServlet"
 								method="get" class="inline-block">
 								<input
-									type="hidden" name="cbu" value="<%=c.getCBU()%>">
+									type="hidden" name="cbu" value="<%=c.getCbu()%>">
 								<button type="submit" class="action-icon-button">
 									<i class="fa-regular fa-pen-to-square fa-xl"
 										style="color: #fa0000;"></i>
@@ -223,14 +223,14 @@ table {
 							</form>
 							
 							<button type="button"
-								onclick="confirmarEliminar('<%=c.getCBU()%>');"
+								onclick="confirmarEliminar('<%=c.getCbu()%>');"
 								class="action-icon-button ml-2">
 								<i class="fa-regular fa-trash-can fa-xl" style="color: #fa0000;"></i>
 							</button>
 
 						</td>
 						<td class="px-6 py-4 text-sm text-gray-900"><%=c.getNumeroCuenta()%></td>
-						<td class="px-6 py-4 text-sm text-gray-900"><%=c.getCBU()%></td>
+						<td class="px-6 py-4 text-sm text-gray-900"><%=c.getCbu()%></td>
 						<td class="px-6 py-4 text-sm text-gray-900"><%=c.getFechaCreacion()%></td>
 						<td class="px-6 py-4 text-sm text-gray-900">$<%=String.format("%.2f", c.getSaldo())%></td>
 						<td class="px-6 py-4 text-sm text-gray-900"><%=c.getTipoCuenta() != null ? c.getTipoCuenta().getDescripcion() : "N/A"%></td>

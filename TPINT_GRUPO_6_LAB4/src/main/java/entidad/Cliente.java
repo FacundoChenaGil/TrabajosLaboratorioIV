@@ -17,11 +17,29 @@ public class Cliente {
     private String telefono;
     private Usuario usuario; // Objeto Usuario, no solo el String Usuario
     private boolean activo; // Para la baja lógica
+    private LocalDate fechaAlta; // Solo para reporte
+    private Cuenta cuenta; // Solo para reporte
 
     public Cliente() {
     }
 
-    public Cliente(String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad,
+    public Cuenta getCuenta() {
+		return cuenta;
+	}
+
+	public void setCuenta(Cuenta cuenta) {
+		this.cuenta = cuenta;
+	}
+
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public Cliente(String dni, String cuil, String nombre, String apellido, String sexo, String nacionalidad,
                    LocalDate fechaNacimiento, String direccion, String localidad, String provincia,
                    String correoElectronico, String telefono, Usuario usuario, boolean activo) {
         this.dni = dni;

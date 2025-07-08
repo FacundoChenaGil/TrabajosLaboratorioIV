@@ -1,6 +1,8 @@
 package dao;
 
 import entidad.Cliente;
+
+import java.time.LocalDate;
 import java.util.List; // Para métodos que devuelvan listas de clientes
 
 public interface IClienteDao {
@@ -25,6 +27,7 @@ public interface IClienteDao {
     
     public String obtenerDNIPorUsuario(String usuario);
     
+    List<Cliente> obtenerClientesNuevosEntreFechas(LocalDate desde, LocalDate hasta); // Para reporte
    
     
 }

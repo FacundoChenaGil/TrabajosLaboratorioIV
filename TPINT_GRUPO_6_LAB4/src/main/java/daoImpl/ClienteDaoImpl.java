@@ -2,12 +2,14 @@ package daoImpl;
 
 import dao.IClienteDao; // Importa la interfaz
 import entidad.Cliente; // Importa la clase Cliente
+import entidad.Cuenta;
 import entidad.Usuario; // Importa la clase Usuario
 import entidad.TipoUsuario; // Importa la clase TipoUsuario (para la relación con Usuario)
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.sql.Date; // Para convertir LocalDate a java.sql.Date
 import java.sql.DriverManager;
 import java.util.ArrayList;
@@ -384,4 +386,72 @@ public class ClienteDaoImpl implements IClienteDao {
 
         return dni;
 	}
+	
+	
+	// METODO PARA REPORTE
+	
+	public List<Cliente> obtenerClientesNuevosEntreFechas(LocalDate desde, LocalDate hasta) {
+	    List<Cliente> lista = new ArrayList<>();
+
+	    String sql = 
+	    		"SELECT sub.DNI, sub.Nombre, sub.Apellido, sub.Usuario, sub.CBU, sub.Fecha_Alta " +
+	    			    "FROM (" +
+	    			    "   SELECT c.DNI, c.Nombre, c.Apellido, c.Usuario, cu.CBU, MIN(cu.Fecha_Creacion) AS Fecha_Alta " +
+	    			    "   FROM Clientes c " +
+	    			    "   INNER JOIN Cuentas cu ON c.DNI = cu.DNI " +
+	    			    "   GROUP BY c.DNI, c.Nombre, c.Apellido, c.Usuario" +
+	    			    ") AS sub " +
+	    			    "WHERE sub.Fecha_Alta BETWEEN ? AND ? " +
+	    			    "ORDER BY sub.Fecha_Alta ASC";
+
+	    Connection con = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        con = Conexion.getConexion().getSQLConexion(); 
+	        stmt = con.prepareStatement(sql);
+	        stmt.setDate(1, java.sql.Date.valueOf(desde));
+	        stmt.setDate(2, java.sql.Date.valueOf(hasta));
+
+	        rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            Cliente c = new Cliente();
+	            c.setDni(rs.getString("DNI"));
+	            c.setNombre(rs.getString("Nombre"));
+	            c.setApellido(rs.getString("Apellido"));
+
+	            Usuario u = new Usuario();
+	            u.setUsuario(rs.getString("Usuario"));
+	            c.setUsuario(u);
+	            
+	            Cuenta cuenta = new Cuenta();
+	            cuenta.setCbu(rs.getString("CBU"));
+	            c.setCuenta(cuenta);
+	            
+	            	            
+	            c.setFechaAlta(rs.getDate("Fecha_Alta").toLocalDate());
+
+	            lista.add(c);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            Conexion.getConexion().cerrarConexion(); 
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return lista;
+	}
+	
+	
 }
+
+

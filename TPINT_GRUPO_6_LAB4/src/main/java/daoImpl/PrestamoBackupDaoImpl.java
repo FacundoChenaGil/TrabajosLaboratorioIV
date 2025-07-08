@@ -28,7 +28,7 @@ public class PrestamoBackupDaoImpl implements IPrestamoBackupDao {
 			ps.setInt(6, prestamo.getCantidadCuotas());
 			ps.setBigDecimal(7, prestamo.getImporte_Cuota());
 			ps.setInt(8, prestamo.getTipoEstadoPrestamo().getIDTipoEstado());
-			ps.setString(9, prestamo.getCuentaAcreditada().getCBU());
+			ps.setString(9, prestamo.getCuentaAcreditada().getCbu());
 			
 			filasAfectadas = ps.executeUpdate();
 			

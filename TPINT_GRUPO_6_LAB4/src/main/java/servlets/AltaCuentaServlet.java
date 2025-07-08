@@ -108,7 +108,7 @@ public class AltaCuentaServlet extends HttpServlet {
 			cuenta.setCliente(cliente);
 			cuenta.setTipoCuenta(tipoCuenta);
 			cuenta.setNumeroCuenta(numeroCuenta);
-			cuenta.setCBU(cbu);
+			cuenta.setCbu(cbu);
 			cuenta.setFechaCreacion(LocalDate.now());
 			cuenta.setSaldo(new BigDecimal("10000.00"));
 			cuenta.setActiva(true);

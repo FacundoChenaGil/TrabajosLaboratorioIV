@@ -111,7 +111,7 @@ body {
 					class="block w-full px-3 py-2 rounded-md bg-bordo-light-bg border border-bordo-border 
                               focus:border-bordo-dark focus:ring-3 focus:ring-bordo-dark focus:ring-opacity-20 outline-none
                               placeholder-gray-400 transition duration-200 ease-in-out"
-					value="<%=cuenta.getCBU()%>" readonly>
+					value="<%=cuenta.getCbu()%>" readonly>
 			</div>
 
 			<div class="mb-4">

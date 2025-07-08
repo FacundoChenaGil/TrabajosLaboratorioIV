@@ -1,5 +1,6 @@
 package negocioImpl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,4 +105,14 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 	public boolean eliminarCliente(String dni) {
 		return clienteDao.eliminarCliente(dni);
 	}
+	// Para Reporte
+	public List<Cliente> obtenerClientesNuevosEntreFechas(LocalDate desde, LocalDate hasta) {
+	    if (desde == null || hasta == null || desde.isAfter(hasta)) {
+	        throw new IllegalArgumentException("Fechas inválidas");
+	    }
+
+	    return clienteDao.obtenerClientesNuevosEntreFechas(desde, hasta);
+	}
+	
+	
 }

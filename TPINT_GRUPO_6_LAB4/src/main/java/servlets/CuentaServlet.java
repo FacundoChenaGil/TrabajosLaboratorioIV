@@ -124,7 +124,7 @@ public class CuentaServlet extends HttpServlet {
 			// Crear objeto Cuenta provisional para mantener datos en el formulario
 			Cuenta cuenta = new Cuenta();
 			cuenta.setNumeroCuenta(numeroCuenta);
-			cuenta.setCBU(cbu);
+			cuenta.setCbu(cbu);
 			cuenta.setSaldo(saldo);
 			cuenta.setFechaCreacion(fechaCreacion);
 			cuenta.setActiva(activa);

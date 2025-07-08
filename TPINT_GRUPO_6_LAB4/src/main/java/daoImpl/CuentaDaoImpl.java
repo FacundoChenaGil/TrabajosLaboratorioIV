@@ -42,7 +42,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 			while (rs.next()) {
 				Cuenta cuenta = new Cuenta();
 
-				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setCbu(rs.getString("CBU"));
 				Date sqlDate = rs.getDate("Fecha_Creacion");
 				cuenta.setFechaCreacion(sqlDate != null ? sqlDate.toLocalDate() : null);
 				cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
@@ -91,7 +91,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 			if (rs.next()) {
 				cuenta = new Cuenta();
 
-				cuenta.setCBU(rs.getString("CBU"));
+				cuenta.setCbu(rs.getString("CBU"));
 				Date sqlDate = rs.getDate("Fecha_Creacion");
 				cuenta.setFechaCreacion(sqlDate != null ? sqlDate.toLocalDate() : null);
 				cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
@@ -133,7 +133,7 @@ public class CuentaDaoImpl implements ICuentaDao {
         try {
             conn = Conexion.getConexion().getSQLConexion();
             ps = conn.prepareStatement(query);
-            ps.setString(1, cuenta.getCBU());
+            ps.setString(1, cuenta.getCbu());
             ps.setString(2, cuenta.getNumeroCuenta());
             ps.setDate(3, Date.valueOf(cuenta.getFechaCreacion()));
             ps.setBigDecimal(4, cuenta.getSaldo());
@@ -274,7 +274,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 			ps.setBigDecimal(3, cuenta.getSaldo());
 			ps.setInt(4, cuenta.getTipoCuenta().getID());
 			ps.setBoolean(5, cuenta.isActiva());
-			ps.setString(6, cuenta.getCBU());
+			ps.setString(6, cuenta.getCbu());
 			
 			filasAfectadas = ps.executeUpdate();
 			conn.commit();
@@ -510,7 +510,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 	        while (rs.next()) {
 	            Cuenta cuenta = new Cuenta();
 
-	            cuenta.setCBU(rs.getString("CBU"));
+	            cuenta.setCbu(rs.getString("CBU"));
 	            cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
 
 	            Date fechaSQL = rs.getDate("Fecha_Creacion");
@@ -582,7 +582,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 	        if (rs.next()) {
 	            cuenta = new Cuenta();
-	            cuenta.setCBU(rs.getString("CBU"));
+	            cuenta.setCbu(rs.getString("CBU"));
 	            cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
 	            cuenta.setSaldo(rs.getBigDecimal("Saldo"));
 

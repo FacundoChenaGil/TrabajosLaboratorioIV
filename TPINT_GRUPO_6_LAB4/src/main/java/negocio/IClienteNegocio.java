@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import entidad.Cliente;
@@ -14,5 +15,5 @@ public interface IClienteNegocio {
 	public Cliente obtenerClientePorUsuario(String usuario);
 	public boolean existeCorreoElectronico(String correo);
 	public boolean eliminarCliente(String dni);
-	
+	public List<Cliente> obtenerClientesNuevosEntreFechas(LocalDate desde, LocalDate hasta); // Para Reporte
 }

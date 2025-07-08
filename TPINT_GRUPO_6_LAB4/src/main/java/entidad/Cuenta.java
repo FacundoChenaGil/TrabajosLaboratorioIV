@@ -28,12 +28,12 @@ public class Cuenta {
 		Cliente = cliente;
 	}
 
-	public String getCBU() {
+	public String getCbu() {
 		return CBU;
 	}
 
-	public void setCBU(String cBU) {
-		CBU = cBU;
+	public void setCbu(String cbu) {
+		CBU = cbu;
 	}
 
 	public String getNumeroCuenta() {
