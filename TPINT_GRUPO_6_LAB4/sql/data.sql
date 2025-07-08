@@ -51,13 +51,13 @@ INSERT INTO Movimientos (CBU, Fecha_Movimiento, Detalle, Importe, ID_Tipo_Movimi
 
 -- Paso 3.1: Carlos solicita un préstamo de $50,000 en 12 cuotas.
 -- El estado inicial es 1 ('Pendiente').
-INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES
+INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, CBU_Acreditacion) VALUES
 ('35111222', '2025-06-20 10:00:00', 50000.00, 65000.00, 12, 5416.67, 1, '0010000000000000001003');
 
-INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES
+INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, CBU_Acreditacion) VALUES
 ('35111222', '2025-07-20 10:00:00', 50000.00, 65000.00, 12, 5416.67, 1, '0010000000000000001003');
 
-INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES
+INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, CBU_Acreditacion) VALUES
 ('35111222', '2025-08-20 10:00:00', 50000.00, 65000.00, 12, 5416.67, 1, '0010000000000000001003');
 
 -- Paso 3.2: El administrador aprueba el préstamo.
