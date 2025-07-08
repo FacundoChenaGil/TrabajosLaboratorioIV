@@ -20,14 +20,13 @@ public class UsuarioDaoImpl implements IUsuarioDao {
 	
 	@Override
 	public Usuario getUsuarioPorNombre(String usuario) {
-		
-		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
-        Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         Usuario us = null;
         
         try {
+        	conn = Conexion.getConexion();
         	String sql = "SELECT * FROM usuarios WHERE Usuario = ?";
         	ps = conn.prepareStatement(sql);
         	ps.setString(1, usuario);
@@ -40,13 +39,13 @@ public class UsuarioDaoImpl implements IUsuarioDao {
         		us.setTipoUsuario(tu.getTipoUsuarioPorID(rs.getInt("ID_Tipo_Usuario")));
         		us.setActivo(rs.getBoolean("Activo"));
         	}
-        	
         }
-    	catch (Exception e) {
+    	catch (SQLException e) {
     		e.printStackTrace();
     	} finally {
-            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-            if (ps != null) try { ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            Conexion.cerrarConexion(conn);
         }
 		
 		return us;
@@ -54,21 +53,27 @@ public class UsuarioDaoImpl implements IUsuarioDao {
 	
 	@Override
 	public boolean existeUsuario(String nombreUsuario) {
-	    String sql = "SELECT COUNT(*) FROM Usuarios WHERE Usuario = ?";
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
 	    boolean existe = false;
 
-	    try (Connection conn = Conexion.getConexion().getSQLConexion();
-	         PreparedStatement ps = conn.prepareStatement(sql)) {
-
+	    try {
+	    	conn = Conexion.getConexion();
+	        String sql = "SELECT COUNT(*) FROM Usuarios WHERE Usuario = ?";
+	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, nombreUsuario);
-	        ResultSet rs = ps.executeQuery();
+	        rs = ps.executeQuery();
 
 	        if (rs.next()) {
 	            existe = rs.getInt(1) > 0;
 	        }
-	        rs.close();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	    } finally {
+	    	try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            Conexion.cerrarConexion(conn);
 	    }
 
 	    return existe;
@@ -76,28 +81,29 @@ public class UsuarioDaoImpl implements IUsuarioDao {
 	
 	@Override
 	public boolean insertarUsuario(Usuario usuario) {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
 	    boolean exito = false;
 
 	    try {
-	        // Crear nueva conexión directa
-	        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bancoutn?useSSL=false", "root", "root");
-
+	        conn = Conexion.getConexion();
 	        String sql = "INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario, Activo) VALUES (?, ?, ?, 1)";
-	        PreparedStatement ps = conn.prepareStatement(sql);
+	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, usuario.getUsuario());
 	        ps.setString(2, usuario.getClave());
 	        ps.setInt(3, usuario.getTipoUsuario().getIdTipoUsuario());
 
 	        int filas = ps.executeUpdate();
 	        if (filas > 0) {
+	            conn.commit();
 	            exito = true;
 	        }
-
-	        ps.close();
-	        conn.close();
-
-	    } catch (Exception e) {
+	    } catch (SQLException e) {
+	        try { if (conn != null) conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
 	        e.printStackTrace();
+	    } finally {
+	    	try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            Conexion.cerrarConexion(conn);
 	    }
 
 	    return exito;
@@ -105,12 +111,12 @@ public class UsuarioDaoImpl implements IUsuarioDao {
 
 	@Override
 	public boolean modificarClave(Usuario usuario) {
-		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
-	    Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+	    Connection conn = null;
 	    PreparedStatement ps = null;
 	    boolean exito = false;
 
 	    try {
+	    	conn = Conexion.getConexion();
 	        String sql = "UPDATE usuarios SET Clave = ? WHERE Usuario = ?";
 	        ps = conn.prepareStatement(sql);
 	        ps.setString(1, usuario.getClave());
@@ -119,22 +125,15 @@ public class UsuarioDaoImpl implements IUsuarioDao {
 	        int filasAfectadas = ps.executeUpdate();
 
 	        if (filasAfectadas > 0) {
-	            conn.commit(); // Guarda los cambios
+	            conn.commit();
 	            exito = true;
 	        }
-	    } catch (Exception e) {
-	        try {
-	            if (conn != null) conn.rollback(); // Revierte cambios si hay error
-	        } catch (Exception rollbackEx) {
-	            rollbackEx.printStackTrace();
-	        }
-	        e.printStackTrace(); // Imprime el error para debug
+	    } catch (SQLException e) {
+	        try { if (conn != null) conn.rollback(); } catch (SQLException rollbackEx) { rollbackEx.printStackTrace(); }
+	        e.printStackTrace();
 	    } finally {
-	        try {
-	            if (ps != null) ps.close();
-	        } catch (Exception ex) {
-	            ex.printStackTrace();
-	        }
+	        try { if (ps != null) ps.close(); } catch (SQLException ex) { ex.printStackTrace(); }
+	        Conexion.cerrarConexion(conn);
 	    }
 
 	    return exito;	

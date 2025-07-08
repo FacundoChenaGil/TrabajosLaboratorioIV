@@ -38,59 +38,59 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         throws ServletException, IOException {
 
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
-    String errorMessage = null;
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String errorMessage = null;
 
-    // 1. Validar campos vacíos
-    if (username == null || username.trim().isEmpty() || 
-        password == null || password.trim().isEmpty()) {
-        errorMessage = "Por favor ingrese usuario y contraseña.";
-        request.setAttribute("loginError", errorMessage);
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
-        return;
-    }
-
-    try {
-        // 2. Buscar usuario en la base de datos
-        Usuario usuario = usuarioDao.getUsuarioPorNombre(username);
-        
-        // 3. Validar credenciales
-        if (!usuario.isActivo()) {
-            errorMessage = "Su cuenta esta inhabilitada.";
+        // 1. Validar campos vacíos
+        if (username == null || username.trim().isEmpty() || 
+            password == null || password.trim().isEmpty()) {
+            errorMessage = "Por favor ingrese usuario y contraseña.";
             request.setAttribute("loginError", errorMessage);
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
 
-        if (usuario == null || !PasswordHasher.checkPassword(password, usuario.getClave())) {
-            errorMessage = "Usuario o contraseña incorrectos.";
-            request.setAttribute("loginError", errorMessage);
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-            return;
-        }
-        
-        // 4. Obtener el rol del usuario
-        String userRole = usuario.getTipoUsuario().getDescripcion().toLowerCase();
+        try {
+            // 2. Buscar usuario en la base de datos
+            Usuario usuario = usuarioDao.getUsuarioPorNombre(username);
+            
+            // 3. Validar credenciales
+            if (usuario == null || !PasswordHasher.checkPassword(password, usuario.getClave())) {
+                errorMessage = "Usuario o contraseña incorrectos.";
+                request.setAttribute("loginError", errorMessage);
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                return;
+            }
 
-        // 5. Configurar la sesión
-        HttpSession session = request.getSession();
-        session.setAttribute("usuario", usuario);
-        session.setAttribute("username", usuario.getUsuario());
-        session.setAttribute("userRole", userRole);
-        
-        if (userRole.equals("cliente")) {
-            Cliente cliente = clienteNegocio.obtenerClientePorUsuario(username);
-            session.setAttribute("dniCliente", cliente.getDni());
-        }
-        
-        // 6. Redirigir según el rol
-        String redirectPath = userRole.equals("administrador") 
-                            ? "/admin/menuAdministrador.jsp" 
-                            : "/clientes/dashboard.jsp";
-        
-        response.sendRedirect(request.getContextPath() + redirectPath);
-        
+            if (!usuario.isActivo()) {
+                errorMessage = "Su cuenta esta inhabilitada.";
+                request.setAttribute("loginError", errorMessage);
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                return;
+            }
+            
+            // 4. Obtener el rol del usuario
+            String userRole = usuario.getTipoUsuario().getDescripcion().toLowerCase();
+
+            // 5. Configurar la sesión
+            HttpSession session = request.getSession(); // Crea una nueva sesión limpia
+            session.setAttribute("usuario", usuario);
+            session.setAttribute("username", usuario.getUsuario());
+            session.setAttribute("userRole", userRole);
+            
+            if (userRole.equals("cliente")) {
+                Cliente cliente = clienteNegocio.obtenerClientePorUsuario(username);
+                session.setAttribute("dniCliente", cliente.getDni());
+            }
+            
+            // 6. Redirigir según el rol
+            String redirectPath = userRole.equals("administrador") 
+                                ? "/admin/menuAdministrador.jsp" 
+                                : "/clientes/dashboard.jsp";
+            
+            response.sendRedirect(request.getContextPath() + redirectPath);
+            
         } catch (Exception e) {
             e.printStackTrace();
             errorMessage = "Error en el sistema. Por favor intente más tarde.";

@@ -9,15 +9,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
-
-	<%
-        HttpSession currentSession = request.getSession(false);
-        if (currentSession != null && currentSession.getAttribute("userRole") != null) {
-            currentSession.invalidate();
-            request.setAttribute("sessionClosedMessage", "Tu sesión anterior ha sido cerrada.");
-        }
-    %>
-
+    
     <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
 
     <main class="flex-grow flex items-center justify-center p-6">
@@ -32,7 +24,7 @@
             <% } %>
             
             <% if (request.getAttribute("sessionClosedMessage") != null) { %>
-                <p class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <p class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4" role="alert">
                     <span class="block sm:inline"><%= request.getAttribute("sessionClosedMessage") %></span>
                 </p>
             <% } %>

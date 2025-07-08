@@ -13,7 +13,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <!-- Navbar y header -->
-<jsp:include page="/WEB-INF/jsp/includes/header2.jsp" />
+<jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
 
 <body>
 
@@ -107,5 +107,5 @@
 </body>
 
 <!-- Footer -->
-<jsp:include page="/WEB-INF/jsp/includes/footer2.jsp" />
+<jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 </html>

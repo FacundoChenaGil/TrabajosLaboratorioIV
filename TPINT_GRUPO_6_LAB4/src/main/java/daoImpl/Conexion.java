@@ -4,70 +4,50 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conexion {
-	public static Conexion instancia;
-	private Connection connection;
-	
-	private Conexion()
-	{
-		try
-		{
-			Class.forName("com.mysql.jdbc.Driver");
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bancoutn?useSSL=false","root","root");
-			this.connection.setAutoCommit(false);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	public static Conexion getConexion()   
-	{								
-		if(instancia == null)
-		{
-			instancia = new Conexion();
-		}
-		return instancia;
-	}
+// Convertimos la clase a 'final' y con constructor privado para que no se puedan crear instancias.
+// Actuará como una clase de utilidad con métodos estáticos.
+public final class Conexion {
 
-	public Connection getSQLConexion() 
-	{
-		return this.connection;
-	}
-	
-	public void cerrarConexion()
-	{
-		try 
-		{
-			this.connection.close();
-		}
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		instancia = null;
-	}
-	
-	/*public static Connection getSQLConexion() {
-	    if (instancia == null) {
-	        instancia = new Conexion();
-	    }
-	    return instancia.getSQLConexion();
-	}*/
-	
-	public static Connection getNuevaConexion() {
+    private static final String HOST = "jdbc:mysql://localhost:3306/";
+    private static final String DB_NAME = "bancoutn?useSSL=false";
+    private static final String USER = "root";
+    private static final String PASS = "root";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+
+    // Constructor privado para evitar que se creen objetos de esta clase.
+    private Conexion() {}
+
+    /**
+     * Método estático que crea y devuelve una NUEVA conexión a la base de datos.
+     * Quien llama a este método es responsable de cerrar la conexión.
+     * @return Una nueva conexión a la base de datos.
+     * @throws SQLException si ocurre un error al conectar.
+     */
+    public static Connection getConexion() throws SQLException {
+        Connection connection = null;
         try {
-        	Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/bancoutn?useSSL=false", "root", "root"
-            );
-            connection.setAutoCommit(false); 
-            return connection;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(HOST + DB_NAME, USER, PASS);
+            connection.setAutoCommit(false); // Bueno para manejar transacciones manualmente
+        } catch (ClassNotFoundException e) {
+            // Lanzamos una SQLException para que el código que llama sepa que algo salió mal.
+            throw new SQLException("Error al cargar el driver de la base de datos", e);
+        }
+        return connection;
+    }
+
+    /**
+     * Método de utilidad para cerrar una conexión de forma segura.
+     * @param conn La conexión a cerrar.
+     */
+    public static void cerrarConexion(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                // Imprimimos el error, pero no detenemos el programa por un fallo al cerrar.
+                e.printStackTrace();
+            }
         }
     }
 }
-

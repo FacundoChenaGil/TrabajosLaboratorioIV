@@ -19,13 +19,15 @@ public class TipoDeCuentaDaoImpl implements ITipoDeCuentaDao{
 	@Override
 	public List<TiposDeCuentas> listarTiposDeCuentas() {
 		List<TiposDeCuentas> lista = new ArrayList<>();
-
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
 	    String query = "SELECT ID_Tipo_Cuenta, Descripcion FROM Tipos_Cuenta";
 
 	    try {
-	        Connection conn = Conexion.getConexion().getSQLConexion();
-	        PreparedStatement stmt = conn.prepareStatement(query);
-	        ResultSet rs = stmt.executeQuery();
+	        conn = Conexion.getConexion();
+	        ps = conn.prepareStatement(query);
+	        rs = ps.executeQuery();
 	    
 	        while (rs.next()) {
 	            TiposDeCuentas tc = new TiposDeCuentas();
@@ -34,12 +36,11 @@ public class TipoDeCuentaDaoImpl implements ITipoDeCuentaDao{
 	            lista.add(tc);
 	        }
 	    } catch (SQLException e) {
-	        System.err.println("Error al listar tipos de cuenta: " + e.getMessage());
 	        e.printStackTrace();
-	    }
-	    
-	    for(TiposDeCuentas tipo : lista) {
-	    	System.out.println(tipo.getDescripcion());
+	    } finally {
+	        try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        Conexion.cerrarConexion(conn);
 	    }
 
 	    return lista;
@@ -47,13 +48,13 @@ public class TipoDeCuentaDaoImpl implements ITipoDeCuentaDao{
 
 	@Override
 	public TiposDeCuentas getTipoCuentaPorID(int idTipoCuenta) {
-		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
-        Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         TiposDeCuentas tdc = null;
         
         try {
+        	conn = Conexion.getConexion();
         	String sql = "SELECT * FROM tipos_cuenta WHERE ID_Tipo_Cuenta = ?";
         	ps = conn.prepareStatement(sql);
         	ps.setInt(1, idTipoCuenta);
@@ -61,17 +62,16 @@ public class TipoDeCuentaDaoImpl implements ITipoDeCuentaDao{
      		
         	if(rs.next()) {
         		tdc = new TiposDeCuentas();
-       
         		tdc.setID(rs.getInt("ID_Tipo_Cuenta"));
         		tdc.setDescripcion(rs.getString("Descripcion"));
-    
         	}
         }
-    	catch (Exception e) {
+    	catch (SQLException e) {
     		e.printStackTrace();
     	} finally {
-            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-            if (ps != null) try { ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            Conexion.cerrarConexion(conn);
         }
     	
         return tdc;

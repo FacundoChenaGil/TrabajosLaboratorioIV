@@ -9,7 +9,7 @@
 </head>
 
 <!-- Navbar y header -->
-<jsp:include page="/WEB-INF/jsp/includes/header2.jsp" />
+<jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
 
 <body>
 	<main
@@ -49,6 +49,6 @@
 </body>
 
 <!-- Footer -->
-<jsp:include page="/WEB-INF/jsp/includes/footer2.jsp" />
+<jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </html>

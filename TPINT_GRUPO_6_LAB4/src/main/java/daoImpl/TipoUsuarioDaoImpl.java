@@ -14,30 +14,31 @@ public class TipoUsuarioDaoImpl implements ITipoUsuarioDao {
 	@Override
 	public TipoUsuario getTipoUsuarioPorID(int idTipoUsuario) {
 		
-		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
-        Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         TipoUsuario ts = null;
         
         try {
+        	conn = Conexion.getConexion();
         	String sql = "SELECT * FROM tipos_usuario WHERE ID_Tipo_Usuario = ?";
         	ps = conn.prepareStatement(sql);
         	ps.setInt(1, idTipoUsuario);
         	rs = ps.executeQuery();
      		
         	if (rs.next()) {
-                ts = new TipoUsuario(); // INSTANCIAR AQUÍ
+                ts = new TipoUsuario();
                 ts.setIdTipoUsuario(rs.getInt("ID_Tipo_Usuario"));
                 ts.setDescripcion(rs.getString("Descripcion"));
             }
         	
         }
-    	catch (Exception e) {
+    	catch (SQLException e) {
     		e.printStackTrace();
     	} finally {
-            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-            if (ps != null) try { ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            Conexion.cerrarConexion(conn);
         }
 		
 		return ts;
