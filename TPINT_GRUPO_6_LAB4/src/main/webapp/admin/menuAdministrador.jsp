@@ -73,7 +73,7 @@
                         </p>
                     </a>
 
-                    <a href="${pageContext.request.contextPath}/admin/reporteClientesNuevos.jsp" class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
+                    <a href="${pageContext.request.contextPath}/admin/reportes.jsp"class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[280px] transform hover:scale-105 transition-transform duration-300 card-link">
                         <i class="fa-solid fa-square-poll-vertical fa-2xl mb-6" style="color: #ffffff;"></i> <h3 class="text-2xl font-semibold mb-2">Reportes e Informes</h3>
                         <p class="text-sm opacity-90 leading-relaxed">
                              Acceda a informes y reportes estadísticos, con parámetros personalizables para el análisis de datos del banco.

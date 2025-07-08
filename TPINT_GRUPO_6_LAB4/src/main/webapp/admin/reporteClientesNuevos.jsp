@@ -8,6 +8,17 @@
 <meta charset="UTF-8">
 <title>Reporte de Clientes Nuevos</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'custom-red': '#DD1A2F',
+        }
+      }
+    }
+  }
+</script>
 </head>
 <body class="bg-gray-50 p-8">
 	<div
@@ -16,6 +27,13 @@
 			<i class="fa-solid fa-paperclip fa-xs mr-3 text-red-700"></i> Reporte
 			de Clientes Nuevos
 		</h1>
+		
+		<div class="mb-6">
+  <a href="${pageContext.request.contextPath}/admin/reportes.jsp"
+     class="inline-block bg-custom-red text-white px-4 py-2 rounded hover:bg-red-700 transition">
+    ← Volver al Panel de Reportes
+  </a>
+	</div>
 
 		<!-- Formulario -->
 		<form
