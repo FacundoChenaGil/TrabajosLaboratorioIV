@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
         
         // 6. Redirigir según el rol
         String redirectPath = userRole.equals("administrador") 
-                            ? "/admin/dashboard.jsp" 
+                            ? "/admin/menuAdministrador.jsp" 
                             : "/clientes/dashboard.jsp";
         
         response.sendRedirect(request.getContextPath() + redirectPath);

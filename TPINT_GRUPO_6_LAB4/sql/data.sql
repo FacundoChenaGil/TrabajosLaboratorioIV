@@ -6,7 +6,7 @@ INSERT INTO Tipos_Cuenta (Descripcion) VALUES ('Caja de ahorro'), ('Cuenta corri
 INSERT INTO Tipos_Movimiento (Descripcion) VALUES ('Alta de cuenta'), ('Alta de un préstamo'), ('Pago de préstamo'), ('Transferencia - Débito'), ('Transferencia - Crédito');
 INSERT INTO Tipos_Estado_Prestamo (Descripcion) VALUES ('Pendiente'), ('Aprobado'), ('Rechazado'), ('Finalizado');
 
--- Creación de un usuario administrador por defecto
+-- Creación de un usuario administrador por defecto, la password es la mismsa que el nombre de cliente
 INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('admin', '$2a$10$C1yPfWB4xDJUmcmBKKOjO.TIgLqGl9DOp838zZOwSMRoJujeSmqYW', 1);
 INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente', '$2a$10$9C2LCcwVYTja4wBYsudKDOX2bRtbpGHYw9Fc4ZphBk9FFS/hE49h2', 2);
 INSERT INTO Usuarios (Usuario, Clave, ID_Tipo_Usuario) VALUES ('cliente2', '$2a$10$x/LBt9pVlw4a.gxfOIszruSE9ugbjoJHpgWylBwn.R5N7CbdkdZXK', 2);
@@ -51,8 +51,14 @@ INSERT INTO Movimientos (CBU, Fecha_Movimiento, Detalle, Importe, ID_Tipo_Movimi
 
 -- Paso 3.1: Carlos solicita un préstamo de $50,000 en 12 cuotas.
 -- El estado inicial es 1 ('Pendiente').
-INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Plazo_Pago_Meses, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES
-('35111222', '2025-06-20 10:00:00', 50000.00, 65000.00, 12, 12, 5416.67, 1, '0010000000000000001003');
+INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES
+('35111222', '2025-06-20 10:00:00', 50000.00, 65000.00, 12, 5416.67, 1, '0010000000000000001003');
+
+INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES
+('35111222', '2025-07-20 10:00:00', 50000.00, 65000.00, 12, 5416.67, 1, '0010000000000000001003');
+
+INSERT INTO Prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES
+('35111222', '2025-08-20 10:00:00', 50000.00, 65000.00, 12, 5416.67, 1, '0010000000000000001003');
 
 -- Paso 3.2: El administrador aprueba el préstamo.
 -- Se actualiza el estado a 2 ('Aprobado').
@@ -79,6 +85,34 @@ INSERT INTO Cuotas (ID_Prestamo, Numero_Cuota, Importe, Fecha_Vencimiento) VALUE
 (1, 10, 5416.67, '2026-04-20'),
 (1, 11, 5416.67, '2026-05-20'),
 (1, 12, 5416.67, '2026-06-20');
+
+INSERT INTO Cuotas (ID_Prestamo, Numero_Cuota, Importe, Fecha_Vencimiento) VALUES
+(3, 1, 5416.67, '2025-07-20'),
+(3, 2, 5416.67, '2025-08-20'),
+(3, 3, 5416.67, '2025-09-20'),
+(3, 4, 5416.67, '2025-10-20'),
+(3, 5, 5416.67, '2025-11-20'),
+(3, 6, 5416.67, '2025-12-20'),
+(3, 7, 5416.67, '2026-01-20'),
+(3, 8, 5416.67, '2026-02-20'),
+(3, 9, 5416.67, '2026-03-20'),
+(3, 10, 5416.67, '2026-04-20'),
+(3, 11, 5416.67, '2026-05-20'),
+(3, 12, 5416.67, '2026-06-20');
+
+INSERT INTO Cuotas (ID_Prestamo, Numero_Cuota, Importe, Fecha_Vencimiento) VALUES
+(2, 1, 5416.67, '2025-07-20'),
+(2, 2, 5416.67, '2025-08-20'),
+(2, 3, 5416.67, '2025-09-20'),
+(2, 4, 5416.67, '2025-10-20'),
+(2, 5, 5416.67, '2025-11-20'),
+(2, 6, 5416.67, '2025-12-20'),
+(2, 7, 5416.67, '2026-01-20'),
+(2, 8, 5416.67, '2026-02-20'),
+(2, 9, 5416.67, '2026-03-20'),
+(2, 10, 5416.67, '2026-04-20'),
+(2, 11, 5416.67, '2026-05-20'),
+(2, 12, 5416.67, '2026-06-20');
 
 
 -- ##################################################################

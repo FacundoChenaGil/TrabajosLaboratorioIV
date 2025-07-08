@@ -82,29 +82,28 @@ CREATE TABLE Movimientos (
     FOREIGN KEY (ID_Tipo_Movimiento) REFERENCES Tipos_Movimiento(ID_Tipo_Movimiento)
 );
 
--- Tabla para los estados de un préstamo
+-- Tabla para los estados de un préstamo 'Pendiente' 'Aprobado' 'Rechazado' 'Finalizado'
 CREATE TABLE Tipos_Estado_Prestamo (
     ID_Tipo_Estado INT NOT NULL AUTO_INCREMENT,
     Descripcion VARCHAR(50) NOT NULL,
     PRIMARY KEY (ID_Tipo_Estado)
 );
 
--- Tabla de Préstamos
+-- Tabla de Préstamos 
 CREATE TABLE Prestamos (
     ID_Prestamo INT NOT NULL AUTO_INCREMENT,
-    DNI VARCHAR(10) NOT NULL,
+    DNI VARCHAR(10) NOT NULL, -- Se compone en la clase con el Cliente
     Fecha_Solicitud DATETIME NOT NULL,
     Importe_Pedido DECIMAL(10, 2) NOT NULL,
-    Importe_a_Pagar DECIMAL(10, 2) NOT NULL,
-    Plazo_Pago_Meses INT NOT NULL,
+    Importe_a_Pagar DECIMAL(10, 2) NOT NULL, -- Se modifica con el interes al crearse
     Cantidad_Cuotas INT NOT NULL,
-    Importe_Cuota DECIMAL(10, 2) NOT NULL,
-    ID_Tipo_Estado INT NOT NULL,
-    ID_Cuenta_Acreditacion VARCHAR(22) NOT NULL,
+    Importe_Cuota DECIMAL(10, 2) NOT NULL, -- Importe_a_Pagar dividido Cantidad_Cuotas
+    ID_Tipo_Estado INT NOT NULL DEFAULT 1, -- El default va a ser Pendiente
+    CBU_Acreditacion VARCHAR(22) NOT NULL,
     PRIMARY KEY (ID_Prestamo),
     FOREIGN KEY (DNI) REFERENCES Clientes(DNI),
     FOREIGN KEY (ID_Tipo_Estado) REFERENCES Tipos_Estado_Prestamo(ID_Tipo_Estado),
-    FOREIGN KEY (ID_Cuenta_Acreditacion) REFERENCES Cuentas(CBU)
+    FOREIGN KEY (CBU_Acreditacion) REFERENCES Cuentas(CBU)
 );
 
 -- Tabla para las cuotas de cada préstamo

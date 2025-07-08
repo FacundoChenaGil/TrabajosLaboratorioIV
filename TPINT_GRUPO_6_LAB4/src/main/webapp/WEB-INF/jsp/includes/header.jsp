@@ -18,9 +18,9 @@
         <a href="<%= request.getContextPath() %>/" class="text-white hover:text-blue-200 text-lg font-medium">Inicio</a>
         <a href="<%= request.getContextPath() %>/login.jsp"  class="border border-white text-white hover:bg-white hover:text-red-700 font-semibold py-2 px-4 rounded-full transition"> Iniciar Sesión</a>
 
-      <% } else if (userRole.equals("admin")) { %>
+      <% } else if (userRole.equals("administrador")) { %>
         <!-- Admin -->
-        <a href="<%= request.getContextPath() %>/admin/dashboard.jsp" class="text-white hover:text-blue-200">Inicio</a>
+        <a href="<%= request.getContextPath() %>/admin/menuAdministrador.jsp" class="text-white hover:text-blue-200">Inicio</a>
         <span class="text-blue-200"><%= username %></span>
         <a href="<%= request.getContextPath() %>/LogoutServlet" class="bg-red-600 hover:bg-red-700 py-2 px-4 rounded-full">Cerrar Sesión</a>
 
