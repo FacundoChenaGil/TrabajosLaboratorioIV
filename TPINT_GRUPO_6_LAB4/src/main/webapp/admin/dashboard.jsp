@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-    // Protección básica: Si no hay rol o no es admin, redirigir al login
-    String userRole = (String) session.getAttribute("userRole");
-    if (userRole == null || !userRole.equals("administrador")) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp?error=notAuthorized");
-        return;
-    }
+    // El filtro AdminAuthFilter ya ha verificado que el usuario es un administrador.
+    // Solo necesitamos obtener el nombre de usuario para mostrarlo.
     String username = (String) session.getAttribute("username");
 %>
 <!DOCTYPE html>

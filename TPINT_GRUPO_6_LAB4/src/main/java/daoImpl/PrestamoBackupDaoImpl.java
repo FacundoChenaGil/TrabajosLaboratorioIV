@@ -15,10 +15,10 @@ public class PrestamoBackupDaoImpl implements IPrestamoBackupDao {
 		String query = "INSERT INTO prestamos (DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Plazo_Pago_Meses, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, ID_Cuenta_Acreditacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = null;
         PreparedStatement ps = null;
-        int filasAfectadas = 0;
+        boolean exito = false;
 		
 		try {
-			conn = Conexion.getConexion().getSQLConexion();
+			conn = Conexion.getConexion();
 			ps = conn.prepareStatement(query);
 			ps.setString(1, prestamo.getCliente().getDni());
 			ps.setTimestamp(2, Timestamp.valueOf(prestamo.getFechaSolicitud()));
@@ -30,16 +30,14 @@ public class PrestamoBackupDaoImpl implements IPrestamoBackupDao {
 			ps.setInt(8, prestamo.getTipoEstadoPrestamo().getIDTipoEstado());
 			ps.setString(9, prestamo.getCuentaAcreditada().getCbu());
 			
-			filasAfectadas = ps.executeUpdate();
+			int filasAfectadas = ps.executeUpdate();
 			
 			if (filasAfectadas > 0) {
                 conn.commit();
-            } else {
-                conn.rollback();
+                exito = true;
             }
 
 		} catch (SQLException e) {
-            e.printStackTrace();
             try {
                 if (conn != null) {
                     conn.rollback();
@@ -47,20 +45,13 @@ public class PrestamoBackupDaoImpl implements IPrestamoBackupDao {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+            e.printStackTrace();
         } finally {
-            try {
-                if (ps != null)
-                    ps.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            Conexion.cerrarConexion(conn);
         }
 		
-		if(filasAfectadas == 1) {
-			return true;
-		}
-		
-		return false;
+		return exito;
 	}
 
 }

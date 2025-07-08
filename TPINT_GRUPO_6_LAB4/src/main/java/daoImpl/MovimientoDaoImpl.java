@@ -13,21 +13,40 @@ public class MovimientoDaoImpl implements IMovimientoDao {
     @Override
     public boolean insertarMovimiento(String cbu, BigDecimal importe, String detalle, int tipoMovimientoId) {
         boolean resultado = false;
+        Connection conn = null;
+        PreparedStatement ps = null;
 
-        try (Connection conn = Conexion.getNuevaConexion();
-             PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO Movimientos (CBU, Fecha_Movimiento, Detalle, Importe, ID_Tipo_Movimiento) VALUES (?, ?, ?, ?, ?)")) {
+        try {
+            conn = Conexion.getConexion();
+            ps = conn.prepareStatement(
+                "INSERT INTO Movimientos (CBU, Fecha_Movimiento, Detalle, Importe, ID_Tipo_Movimiento) VALUES (?, ?, ?, ?, ?)");
 
-            stmt.setString(1, cbu);
-            stmt.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
-            stmt.setString(3, detalle);
-            stmt.setBigDecimal(4, importe);
-            stmt.setInt(5, tipoMovimientoId);
+            ps.setString(1, cbu);
+            ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+            ps.setString(3, detalle);
+            ps.setBigDecimal(4, importe);
+            ps.setInt(5, tipoMovimientoId);
 
-            resultado = stmt.executeUpdate() > 0;
-            conn.commit(); // Si tenés autoCommit en false
-        } catch (Exception e) {
+            if (ps.executeUpdate() > 0) {
+                conn.commit();
+                resultado = true;
+            } else {
+                conn.rollback();
+            }
+        } catch (SQLException e) {
+            try {
+                if (conn != null) conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            Conexion.cerrarConexion(conn);
         }
 
         return resultado;
@@ -36,13 +55,17 @@ public class MovimientoDaoImpl implements IMovimientoDao {
     @Override
     public List<Movimiento> obtenerMovimientosPorCBU(String cbu) {
         List<Movimiento> lista = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-        try (Connection conn = Conexion.getNuevaConexion();
-             PreparedStatement stmt = conn.prepareStatement(
-                 "SELECT * FROM Movimientos WHERE CBU = ? ORDER BY Fecha_Movimiento DESC")) {
+        try {
+            conn = Conexion.getConexion();
+            ps = conn.prepareStatement(
+                 "SELECT * FROM Movimientos WHERE CBU = ? ORDER BY Fecha_Movimiento DESC");
 
-            stmt.setString(1, cbu);
-            ResultSet rs = stmt.executeQuery();
+            ps.setString(1, cbu);
+            rs = ps.executeQuery();
 
             while (rs.next()) {
                 Movimiento m = new Movimiento();
@@ -55,8 +78,12 @@ public class MovimientoDaoImpl implements IMovimientoDao {
                 lista.add(m);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            Conexion.cerrarConexion(conn);
         }
 
         return lista;

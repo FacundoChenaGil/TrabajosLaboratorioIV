@@ -27,13 +27,13 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 	@Override
 	public List<Cuenta> readAll() {
-		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
-		Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Cuenta> listaCuentas = new ArrayList<>();
 
 		try {
+			conn = Conexion.getConexion();
 			String sql = "SELECT * FROM cuentas";
 
 			ps = conn.prepareStatement(sql);
@@ -57,32 +57,30 @@ public class CuentaDaoImpl implements ICuentaDao {
 			System.err.println("ERROR DAO: Error al obtener todas las cuentas " + e.getMessage());
 			e.printStackTrace();
 		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			if (ps != null)
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			// NO CERRAR LA CONEXIÓN DEL SINGLETON AQUÍ
+			try {
+				if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Conexion.cerrarConexion(conn);
 		}
 		return listaCuentas;
 	}
 
 	@Override
 	public Cuenta read(String cbu) {
-		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
-		Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Cuenta cuenta = null;
 
 		try {
+			conn = Conexion.getConexion();
 			String sql = "SELECT * FROM cuentas WHERE CBU = ?";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, cbu);
@@ -105,19 +103,17 @@ public class CuentaDaoImpl implements ICuentaDao {
 			System.err.println("ERROR DAO: Error al obtener la cuenta con CBU: " + cbu + e2.getMessage());
 			e2.printStackTrace();
 		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			if (ps != null)
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			// NO CERRAR LA CONEXIÓN DEL SINGLETON AQUÍ
+			try {
+				if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Conexion.cerrarConexion(conn);
 		}
 
 		return cuenta;
@@ -131,7 +127,7 @@ public class CuentaDaoImpl implements ICuentaDao {
         int filasAfectadas = 0;
 
         try {
-            conn = Conexion.getConexion().getSQLConexion();
+            conn = Conexion.getConexion();
             ps = conn.prepareStatement(query);
             ps.setString(1, cuenta.getCbu());
             ps.setString(2, cuenta.getNumeroCuenta());
@@ -165,6 +161,7 @@ public class CuentaDaoImpl implements ICuentaDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            Conexion.cerrarConexion(conn);
         }
         return filasAfectadas;
 	}
@@ -178,7 +175,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 		boolean existe = false;
 
 		try {
-			conn = Conexion.getConexion().getSQLConexion();
+			conn = Conexion.getConexion();
 			ps = conn.prepareStatement(query);
 			ps.setString(1, numeroCuenta);
 			rs = ps.executeQuery();
@@ -189,13 +186,16 @@ public class CuentaDaoImpl implements ICuentaDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
+				if (rs != null) rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Conexion.cerrarConexion(conn);
 		}
 		return existe;
 	}
@@ -209,7 +209,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 		boolean existe = false;
 
 		try {
-			conn = Conexion.getConexion().getSQLConexion();
+			conn = Conexion.getConexion();
 			ps = conn.prepareStatement(query);
 			ps.setString(1, cbu);
 			rs = ps.executeQuery();
@@ -218,13 +218,16 @@ public class CuentaDaoImpl implements ICuentaDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
+				if (rs != null) rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Conexion.cerrarConexion(conn);
 		}
 		return existe;
 	}
@@ -238,7 +241,7 @@ public class CuentaDaoImpl implements ICuentaDao {
         int contador = 0;
 
         try {
-            conn = Conexion.getConexion().getSQLConexion();
+            conn = Conexion.getConexion();
             ps = conn.prepareStatement(query);
             ps.setString(1, dni);
             rs = ps.executeQuery();
@@ -250,22 +253,27 @@ public class CuentaDaoImpl implements ICuentaDao {
         } finally {
             try {
                 if (rs != null) rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
                 if (ps != null) ps.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            Conexion.cerrarConexion(conn);
         }
         return contador;
 	}
 
 	@Override
 	public boolean actualizarCuenta(Cuenta cuenta) {
-		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
-		Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		Connection conn = null;
 		PreparedStatement ps = null;
 		int filasAfectadas = 0;
 
 		try {
+			conn = Conexion.getConexion();
 			String sql = "UPDATE cuentas SET Numero_Cuenta = ?, DNI = ?, Saldo = ?, ID_Tipo_Cuenta = ?, Activa = ? WHERE CBU = ?";
 			
 			ps = conn.prepareStatement(sql);
@@ -283,7 +291,12 @@ public class CuentaDaoImpl implements ICuentaDao {
 	        System.err.println("Error actualizando cuenta: " + e.getMessage());
 	        e.printStackTrace();
 	    } finally {
-	        try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        try { 
+				if (ps != null) ps.close(); 
+			} catch (SQLException e) { 
+				e.printStackTrace(); 
+			}
+			Conexion.cerrarConexion(conn);
 	    }
 		
 		if(filasAfectadas == 1) {
@@ -296,12 +309,12 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 	@Override
 	public boolean eliminarCuenta(String cbu) {
-		Conexion conexionSingleton = Conexion.getConexion();
-		Connection conn = conexionSingleton.getSQLConexion(); 
+		Connection conn = null; 
 		PreparedStatement ps = null;
 		int filasAfectadas = 0;
 		
 		 try {
+		        conn = Conexion.getConexion();
 		        String sql = "UPDATE cuentas SET Activa = 0 WHERE CBU = ?";
 
 		        ps = conn.prepareStatement(sql);
@@ -329,6 +342,7 @@ public class CuentaDaoImpl implements ICuentaDao {
 		        } catch (SQLException e) {
 		            e.printStackTrace();
 		        }
+		        Conexion.cerrarConexion(conn);
 		    }
 
 		    return false;
@@ -336,12 +350,12 @@ public class CuentaDaoImpl implements ICuentaDao {
 	
 	public List<CuentaPrestamoddlDTO> CargarDDl(String dni) {
 		List<CuentaPrestamoddlDTO> listaCuentasDDL = new ArrayList<>();
-		Conexion conexionSingleton = Conexion.getConexion(); // Obtiene la instancia del Singleton
-		Connection conn = conexionSingleton.getSQLConexion(); // Obtiene la conexión JDBC de la instancia
+		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		try {
+			conn = Conexion.getConexion();
 			String sql = "SELECT CBU, Numero_Cuenta FROM Cuentas WHERE DNI = ?";
 			
 			ps = conn.prepareStatement(sql);
@@ -361,19 +375,17 @@ public class CuentaDaoImpl implements ICuentaDao {
 			System.err.println("ERROR DAO: Error al obtener las cuentas en DDL de SolicitarPrestamo.jsp " + e.getMessage());
 			e.printStackTrace();
 		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			if (ps != null)
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			// NO CERRAR LA CONEXIÓN DEL SINGLETON AQUÍ
+			try {
+				if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Conexion.cerrarConexion(conn);
 		}
 		
 		
@@ -384,12 +396,15 @@ public class CuentaDaoImpl implements ICuentaDao {
 	@Override
 	public BigDecimal obtenerSaldo(String cbu) {
 	    BigDecimal saldo = null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
-	    try (Connection conn = Conexion.getNuevaConexion();
-	         PreparedStatement stmt = conn.prepareStatement("SELECT Saldo FROM Cuentas WHERE CBU = ? AND Activa = 1")) {
-
-	        stmt.setString(1, cbu);
-	        ResultSet rs = stmt.executeQuery();
+	    try {
+			conn = Conexion.getConexion();
+			ps = conn.prepareStatement("SELECT Saldo FROM Cuentas WHERE CBU = ? AND Activa = 1");
+	        ps.setString(1, cbu);
+	        rs = ps.executeQuery();
 
 	        if (rs.next()) {
 	            saldo = rs.getBigDecimal("Saldo");
@@ -397,100 +412,157 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    }
+	    } finally {
+			try {
+				if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Conexion.cerrarConexion(conn);
+		}
 
-	    return saldo;
+		return saldo;
 	}
+	
 	
 	@Override
 	public boolean actualizarSaldo(String cbu, BigDecimal nuevoSaldo) {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
 	    boolean actualizado = false;
 
-	    try (Connection conn = Conexion.getNuevaConexion();
-	         PreparedStatement stmt = conn.prepareStatement("UPDATE Cuentas SET Saldo = ? WHERE CBU = ? AND Activa = 1")) {
+	    try {
+	        conn = Conexion.getConexion();
+	        ps = conn.prepareStatement("UPDATE Cuentas SET Saldo = ? WHERE CBU = ? AND Activa = 1");
+	        ps.setBigDecimal(1, nuevoSaldo);
+	        ps.setString(2, cbu);
 
-	        stmt.setBigDecimal(1, nuevoSaldo);
-	        stmt.setString(2, cbu);
+	        if (ps.executeUpdate() > 0) {
+	            conn.commit();
+	            actualizado = true;
+	        } else {
+	            conn.rollback();
+	        }
 
-	        actualizado = stmt.executeUpdate() > 0;
-	        conn.commit(); 
-
-	    } catch (Exception e) {
+	    } catch (SQLException e) {
+	        try {
+	            if (conn != null) conn.rollback();
+	        } catch (SQLException e2) {
+	            e2.printStackTrace();
+	        }
 	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (ps != null) ps.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        Conexion.cerrarConexion(conn);
 	    }
 
 	    return actualizado;
 	}
 	
 	public String obtenerDniTitular(String cbu) {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
 	    String dni = null;
+
 	    try {
-	        Connection conn = Conexion.getNuevaConexion();
-	        PreparedStatement stmt = conn.prepareStatement("SELECT DNI FROM Cuentas WHERE CBU = ?");
-	        stmt.setString(1, cbu);
-	        ResultSet rs = stmt.executeQuery();
+	        conn = Conexion.getConexion();
+	        ps = conn.prepareStatement("SELECT DNI FROM Cuentas WHERE CBU = ?");
+	        ps.setString(1, cbu);
+	        rs = ps.executeQuery();
 	        if (rs.next()) {
 	            dni = rs.getString("DNI");
 	        }
-	       // conn.close();
-	    } catch (Exception e) {
+	    } catch (SQLException e) {
 	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        try {
+	            if (ps != null) ps.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        Conexion.cerrarConexion(conn);
 	    }
 	    return dni;
 	}
 
 	public String obtenerNombreTitular(String cbu) {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
 	    String nombre = null;
+
 	    try {
-	        Connection conn = Conexion.getNuevaConexion();
-	        PreparedStatement stmt = conn.prepareStatement(
+	        conn = Conexion.getConexion();
+	        ps = conn.prepareStatement(
 	            "SELECT cl.Nombre FROM Cuentas cu JOIN Clientes cl ON cu.DNI = cl.DNI WHERE cu.CBU = ?");
-	        stmt.setString(1, cbu);
-	        ResultSet rs = stmt.executeQuery();
+	        ps.setString(1, cbu);
+	        rs = ps.executeQuery();
 	        if (rs.next()) {
 	            nombre = rs.getString("Nombre");
 	        }
-	       // conn.close();
-	    } catch (Exception e) {
+	    } catch (SQLException e) {
 	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        try {
+	            if (ps != null) ps.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        Conexion.cerrarConexion(conn);
 	    }
 	    return nombre;
 	}
 	
 	public String obtenerCBUPorDNI(String dni) {
-	    String cbu = null;
 	    Connection conn = null;
-	    PreparedStatement stmt = null;
+	    PreparedStatement ps = null;
 	    ResultSet rs = null;
-
+	    String cbu = null;
 
 	    try {
-	        conn = Conexion.getNuevaConexion();
+	        conn = Conexion.getConexion();
 	        String query = "SELECT CBU FROM cuentas WHERE DNI = ?";
-	        stmt = conn.prepareStatement(query);
-	        stmt.setString(1, dni);
-	        rs = stmt.executeQuery();
+	        ps = conn.prepareStatement(query);
+	        ps.setString(1, dni);
+	        rs = ps.executeQuery();
 
 	        if (rs.next()) {
 	            cbu = rs.getString("CBU");
 	        }
-
-	        conn.commit();
-	    } catch (Exception e) {
+	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        try {
-	            if (conn != null) conn.rollback();
-	        } catch (SQLException ex) {
-	            ex.printStackTrace();
-	        }
 	    } finally {
 	        try {
 	            if (rs != null) rs.close();
-	            if (stmt != null) stmt.close();
-	            //if (conn != null) conn.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
+	        try {
+	            if (ps != null) ps.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        Conexion.cerrarConexion(conn);
 	    }
 	    return cbu;
 	}
@@ -498,14 +570,17 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 	public List<Cuenta> obtenerCuentasPorDni(String dni) {
 	    List<Cuenta> cuentas = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
 
 	    String sql = "SELECT * FROM Cuentas WHERE ACTIVA = 1 AND DNI = ?";
 	    
-	    try (Connection con = Conexion.getNuevaConexion();
-	         PreparedStatement stmt = con.prepareStatement(sql)) {
-
-	        stmt.setString(1, dni);
-	        ResultSet rs = stmt.executeQuery();
+	    try {
+	        conn = Conexion.getConexion();
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, dni);
+	        rs = ps.executeQuery();
 
 	        while (rs.next()) {
 	            Cuenta cuenta = new Cuenta();
@@ -521,12 +596,10 @@ public class CuentaDaoImpl implements ICuentaDao {
 	            cuenta.setSaldo(rs.getBigDecimal("Saldo"));
 	            cuenta.setActiva(rs.getBoolean("Activa"));
 
-	            
 	            TiposDeCuentas tipo = new TiposDeCuentas();
 	            tipo.setID(rs.getInt("ID_Tipo_Cuenta"));
 	            cuenta.setTipoCuenta(tipo);
 
-	           
 	            Cliente cliente = new Cliente();
 	            cliente.setDni(dni);
 	            cuenta.setCliente(cliente);
@@ -536,6 +609,10 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	    } finally {
+	        try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        Conexion.cerrarConexion(conn);
 	    }
 
 	    return cuentas;
@@ -543,19 +620,30 @@ public class CuentaDaoImpl implements ICuentaDao {
 	   
 	public boolean actualizarSaldoPorNumeroCuenta(String numeroCuenta, BigDecimal nuevoSaldo) {
 	    boolean actualizado = false;
+	    Connection conn = null;
+	    PreparedStatement ps = null;
 
 	    String sql = "UPDATE Cuentas SET Saldo = ? WHERE Numero_Cuenta = ? AND Activa = 1";
 
-	    try (Connection con = Conexion.getNuevaConexion();
-	         PreparedStatement stmt = con.prepareStatement(sql)) {
+	    try {
+	        conn = Conexion.getConexion();
+	        ps = conn.prepareStatement(sql);
+	        ps.setBigDecimal(1, nuevoSaldo);
+	        ps.setString(2, numeroCuenta);
 
-	        stmt.setBigDecimal(1, nuevoSaldo);
-	        stmt.setString(2, numeroCuenta);
-
-	        actualizado = stmt.executeUpdate() > 0;
+	        if (ps.executeUpdate() > 0) {
+	            conn.commit();
+	            actualizado = true;
+	        } else {
+	            conn.rollback();
+	        }
 
 	    } catch (SQLException e) {
+	        try { if (conn != null) conn.rollback(); } catch (SQLException e2) { e2.printStackTrace(); }
 	        e.printStackTrace();
+	    } finally {
+	        try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        Conexion.cerrarConexion(conn);
 	    }
 
 	    return actualizado;
@@ -563,8 +651,9 @@ public class CuentaDaoImpl implements ICuentaDao {
 	
 	public Cuenta obtenerPorNumero(String numeroCuenta) {
 	    Cuenta cuenta = null;
-	    
-	    System.out.println(">>> [DEBUG] Usando getNuevaConexion()");  //borrar prueba
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
 
 	    String sql =  "SELECT c.*, " +
 	             "cli.DNI, cli.Nombre AS NombreCliente, cli.Apellido, " +
@@ -574,11 +663,11 @@ public class CuentaDaoImpl implements ICuentaDao {
 	             "INNER JOIN tipos_cuenta tipo ON c.ID_Tipo_Cuenta = tipo.ID_Tipo_Cuenta " +
 	             "WHERE c.Numero_Cuenta = ? AND c.Activa = 1";
 
-	    try (Connection con = Conexion.getNuevaConexion(); //Cambiar esta línea es solo para evitar que una conexión cerrada nos tire error.
-	         PreparedStatement stmt = con.prepareStatement(sql)) {
-
-	        stmt.setString(1, numeroCuenta);
-	        ResultSet rs = stmt.executeQuery();
+	    try {
+	        conn = Conexion.getConexion();
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, numeroCuenta);
+	        rs = ps.executeQuery();
 
 	        if (rs.next()) {
 	            cuenta = new Cuenta();
@@ -609,6 +698,10 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	    } finally {
+	        try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+	        Conexion.cerrarConexion(conn);
 	    }
 
 	    return cuenta;

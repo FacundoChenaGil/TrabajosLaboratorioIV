@@ -12,19 +12,26 @@ public class TipoMovimientoDaoImpl implements ITipoMovimientoDao {
     @Override
     public TipoMovimiento obtenerPorId(int id) {
         TipoMovimiento tipo = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-        try (Connection conn = Conexion.getNuevaConexion();
-        		
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Tipos_Movimiento WHERE ID_Tipo_Movimiento = ?")) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+        try {
+            conn = Conexion.getConexion();
+            ps = conn.prepareStatement("SELECT * FROM Tipos_Movimiento WHERE ID_Tipo_Movimiento = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 tipo = new TipoMovimiento();
                 tipo.setId(rs.getInt("ID_Tipo_Movimiento"));
                 tipo.setDescripcion(rs.getString("Descripcion"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            Conexion.cerrarConexion(conn);
         }
 
         return tipo;
@@ -33,10 +40,14 @@ public class TipoMovimientoDaoImpl implements ITipoMovimientoDao {
     @Override
     public List<TipoMovimiento> listarTodos() {
         List<TipoMovimiento> lista = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-        try (Connection conn = Conexion.getNuevaConexion();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Tipos_Movimiento");
-             ResultSet rs = stmt.executeQuery()) {
+        try {
+            conn = Conexion.getConexion();
+            ps = conn.prepareStatement("SELECT * FROM Tipos_Movimiento");
+            rs = ps.executeQuery();
 
             while (rs.next()) {
                 TipoMovimiento tipo = new TipoMovimiento();
@@ -44,8 +55,12 @@ public class TipoMovimientoDaoImpl implements ITipoMovimientoDao {
                 tipo.setDescripcion(rs.getString("Descripcion"));
                 lista.add(tipo);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+            Conexion.cerrarConexion(conn);
         }
 
         return lista;
