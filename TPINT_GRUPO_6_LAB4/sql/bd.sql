@@ -1,4 +1,7 @@
-CREATE DATABASE IF NOT EXISTS bancoutn;
+CREATE DATABASE IF NOT EXISTS bancoutn
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
 USE bancoutn;
 
 -- Tabla para los tipos de usuario (Administrador, Cliente)
