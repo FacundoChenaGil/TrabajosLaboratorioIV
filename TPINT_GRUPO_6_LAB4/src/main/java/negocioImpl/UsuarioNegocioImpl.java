@@ -42,4 +42,9 @@ public class UsuarioNegocioImpl implements IUsuarioNegocio {
 		return actualizada;
 	}
 
+	@Override
+	public boolean existeUsuario(String usuario) {
+		return usuarioDao.existeUsuario(usuario);
+	}
+
 }

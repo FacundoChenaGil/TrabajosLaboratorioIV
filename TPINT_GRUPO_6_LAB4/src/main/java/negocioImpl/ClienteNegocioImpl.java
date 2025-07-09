@@ -121,6 +121,11 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 	public List<Cliente> obtenerTodosLosClientes() {
 	    return clienteDao.obtenerTodosLosClientes();
 	}
+
+	@Override
+	public boolean existeCUIL(String cuil) {
+		return clienteDao.existeCUIL(cuil);
+	}
 	
 	
 }

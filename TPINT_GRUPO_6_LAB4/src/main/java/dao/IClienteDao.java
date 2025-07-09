@@ -23,6 +23,7 @@ public interface IClienteDao {
     // Métodos adicionales si los necesitas para la lógica del negocio
     public Cliente obtenerClientePorUsuario(String usuario); // Para cuando un cliente inicia sesión
     public boolean existeCorreoElectronico(String correo); // Para validar correo único
+    public boolean existeCUIL(String cuil);
     
     
     public String obtenerDNIPorUsuario(String usuario);

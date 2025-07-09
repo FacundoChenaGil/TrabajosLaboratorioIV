@@ -52,58 +52,93 @@ public class ClienteServlet extends HttpServlet {
 
 		if ("alta".equals(accion)) {
 			try {
+				HttpSession sessionClientes = request.getSession();
 
-				// Crear Cliente
-				Cliente cliente = new Cliente();
-				cliente.setDni(request.getParameter("dni"));
-				cliente.setCuil(request.getParameter("cuil"));
-				cliente.setNombre(request.getParameter("nombre"));
-				cliente.setApellido(request.getParameter("apellido"));
-				cliente.setSexo(request.getParameter("sexo"));
-				cliente.setNacionalidad(request.getParameter("nacionalidad"));
-				cliente.setFechaNacimiento(LocalDate.parse(request.getParameter("fecha")));
-				cliente.setDireccion(request.getParameter("direccion"));
-				cliente.setLocalidad(request.getParameter("localidad"));
-				cliente.setProvincia(request.getParameter("provincia"));
-				cliente.setCorreoElectronico(request.getParameter("email"));
-				cliente.setTelefono(request.getParameter("telefono"));
+		        // Crear Cliente
+		        Cliente cliente = new Cliente();
+		        cliente.setDni(request.getParameter("dni"));
+		        cliente.setCuil(request.getParameter("cuil"));
+		        cliente.setNombre(request.getParameter("nombre"));
+		        cliente.setApellido(request.getParameter("apellido"));
+		        cliente.setSexo(request.getParameter("sexo"));
+		        cliente.setNacionalidad(request.getParameter("nacionalidad"));
+		        cliente.setFechaNacimiento(LocalDate.parse(request.getParameter("fecha")));
+		        cliente.setDireccion(request.getParameter("direccion"));
+		        cliente.setLocalidad(request.getParameter("localidad"));
+		        cliente.setProvincia(request.getParameter("provincia"));
+		        cliente.setCorreoElectronico(request.getParameter("email"));
+		        cliente.setTelefono(request.getParameter("telefono"));
 
-
-				// Crear Usuario
+		        // Crear Usuario
 				Usuario usuario = new Usuario();
 				
 				usuario.setUsuario(request.getParameter("username"));
 				
-				String claveHasheada = PasswordHasher.hashPassword(request.getParameter("password"));
+				usuario.setClave(request.getParameter("password"));
 				
-				usuario.setClave(claveHasheada);
-				
+			
 				
 				TipoUsuario tipoUsuario = new TipoUsuario();
 				tipoUsuario.setIdTipoUsuario(2); // 2 = Cliente
 				usuario.setTipoUsuario(tipoUsuario);
 				
-				
-				//boolean exitoUsuario = usuarioNegocio.altaUsuario(usuario);
 				cliente.setUsuario(usuario);
 
-				// Negocio
-				
+		        // Validaciones
+		        if (clienteNegocio.existeClienteActivo(cliente.getDni())) {
+		            sessionClientes.setAttribute("mensajeError", "Ya existe un cliente activo con ese DNI.");
+		            sessionClientes.setAttribute("clienteForm", cliente);
+		            response.sendRedirect("admin/altaCliente.jsp");
+		            return;
+		        }
 
-				boolean exito = clienteNegocio.registrarCliente(cliente);
+		        if (!cliente.getCuil().contains(cliente.getDni())) {
+		            sessionClientes.setAttribute("mensajeError", "El CUIL no contiene el DNI.");
+		            sessionClientes.setAttribute("clienteForm", cliente);
+		            response.sendRedirect("admin/altaCliente.jsp");
+		            return;
+		        }
 
-				if (exito) {
-					response.sendRedirect("admin/gestionDeClientes.jsp");
-				} else {
-					request.setAttribute("error", "El DNI, correo o usuario ya existen.");
-					request.getRequestDispatcher("admin/altaCliente.jsp").forward(request, response);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+		        if (clienteNegocio.existeCUIL(cliente.getCuil())) {
+		            sessionClientes.setAttribute("mensajeError", "El CUIL ya está en uso.");
+		            sessionClientes.setAttribute("clienteForm", cliente);
+		            response.sendRedirect("admin/altaCliente.jsp");
+		            return;
+		        }
 
-				request.setAttribute("error", "Ocurrió un error inesperado al procesar el alta.");
-				request.getRequestDispatcher("admin/altaCliente.jsp").forward(request, response);
-			}
+		        if (usuarioNegocio.existeUsuario(cliente.getUsuario().getUsuario())) {
+		            sessionClientes.setAttribute("mensajeError", "El nombre de usuario ya está en uso.");
+		            sessionClientes.setAttribute("clienteForm", cliente);
+		            response.sendRedirect("admin/altaCliente.jsp");
+		            return;
+		        }
+
+		        if (clienteNegocio.existeCorreoElectronico(cliente.getCorreoElectronico())) {
+		            sessionClientes.setAttribute("mensajeError", "El correo electrónico ya está registrado.");
+		            sessionClientes.setAttribute("clienteForm", cliente);
+		            response.sendRedirect("admin/altaCliente.jsp");
+		            return;
+		        }
+
+		        // Registro
+		        String claveHasheada = PasswordHasher.hashPassword(request.getParameter("password"));
+		        usuario.setClave(claveHasheada);
+		        cliente.setUsuario(usuario);
+		        boolean exito = clienteNegocio.registrarCliente(cliente);
+		        if (exito) {
+		            sessionClientes.setAttribute("mensajeExito", "Cliente registrado correctamente.");
+		        } else {
+		            sessionClientes.setAttribute("mensajeError", "No se pudo registrar el cliente.");
+		            sessionClientes.setAttribute("clienteForm", cliente);
+		        }
+
+		        response.sendRedirect("admin/altaCliente.jsp");
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        request.getSession().setAttribute("mensajeError", "Ocurrió un error inesperado.");
+		        response.sendRedirect("admin/altaCliente.jsp");
+		    }
 		} 
 		else if("modificar".equals(accion)) {
 			
@@ -208,4 +243,4 @@ public class ClienteServlet extends HttpServlet {
 	    }
 	}
 	
-} 
+}
