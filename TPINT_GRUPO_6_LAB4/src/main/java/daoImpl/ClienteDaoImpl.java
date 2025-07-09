@@ -495,23 +495,23 @@ public class ClienteDaoImpl implements IClienteDao {
 	        stmt.setString(2, filtro);
 	        stmt.setString(3, filtro);
 
-	        ResultSet rs = stmt.executeQuery();
-
-	        while (rs.next()) {
-	            Cliente cliente = new Cliente();
-
-	            cliente.setDni(rs.getString("DNI"));
-	            cliente.setNombre(rs.getString("Nombre"));
-	            cliente.setApellido(rs.getString("Apellido"));
-	            cliente.setCorreoElectronico(rs.getString("Correo_Electronico"));
-	            cliente.setTelefono(rs.getString("Telefono"));
-	            cliente.setActivo(rs.getBoolean("Activo"));
-
-	            Usuario usuario = new Usuario();
-	            usuario.setUsuario(rs.getString("Usuario")); 
-	            cliente.setUsuario(usuario);
-
-	            clientes.add(cliente);
+	        try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Cliente cliente = new Cliente();
+    
+                    cliente.setDni(rs.getString("DNI"));
+                    cliente.setNombre(rs.getString("Nombre"));
+                    cliente.setApellido(rs.getString("Apellido"));
+                    cliente.setCorreoElectronico(rs.getString("Correo_Electronico"));
+                    cliente.setTelefono(rs.getString("Telefono"));
+                    cliente.setActivo(rs.getBoolean("Activo"));
+    
+                    Usuario usuario = new Usuario();
+                    usuario.setUsuario(rs.getString("Usuario"));
+                    cliente.setUsuario(usuario);
+    
+                    clientes.add(cliente);
+                }
 	        }
 
 	    } catch (Exception e) {
