@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,7 +62,7 @@ public class PrestamoServlet extends HttpServlet {
 	        BigDecimal cantCuotas = new BigDecimal(cuotasStr);
 	        
 	        LocalDateTime fechaSolicitud = LocalDateTime.now();
-	        BigDecimal importeAPagar = negocioPrestamo.calcularImporteAPagar(montoSolicitado);)
+	        BigDecimal importeAPagar = negocioPrestamo.calcularImporteAPagar(montoSolicitado);
 	        BigDecimal importeCuota = negocioPrestamo.calcularImporteCuota(cantCuotas, importeAPagar);
 	        LocalDate fechaFin = fechaSolicitud.toLocalDate().plusMonths(cantCuotas.intValue());
 	        
@@ -88,7 +89,10 @@ public class PrestamoServlet extends HttpServlet {
 	        prestamo.setImporteAPagar(importeAPagar);
 	        prestamo.setImporte_Cuota(importeCuota);
 	        
+	        request.getSession().setAttribute("prestamoPendiente", prestamo);
 	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("clientes/confirmarPrestamo.jsp");
+	        dispatcher.forward(request, response);
 		}
 	}
 

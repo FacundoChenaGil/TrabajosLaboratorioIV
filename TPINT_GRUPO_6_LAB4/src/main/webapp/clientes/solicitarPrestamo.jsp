@@ -27,7 +27,7 @@
 		<p class="text-sm text-gray-600 mt-2">Simulá tu préstamo y obtené
 			resultados inmediatos.</p>
 
-		<form action="PrestamoServlet" method="get" class="flex flex-col justify-center items-center gap-[35px]">
+		<form action="<%= request.getContextPath() %>/PrestamoServlet" method="get" class="flex flex-col justify-center items-center gap-[35px]">
 		<input type="hidden" name="accion" value="mostrar">
 			<div
 				class="flex flex-col gap-[21px] px-[21px] py-[38px] bg-[#E75E5E] rounded-[9px] w-[292px]"
