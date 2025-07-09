@@ -88,6 +88,21 @@ public class PrestamoNegocioImpl implements IPrestamoNegocio{
 		return false;
 	}
 
+	@Override
+	public List<PrestamoBackup> leerPrestamosPendientes() {
+		return prestamoDao.leerPrestamosPendientes();
+	}
+
+	@Override
+	public boolean aprobarPrestamo(int idPrestamo) {
+		return prestamoDao.aprobarPrestamo(idPrestamo);
+	}
+
+	@Override
+	public boolean rechazarPrestamo(int idPrestamo) {
+		return prestamoDao.rechazarPrestamo(idPrestamo);
+	}
+
    }       
 
 

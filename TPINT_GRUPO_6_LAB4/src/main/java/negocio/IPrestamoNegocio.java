@@ -16,4 +16,8 @@ public interface IPrestamoNegocio {
 		public boolean agregarPrestamo();
 		public BigDecimal calcularImporteAPagar(BigDecimal importe);
 		public BigDecimal calcularImporteCuota(BigDecimal cantCuotas, BigDecimal importe);
+		
+		public List<PrestamoBackup> leerPrestamosPendientes();
+		public boolean aprobarPrestamo(int idPrestamo);
+		public boolean rechazarPrestamo(int idPrestamo);
 }

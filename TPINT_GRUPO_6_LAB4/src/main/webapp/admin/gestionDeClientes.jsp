@@ -113,7 +113,7 @@
     <!-- H1 y Alta Cliente -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Gestión de Clientes</h1>
-        <a href="altaCliente.jsp"
+        <a href="/TPINT_GRUPO_6_LAB4/admin/altaCliente.jsp"
            class="bg-[#ff0000] text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-red-700 flex items-center gap-2">
             <i class="fa-solid fa-plus"></i> Agregar Cliente
         </a>
@@ -180,7 +180,7 @@
                 <td class="px-4 py-3"><%=cliente.getDireccion()%></td>
                 <td class="px-4 py-3"><%=cliente.getCorreoElectronico()%></td>
                 <td class="px-4 py-3"><%=cliente.getUsuario().getUsuario()%></td>
-                <td class="px-4 py-3"><%=cliente.isActivo()%></td>
+                <td class="px-4 py-3"><%=cliente.isActivo() ? "Activo" : "Inactivo"%></td>
             </tr>
             <%
                     }
@@ -194,6 +194,10 @@
         </table>
     </div>
     
+    <div class="max-w-6xl mx-auto text-end mt-4">
+		<a href="<%=request.getContextPath()%>/admin/menuAdministrador.jsp"
+			class="text-sm text-red-600 hover:underline"> ← Volver </a>
+	</div>
 
 <div id="modalConfirmacion">
 		<div>
@@ -251,12 +255,6 @@
         modal.style.display = 'none';
     });
 </script>
-<div class="max-w-6xl mx-auto text-end mt-4">
-    <a href="${pageContext.request.contextPath}/admin/menuAdministrador.jsp" class="text-sm text-red-600 hover:underline">
-      ← Volver
-    </a>
-  </div>
-
 
 </main>
 

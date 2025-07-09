@@ -13,6 +13,10 @@ public interface IPrestamoDao {
 	
 	public boolean agregarPrestamo(PrestamoBackup prestamo);
 	
+	public List<PrestamoBackup> leerPrestamosPendientes();
+	public boolean aprobarPrestamo(int idPrestamo);
+	public boolean rechazarPrestamo(int idPrestamo);
+	
 	//OTROS MÉTODOS
 	public Prestamo obtenerPrestamoPorId(int IdPrestamo);
 	public List<Prestamo> obtenerPrestamosPorDni(String dni);

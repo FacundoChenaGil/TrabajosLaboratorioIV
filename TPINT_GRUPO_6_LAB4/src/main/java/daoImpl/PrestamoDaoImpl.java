@@ -1,5 +1,6 @@
 package daoImpl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,9 @@ import java.util.List;
 import dao.IPrestamoDao;
 import entidad.Prestamo;
 import entidad.PrestamoBackup;
+
+import entidad.TipoEstadoPrestamo;
+import entidad.Cuenta;
 
 public class PrestamoDaoImpl implements IPrestamoDao {
 
@@ -230,5 +234,134 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 		}
 
 		return exito;
+	}
+
+	@Override
+	public List<PrestamoBackup> leerPrestamosPendientes() {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<PrestamoBackup> listaPrestamosPendientes = new ArrayList<>();
+
+		try {
+			conn = Conexion.getConexion();
+			String sql = "SELECT P.ID_Prestamo, P.CBU_Acreditacion, P.Fecha_Solicitud, P.Importe_Pedido, P.Importe_a_Pagar, P.Cantidad_Cuotas, P.Importe_Cuota, P.ID_Tipo_Estado FROM Prestamos AS P JOIN Tipos_Estado_Prestamo AS TEP ON P.ID_Tipo_Estado = TEP.ID_Tipo_Estado WHERE P.ID_Tipo_Estado = 1";
+
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				PrestamoBackup prestamo = new PrestamoBackup();
+
+				prestamo.setIDPrestamo(rs.getInt("ID_Prestamo"));
+                		prestamo.setFechaSolicitud(rs.getTimestamp("Fecha_Solicitud").toLocalDateTime());
+                		prestamo.setImportePedido(rs.getBigDecimal("Importe_Pedido"));
+                		prestamo.setImporteAPagar(rs.getBigDecimal("Importe_a_Pagar"));
+                		prestamo.setCantidadCuotas(rs.getInt("Cantidad_Cuotas"));
+                		prestamo.setImporte_Cuota(rs.getBigDecimal("Importe_Cuota"));
+
+                		TipoEstadoPrestamo tipoEstado = new TipoEstadoPrestamo();
+                		tipoEstado.setIDTipoEstado(rs.getInt("ID_Tipo_Estado"));
+                		prestamo.setTipoEstadoPrestamo(tipoEstado);
+
+                		Cuenta cuentaAcreditada = new Cuenta();
+                		cuentaAcreditada.setCbu(rs.getString("CBU_Acreditacion"));
+                		prestamo.setCuentaAcreditada(cuentaAcreditada);
+
+				listaPrestamosPendientes.add(prestamo);
+			}
+		} catch (SQLException e) {
+			System.err.println("ERROR DAO: Error al obtener los prestamos pendientes." + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if (ps != null) ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Conexion.cerrarConexion(conn);
+		}
+		return listaPrestamosPendientes;
+	}
+
+	@Override
+	public boolean aprobarPrestamo(int idPrestamo) {
+		Connection conn = null;
+        CallableStatement stmt = null;
+
+        try {
+            conn = Conexion.getConexion();
+            stmt = conn.prepareCall("{ CALL SP_AprobarPrestamo(?) }");
+            stmt.setInt(1, idPrestamo);
+            stmt.execute();
+            conn.commit();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                if (conn != null) conn.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            return false;
+
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            Conexion.cerrarConexion(conn);
+        }
+	}
+
+	@Override
+	public boolean rechazarPrestamo(int idPrestamo) {
+		Connection conn = null;
+	    PreparedStatement ps = null;
+	    int filasAfectadas = 0;
+
+	    try {
+	        conn = Conexion.getConexion();
+
+	        String sql = "UPDATE prestamos SET ID_Tipo_Estado = 3 WHERE ID_Prestamo = ?";
+
+	        ps = conn.prepareStatement(sql);
+	        ps.setInt(1, idPrestamo);
+
+	        filasAfectadas = ps.executeUpdate();
+
+	        if (filasAfectadas > 0) {
+	            conn.commit();
+	            return true;  //éxito
+	        } else {
+	            conn.rollback();
+	            return false; //no se actualizó nada
+	        }
+
+	    } catch (SQLException e) {
+	        if (conn != null) {
+	            try {
+	                conn.rollback();
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	        e.printStackTrace();
+	        return false;  //error
+	    } finally {
+	        try {
+	            if (ps != null) ps.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        Conexion.cerrarConexion(conn);
+	    }
 	}
 }
