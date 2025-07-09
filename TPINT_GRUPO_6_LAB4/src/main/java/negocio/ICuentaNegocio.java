@@ -3,6 +3,7 @@ package negocio;
 import java.util.List;
 import java.math.BigDecimal;
 
+import entidad.Cliente;
 import entidad.Cuenta;
 import entidad.CuentaPrestamoddlDTO;
 
@@ -27,4 +28,6 @@ public interface ICuentaNegocio {
     public List<Cuenta> obtenerCuentasPorDni(String dni);
 	public Cuenta obtenerPorNumero(String numeroCuenta);
 	boolean actualizarSaldoPorNumeroCuenta(String numeroCuenta, BigDecimal nuevoSaldo);
+	public List<Cliente> obtenerClientesConSaldoNegativo();// Para Reporte
+	
 }

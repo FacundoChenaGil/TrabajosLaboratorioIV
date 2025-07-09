@@ -2,7 +2,9 @@ package negocioImpl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import daoImpl.ClienteDaoImpl;
 import daoImpl.CuentaDaoImpl;
@@ -133,7 +135,38 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
         return cuentaDao.actualizarSaldoPorNumeroCuenta(numeroCuenta, nuevoSaldo);
     }
     
+  
+    	
+    	public List<Cliente> obtenerClientesConSaldoNegativo() {
+    	    List<Cuenta> cuentas = cuentaDao.obtenerCuentasConCliente();
+    	    Map<String, Cliente> mapaClientes = new HashMap<>();
+
+    	    for (Cuenta cuenta : cuentas) {
+    	        Cliente cliente = cuenta.getCliente();
+    	        String dni = cliente.getDni();
+
+    	        if (!mapaClientes.containsKey(dni)) {
+    	            cliente.setSaldoTotal(cuenta.getSaldo()); // inicia con el primer saldo
+    	            mapaClientes.put(dni, cliente);	
+    	        } else {
+    	            Cliente acumulado = mapaClientes.get(dni);
+    	            BigDecimal nuevoSaldo = acumulado.getSaldoTotal().add(cuenta.getSaldo());
+    	            acumulado.setSaldoTotal(nuevoSaldo);
+    	        }
+    	    }
+
+    	    List<Cliente> clientesNegativos = new ArrayList<>();
+    	    for (Cliente c : mapaClientes.values()) {
+    	        if (c.getSaldoTotal().compareTo(BigDecimal.ZERO) < 0) {
+    	            clientesNegativos.add(c);
+    	        }
+    	    }
+
+    	    return clientesNegativos;
+    	}
+    }
+
     
     
-}
+
 

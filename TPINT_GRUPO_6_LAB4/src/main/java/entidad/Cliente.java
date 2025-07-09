@@ -1,5 +1,6 @@
 package entidad;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Cliente {
@@ -19,11 +20,20 @@ public class Cliente {
     private boolean activo; // Para la baja lógica
     private LocalDate fechaAlta; // Solo para reporte
     private Cuenta cuenta; // Solo para reporte
+    private BigDecimal saldoTotal; // Solo para reportes
 
     public Cliente() {
     }
 
-    public Cuenta getCuenta() {
+    public BigDecimal getSaldoTotal() {
+		return saldoTotal;
+	}
+
+	public void setSaldoTotal(BigDecimal saldoTotal) {
+		this.saldoTotal = saldoTotal;
+	}
+
+	public Cuenta getCuenta() {
 		return cuenta;
 	}
 

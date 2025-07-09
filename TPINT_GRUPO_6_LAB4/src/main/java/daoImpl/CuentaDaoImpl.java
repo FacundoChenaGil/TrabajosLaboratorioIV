@@ -1,6 +1,7 @@
 package daoImpl;
 
 import java.math.BigDecimal;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -705,6 +706,37 @@ public class CuentaDaoImpl implements ICuentaDao {
 	    }
 
 	    return cuenta;
+	}
+	
+	
+	public List<Cuenta> obtenerCuentasConCliente() {
+	    List<Cuenta> lista = new ArrayList<>();
+	    String sql = "SELECT c.Numero_Cuenta, c.Saldo, c.ID_Tipo_Cuenta, c.DNI, cl.Nombre, cl.Apellido " +
+	                 "FROM Cuentas c JOIN Clientes cl ON c.DNI = cl.DNI";
+
+	    try (Connection con = Conexion.getConexion();
+	         PreparedStatement stmt = con.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            Cuenta cuenta = new Cuenta();
+	            cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
+	            cuenta.setSaldo(rs.getBigDecimal("Saldo"));
+	            
+	            Cliente cliente = new Cliente();
+	            cliente.setDni(rs.getString("DNI"));
+	            cliente.setNombre(rs.getString("Nombre"));
+	            cliente.setApellido(rs.getString("Apellido"));
+
+	            cuenta.setCliente(cliente);
+	            lista.add(cuenta);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return lista;
 	}
 	
 }

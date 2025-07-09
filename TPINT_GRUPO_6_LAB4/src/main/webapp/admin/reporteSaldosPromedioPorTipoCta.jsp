@@ -31,14 +31,8 @@
 
   <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-xl">
     <h1 class="text-3xl font-bold text-red-700 mb-6">Promedio de Saldo por Tipo de Cuenta</h1>
-    <div class="mb-6">
-  <a href="${pageContext.request.contextPath}/admin/reportes.jsp"
-     class="inline-block bg-custom-red text-white px-4 py-2 rounded hover:bg-red-800 transition">
-    ← Volver al Panel de Reportes
-  </a>
-</div>
     
-    
+      
     
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -74,6 +68,13 @@
       </div>
     </div>
   </main>
+  
+  </div>
+    <div class="max-w-6xl mx-auto text-end mt-4">
+    <a href="${pageContext.request.contextPath}/admin/reportes.jsp" class="text-sm text-red-600 hover:underline">
+      ← Volver
+    </a>
+  </div>
 
   <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 

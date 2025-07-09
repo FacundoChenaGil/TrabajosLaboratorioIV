@@ -59,7 +59,7 @@
       <a href="${pageContext.request.contextPath}/PromedioTipoCuentaServlet"
          class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[200px] card-link">
         <i class="fa-solid fa-chart-column fa-2xl mb-4"></i>
-        <h2 class="text-xl font-semibold mb-2">Saldo Promedio por Tipo</h2>
+        <h2 class="text-xl font-semibold mb-2">Saldo Promedio Total</h2>
         <p class="text-sm opacity-90 leading-relaxed">Visualizá el saldo promedio agrupado por tipo de cuenta.</p>
       </a>
 
@@ -70,6 +70,15 @@
 		  <h2 class="text-xl font-semibold mb-2">Buscar Clientes</h2>
 		  <p class="text-sm opacity-90 leading-relaxed">Buscá clientes por nombre, apellido o usuario.</p>
 		</a>
+      
+		  <!-- Reporte 4: Clientes con saldo negativo -->
+		<a href="${pageContext.request.contextPath}/ReporteSaldoNegativo"
+		   class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[200px] card-link">
+		  <i class="fa-solid fa-triangle-exclamation fa-2xl mb-4"></i>
+		  <h2 class="text-xl font-semibold mb-2">Clientes con Saldo Negativo</h2>
+		  <p class="text-sm opacity-90 leading-relaxed">Visualizá aquellos clientes cuyo saldo total es menor a 0.</p>
+		</a>
+	      
       
     </div>
   </div>
