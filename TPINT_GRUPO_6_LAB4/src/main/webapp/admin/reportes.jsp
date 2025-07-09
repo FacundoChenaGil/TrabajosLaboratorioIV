@@ -57,6 +57,13 @@
         <p class="text-sm opacity-90 leading-relaxed">Visualizá el saldo promedio agrupado por tipo de cuenta.</p>
       </a>
 
+		<!-- Reporte 3: Buscar Clientes -->
+		<a href="${pageContext.request.contextPath}/admin/listadoClientes.jsp""
+		   class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[200px] card-link">
+		  <i class="fa-solid fa-magnifying-glass fa-2xl mb-4"></i>
+		  <h2 class="text-xl font-semibold mb-2">Buscar Clientes</h2>
+		  <p class="text-sm opacity-90 leading-relaxed">Buscá clientes por nombre, apellido o usuario.</p>
+		</a>
       
     </div>
   </div>

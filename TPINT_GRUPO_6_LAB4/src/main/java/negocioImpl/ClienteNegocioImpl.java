@@ -114,5 +114,10 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 	    return clienteDao.obtenerClientesNuevosEntreFechas(desde, hasta);
 	}
 	
+	public List<Cliente> buscarClientesPorNombreApellidoUsuario(String texto) {
+	    return clienteDao.buscarClientesPorNombreApellidoUsuario(texto);
+	}
+	
+	
 	
 }

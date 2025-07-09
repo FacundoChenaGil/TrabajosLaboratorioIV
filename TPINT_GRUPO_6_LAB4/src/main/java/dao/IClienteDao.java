@@ -28,6 +28,6 @@ public interface IClienteDao {
     public String obtenerDNIPorUsuario(String usuario);
     
     List<Cliente> obtenerClientesNuevosEntreFechas(LocalDate desde, LocalDate hasta); // Para reporte
-   
+    public List<Cliente> buscarClientesPorNombreApellidoUsuario(String texto); // Para reporte
     
 }

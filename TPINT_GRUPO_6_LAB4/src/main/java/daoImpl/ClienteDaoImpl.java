@@ -478,7 +478,48 @@ public class ClienteDaoImpl implements IClienteDao {
 	    return lista;
 	}
 	
-	
+	public List<Cliente> buscarClientesPorNombreApellidoUsuario(String texto) {
+	    List<Cliente> clientes = new ArrayList<>();
+
+	    String sql = "SELECT c.DNI, c.Nombre, c.Apellido, c.Correo_Electronico, c.Telefono, c.Activo, u.Usuario " +
+                "FROM clientes c " +
+                "JOIN usuarios u ON c.Usuario = u.Usuario " +
+                "WHERE c.Nombre LIKE ? OR c.Apellido LIKE ? OR u.Usuario LIKE ? " +
+                "ORDER BY c.Apellido ASC, c.Nombre ASC";
+
+	    try (Connection con = Conexion.getConexion();
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        String filtro = texto + "%";
+	        stmt.setString(1, filtro);
+	        stmt.setString(2, filtro);
+	        stmt.setString(3, filtro);
+
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            Cliente cliente = new Cliente();
+
+	            cliente.setDni(rs.getString("DNI"));
+	            cliente.setNombre(rs.getString("Nombre"));
+	            cliente.setApellido(rs.getString("Apellido"));
+	            cliente.setCorreoElectronico(rs.getString("Correo_Electronico"));
+	            cliente.setTelefono(rs.getString("Telefono"));
+	            cliente.setActivo(rs.getBoolean("Activo"));
+
+	            Usuario usuario = new Usuario();
+	            usuario.setUsuario(rs.getString("Usuario")); 
+	            cliente.setUsuario(usuario);
+
+	            clientes.add(cliente);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return clientes;
+	}
 
   }
 
