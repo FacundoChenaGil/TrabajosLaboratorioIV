@@ -23,7 +23,11 @@
   
 </head>
 
-<body class="bg-gray-100 min-h-screen p-8 text-gray-800">
+<body class="flex flex-col min-h-screen">
+
+  <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+  <main class="flex-grow bg-gray-100 p-8 text-gray-800">
 
   <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-xl">
     <h1 class="text-3xl font-bold text-red-700 mb-6">Promedio de Saldo por Tipo de Cuenta</h1>
@@ -66,9 +70,12 @@
             </tr>
           </c:forEach>
         </tbody>
-      </table>
+        </table>
+      </div>
     </div>
-  </div>
+  </main>
+
+  <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </body>
 </html>

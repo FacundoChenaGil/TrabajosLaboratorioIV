@@ -127,7 +127,11 @@ table {
 }
 </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="flex flex-col min-h-screen">
+
+  <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+  <main class="flex-grow bg-gray-100">
 
 	<%
 	List<Cuenta> cuentas = (List<Cuenta>) request.getAttribute("listaCuentas");
@@ -253,7 +257,7 @@ table {
 			</table>
 		</div>
 
-		<a href="/TPINT_GRUPO_6_LAB4/menuAdministrador.jsp"
+		<a href="<%=request.getContextPath()%>/admin/menuAdministrador.jsp"
 			class="flex justify-end text-black underline mt-5">Volver</a>
 	</main>
 
@@ -317,6 +321,10 @@ table {
 							modal.style.display = 'none';
 						});
 	</script>
+
+  </main>
+
+  <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </body>
 </html>

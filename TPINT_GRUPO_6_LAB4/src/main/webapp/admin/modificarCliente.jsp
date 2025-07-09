@@ -31,8 +31,12 @@
     }
   </style>
 </head>
-<body class="bg-cover bg-center bg-no-repeat bg-fixed p-8 antialiased text-gray-900"
-  style="background-image: url('../imagenes/5594016.jpg')">
+<body class="flex flex-col min-h-screen">
+
+  <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+  <main class="flex-grow bg-cover bg-center bg-no-repeat bg-fixed p-8 antialiased text-gray-900"
+        style="background-image: url('../imagenes/5594016.jpg')">
   
   <%
   Cliente cliente = (Cliente) request.getAttribute("cliente");
@@ -289,5 +293,9 @@
 	</script>
   
   
+  </main>
+
+  <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
+
 </body>
 </html>

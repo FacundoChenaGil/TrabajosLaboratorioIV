@@ -28,12 +28,15 @@
         }
     </style>
 </head>
-<body class="bg-cover bg-center bg-no-repeat bg-fixed antialiased text-gray-900 h-screen flex items-center justify-center p-4"
-    style="background-image: url('5594016.jpg');">
+<body class="flex flex-col min-h-screen">
+
+<jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+<main class="flex-grow bg-cover bg-center bg-no-repeat bg-fixed antialiased text-gray-900 flex items-center justify-center p-4"
+      style="background-image: url('../img/5594016.jpg');">
     
     <%
-    Usuario usuario = new Usuario();
-    usuario = (Usuario) request.getAttribute("usuario");
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
     %>
     
     <div class="max-w-xl w-full bg-white p-10 md:p-12 rounded-2xl shadow-2xl">
@@ -110,5 +113,10 @@
             </div>
         </form>
     </div>
+
+</main>
+
+<jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
+
 </body>
 </html>

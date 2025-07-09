@@ -51,8 +51,11 @@ body {
 }
 </style>
 </head>
-<body
-	class="bg-gray-100 min-h-screen flex items-center justify-center p-5 text-gray-700">
+<body class="flex flex-col min-h-screen">
+
+  <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+  <main class="flex-grow bg-gray-100 flex items-center justify-center p-5 text-gray-700">
 
 	<%
 	Cuenta cuenta = (Cuenta) request.getAttribute("cuenta");
@@ -193,6 +196,10 @@ body {
 			</div>
 		</form>
 	</div>
+
+  </main>
+
+  <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </body>
 </html>

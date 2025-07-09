@@ -20,7 +20,11 @@
   }
 </script>
 </head>
-<body class="bg-gray-50 p-8">
+<body class="flex flex-col min-h-screen">
+
+  <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+  <main class="flex-grow bg-gray-50 p-8">
 	<div
 		class="max-w-6xl mx-auto bg-white rounded-lg shadow-xl p-8 border-t-4 border-red-700">
 		<h1 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
@@ -153,5 +157,9 @@
 			</div>
 		</c:if>
 	</div>
+  </main>
+
+  <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
+
 </body>
 </html>

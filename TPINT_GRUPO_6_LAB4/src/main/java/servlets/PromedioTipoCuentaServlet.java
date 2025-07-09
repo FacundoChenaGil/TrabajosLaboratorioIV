@@ -31,7 +31,7 @@ public class PromedioTipoCuentaServlet extends HttpServlet {
 		
 		request.setAttribute("promedios", promedios);
 		
-		request.getRequestDispatcher("/admin/reporteSaldosPomedioPorTipoCta.jsp").forward(request, response);
+		request.getRequestDispatcher("/admin/reporteSaldosPromedioPorTipoCta.jsp").forward(request, response);
 	}
 	
 

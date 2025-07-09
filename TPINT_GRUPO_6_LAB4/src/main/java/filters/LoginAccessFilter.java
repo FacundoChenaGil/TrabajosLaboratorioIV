@@ -19,9 +19,6 @@ import javax.servlet.http.HttpSession;
 public class LoginAccessFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("****************************************");
-        System.out.println("LoginAccessFilter: Filtro ejecutado para la URL: " + ((HttpServletRequest) request).getRequestURI());
-        System.out.println("****************************************");
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(false); // No crear una nueva sesión si no existe
 

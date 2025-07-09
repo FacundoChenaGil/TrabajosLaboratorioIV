@@ -45,7 +45,11 @@
     }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800 p-6">
+<body class="flex flex-col min-h-screen">
+
+  <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+  <main class="flex-grow bg-gray-100 text-gray-800 p-6">
 
   <header class="mb-8">
     <h1 class="text-3xl font-semibold text-center border-b pb-3 text-gray-800">
@@ -149,6 +153,10 @@
       ← Volver
     </a>
   </div>
+
+  </main>
+
+  <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </body>
 </html>

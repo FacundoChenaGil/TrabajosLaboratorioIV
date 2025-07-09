@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-    // El filtro AdminAuthFilter ya ha verificado que el usuario es un administrador.
-    // Solo necesitamos obtener el nombre de usuario para mostrarlo.
     String username = (String) session.getAttribute("username");
 %>
 <!DOCTYPE html>

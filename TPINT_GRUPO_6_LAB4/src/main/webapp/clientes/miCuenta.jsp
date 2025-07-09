@@ -1,14 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-    // Protección básica: Si no hay rol o no es cliente, redirigir al login
-    String userRole = (String) session.getAttribute("userRole");
-    if (userRole == null || !userRole.equals("cliente")) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp?error=notAuthorized");
-        return;
-    }
     String username = (String) session.getAttribute("username");
- // Datos simulados — luego los vas a traer desde la base
+    // Datos simulados — luego los vas a traer desde la base
     String tipoCuenta = "Caja de ahorro";
     String cbu = "1234567890123456789012";
     double saldo = 120000.00;

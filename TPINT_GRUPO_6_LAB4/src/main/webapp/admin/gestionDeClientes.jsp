@@ -100,13 +100,15 @@
     }
 </style>
 </head>
-<body class="bg-gray-200 min-h-screen">
+<body class="flex flex-col min-h-screen bg-gray-200"> 
+
+<jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
 
 <%
     List<Cliente> listaClientes = (List<Cliente>) request.getAttribute("listaClientes");
 %>
 
-<main class="max-w-7xl mx-auto p-6">
+<main class="flex-grow max-w-7xl mx-auto p-6">
 
     <!-- H1 y Alta Cliente -->
     <div class="flex justify-between items-center mb-6">
@@ -191,7 +193,7 @@
             </tbody>
         </table>
     </div>
-</main>
+    
 
 <div id="modalConfirmacion">
 		<div>
@@ -249,6 +251,10 @@
         modal.style.display = 'none';
     });
 </script>
+
+</main>
+
+<jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </body>
 </html>

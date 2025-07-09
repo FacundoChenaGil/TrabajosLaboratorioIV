@@ -89,7 +89,9 @@ body {
 }
 </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+<body class="flex flex-col min-h-screen bg-gray-100"> 
+
+<jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
 <%
     String mensajeError = (String) request.getAttribute("error");
     String mensajeExito = (String) request.getAttribute("mensaje");
@@ -100,7 +102,7 @@ body {
     List<TiposDeCuentas> tiposDeCuenta = (List<TiposDeCuentas>) request.getAttribute("tiposCuenta");
 %>
 
-<main class="w-full max-w-lg p-4">
+<main class="flex-grow bg-cover bg-center bg-no-repeat bg-fixed p-4 md:p-8 flex items-center justify-center">
     <div class="card-style">
         <h1 class="text-2xl font-bold text-center text-[#800020] mb-6">Alta
         y Asignación de Cuenta</h1>
@@ -222,6 +224,8 @@ body {
     </div>
     
 </main>
+
+<jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 <script>
     //FUNCIONES PARA EL MODAL DE ERROR

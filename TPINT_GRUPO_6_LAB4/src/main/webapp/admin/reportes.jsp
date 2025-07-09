@@ -34,7 +34,11 @@
   </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen py-10 px-6">
+<body class="flex flex-col min-h-screen">
+
+  <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+  <main class="flex-grow bg-gray-100 py-10 px-6">
 
   <div class="max-w-6xl mx-auto bg-white p-8 rounded-xl shadow-xl">
     <h1 class="text-4xl font-extrabold text-custom-red mb-10 text-center">Panel de Reportes e Informes</h1>
@@ -67,6 +71,10 @@
       
     </div>
   </div>
+
+  </main>
+
+  <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </body>
 </html>

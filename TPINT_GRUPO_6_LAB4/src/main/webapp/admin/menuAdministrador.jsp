@@ -36,8 +36,12 @@
         }
     </style>
 </head>
-<body class="relative overflow-hidden">
-    <div class="relative z-10 bg-white min-h-screen pt-12 pb-24 mx-auto mt-8 mb-8 max-w-7xl"
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+    <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+    <main class="flex-grow">
+        <div class="relative z-10 bg-white min-h-screen pt-12 pb-24 mx-auto mt-8 mb-8 max-w-7xl"
          style="background-image: url('../imagenes/menuAdmin.jpg'); background-size: cover; background-position: center bottom; background-repeat: no-repeat;">
         <div class="absolute inset-0 bg-custom-red opacity-80"></div>
 
@@ -83,5 +87,9 @@
             </section>
         </div>
     </div>
+    </main>
+
+    <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
+
 </body>
 </html>

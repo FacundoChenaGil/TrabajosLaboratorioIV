@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-    // Protección: solo clientes pueden acceder
-    String userRole = (String) session.getAttribute("userRole");
-    if (userRole == null || !userRole.equals("cliente")) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
-        return;
-    }
-%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
