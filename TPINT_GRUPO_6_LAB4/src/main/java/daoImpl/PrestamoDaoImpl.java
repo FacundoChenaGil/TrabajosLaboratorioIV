@@ -9,6 +9,7 @@ import java.util.List;
 
 import dao.IPrestamoDao;
 import entidad.Prestamo;
+import entidad.PrestamoBackup;
 
 public class PrestamoDaoImpl implements IPrestamoDao {
 
@@ -192,5 +193,42 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 	    }
 
 	    return prestamos;
+	}
+
+	@Override
+	public boolean agregarPrestamo(PrestamoBackup prestamo) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		boolean exito = false;
+		
+		String sql = "INSERT INTO prestamos "
+				+ "(DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, CBU_Acreditacion) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+		try {
+			conn = Conexion.getConexion();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, prestamo.getCliente().getDni());
+			ps.setTimestamp(2, java.sql.Timestamp.valueOf(prestamo.getFechaSolicitud()));
+			ps.setBigDecimal(3, prestamo.getImportePedido());
+			ps.setBigDecimal(4, prestamo.getImporteAPagar());
+			ps.setInt(5, prestamo.getCantidadCuotas());
+			ps.setBigDecimal(6, prestamo.getImporteCuota());
+			ps.setInt(7, prestamo.getTipoEstadoPrestamo().getIDTipoEstado());
+			ps.setString(8, prestamo.getCuentaAcreditada().getCbu());
+
+			if (ps.executeUpdate() > 0) {
+				conn.commit();
+				exito = true;
+			}
+		} catch (SQLException e) {
+			try { if (conn != null) conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+			e.printStackTrace();
+		} finally {
+			try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+			Conexion.cerrarConexion(conn);
+		}
+
+		return exito;
 	}
 }

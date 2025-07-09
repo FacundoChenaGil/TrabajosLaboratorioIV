@@ -48,26 +48,45 @@
                            placeholder="Ej: 50000">
                 </div>
 
-                <div>
-                    <label for="Cantidad_Cuotas" class="block text-sm font-medium text-gray-700 mb-1">Cantidad de Cuotas</label>
-                    <select id="Cantidad_Cuotas" name="Cantidad_Cuotas" required class="w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring-red-500">
-                        <option value="6">6 cuotas</option>
-                        <option value="12">12 cuotas</option>
-                        <option value="18">18 cuotas</option>
-                        <option value="24">24 cuotas</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <button type="submit" 
-                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300">
-                        Simular y Solicitar
-                    </button>
-                </div>
-            </form>
-        </div>
+		<form action="PrestamoServlet" method="get" class="flex flex-col justify-center items-center gap-[35px]">
+		<input type="hidden" name="accion" value="mostrar">
+			<div
+				class="flex flex-col gap-[21px] px-[21px] py-[38px] bg-[#E75E5E] rounded-[9px] w-[292px]"
+				style="box-shadow: 7px 8px 4px rgba(0, 0, 0, 0.25)">
+				<div class="flex flex-col">
+					<label for="Seleccionar_Cuenta">Seleccionar Cuenta:</label>
+					 <select name="cuentaSeleccionada" id="cuentaSeleccionada" class="w-full border px-3 py-2 rounded">
+				        <% if (listaCuentas != null && !listaCuentas.isEmpty()) {
+				            for (entidad.CuentaPrestamoddlDTO cuenta : listaCuentas) { %>
+				                <option value="<%= cuenta.getCBU() %>">
+				                    CBU: <%= cuenta.getCBU() %> - Nº Cuenta: <%= cuenta.getNumeroCuenta() %>
+				                </option>
+				        <%  }
+				           } else { %>
+				            <option disabled selected>No hay cuentas disponibles</option>
+				        <% } %>
+				    </select>
+				</div>
+				<div class=" flex flex-col">
+					<label for="Monto_Solicitar">Monto a Solicitar:</label> <input
+						type="text" id="Monto_Solicitar" name="Monto_Solicitar"
+						class="w-[250px] h-[22px] rounded-[5px] border border-black"></input>
+				</div>
+				<div class="flex flex-col">
+					<label for="Cantidad_Cuotas" name="Cantidad_Cuotas">Cantidad de Cuotas:</label> <Select
+						for="Cantidad_Cuotas">
+							<option value="6">6</option>
+							<option value="12">12</option>
+							<option value="18">18</option>
+							<option value="24">24</option>
+						</Select>
+				</div>
+			</div>
+			<input type="submit" value="Solicitar"
+				class="flex w-[188px] h-[53px] rounded-[10px] bg-[#E75E53] text-white font-semibold hover:bg-[#cc4b40] hover:cursor-pointer transition duration-300 shadow"
+				style="box-shadow: 5px 6px 4px rgba(0, 0, 0, 0.25)"></input>
+		</form>
     </main>
-
     <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </body>

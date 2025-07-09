@@ -1,6 +1,10 @@
 package servlets;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,14 +14,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import entidad.Cuota;
 import entidad.Prestamo;
+import entidad.PrestamoBackup;
 import negocio.ICuotaNegocio;
 import negocioImpl.CuotaNegocioImpl;
 import negocio.IPrestamoNegocio;
 import negocioImpl.PrestamoNegocioImpl;
+import negocio.ICuentaNegocio;
+import negocioImpl.CuentaNegocioImpl;
+import negocio.IClienteNegocio;
+import negocioImpl.ClienteNegocioImpl;
+import negocio.ITipoEstadoPrestamoNegocio;
+import negocioImpl.TipoEstadoPrestamoNegocioImpl;
+import entidad.Cliente;
+import entidad.Cuenta;
+import entidad.TipoEstadoPrestamo;
 
 @WebServlet("/PrestamoServlet")
 public class PrestamoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private IPrestamoNegocio negocioPrestamo = new PrestamoNegocioImpl();
+	private ICuentaNegocio negocioCuenta = new CuentaNegocioImpl();
+	private IClienteNegocio negocioCliente = new ClienteNegocioImpl();
+	private ITipoEstadoPrestamoNegocio negocioTs = new TipoEstadoPrestamoNegocioImpl();
+	
 
 	public PrestamoServlet() {
 		super();
@@ -26,12 +45,56 @@ public class PrestamoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String accion = request.getParameter("accion");
+		
+		if("mostrar".equals(accion)) {
+			String cbu = request.getParameter("cuentaSeleccionada");
+	        String montoStr = request.getParameter("Monto_Solicitar");
+	        String cuotasStr = request.getParameter("Cantidad_Cuotas");
+
+	        if (cbu == null || montoStr == null || cuotasStr == null) {
+	            response.sendRedirect("clientes/solicitarPrestamo.jsp");
+	            return;
+	        }
+
+	        BigDecimal montoSolicitado = new BigDecimal(montoStr);
+	        BigDecimal cantCuotas = new BigDecimal(cuotasStr);
+	        
+	        LocalDateTime fechaSolicitud = LocalDateTime.now();
+	        BigDecimal importeAPagar = negocioPrestamo.calcularImporteAPagar(montoSolicitado);)
+	        BigDecimal importeCuota = negocioPrestamo.calcularImporteCuota(cantCuotas, importeAPagar);
+	        LocalDate fechaFin = fechaSolicitud.toLocalDate().plusMonths(cantCuotas.intValue());
+	        
+	        request.setAttribute("cbu", cbu);
+	        request.setAttribute("montoSolicitado", montoSolicitado);
+	        request.setAttribute("importeAPagar", importeAPagar);
+	        request.setAttribute("importeCuota", importeCuota);
+	        request.setAttribute("cantCuotas", cantCuotas.intValue());
+	        request.setAttribute("fechaSolicitud", fechaSolicitud.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+	        request.setAttribute("fechaFin", fechaFin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+	        
+	        Cliente cliente = negocioCliente.obtenerClientePorUsuario((String) request.getSession().getAttribute("username"));
+	        Cuenta cuenta = negocioCuenta.read(cbu);
+	        TipoEstadoPrestamo ts = negocioTs.read(1);
+	        
+	        PrestamoBackup prestamo = new PrestamoBackup();
+	        
+	        prestamo.setCliente(cliente);
+	        prestamo.setCuentaAcreditada(cuenta);
+	        prestamo.setTipoEstadoPrestamo(ts);
+	        prestamo.setCantidadCuotas(cantCuotas.intValue());
+	        prestamo.setFechaSolicitud(fechaSolicitud);
+	        prestamo.setImportePedido(montoSolicitado);
+	        prestamo.setImporteAPagar(importeAPagar);
+	        prestamo.setImporte_Cuota(importeCuota);
+	        
+	        
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		String idPrestamoS = request.getParameter("idPrestamo");
 		String pageParam = request.getParameter("page");
 
