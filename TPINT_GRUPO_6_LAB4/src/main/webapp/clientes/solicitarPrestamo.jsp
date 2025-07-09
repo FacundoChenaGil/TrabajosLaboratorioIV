@@ -23,30 +23,8 @@
                 <h1 class="text-3xl font-bold text-[#E75E5E]">Solicitud de Préstamo</h1>
                 <p class="text-gray-600 mt-2">Simulá tu préstamo y obtené resultados inmediatos.</p>
             </div>
-
-            <form action="<%= request.getContextPath() %>/SolicitarPrestamoServlet" method="post" class="space-y-6">
-                
-                <div>
-                    <label for="cuenta" class="block text-sm font-medium text-gray-700 mb-1">Seleccionar Cuenta de Depósito</label>
-                    <select name="cuentaSeleccionada" id="cuenta" class="w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring-red-500">
-                        <% if (listaCuentas != null && !listaCuentas.isEmpty()) { 
-                            for (entidad.CuentaPrestamoddlDTO cuenta : listaCuentas) { %>
-                                <option value="<%= cuenta.getNumeroCuenta() %>">
-                                    Nº <%= cuenta.getNumeroCuenta() %> (CBU: <%= cuenta.getCBU() %>)
-                                </option>
-                        <%  } 
-                           } else { %>
-                            <option disabled selected>No hay cuentas disponibles para recibir el préstamo</option>
-                        <% } %>
-                    </select>
-                </div>
-
-                <div>
-                    <label for="Monto_Solicitar" class="block text-sm font-medium text-gray-700 mb-1">Monto a Solicitar</label>
-                    <input type="number" id="Monto_Solicitar" name="Monto_Solicitar" step="100" min="1000" required
-                           class="w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring-red-500" 
-                           placeholder="Ej: 50000">
-                </div>
+            
+  
 
 		<form action="<%= request.getContextPath() %>/PrestamoServlet" method="get" class="flex flex-col justify-center items-center gap-[35px]">
 		<input type="hidden" name="accion" value="mostrar">
@@ -73,8 +51,8 @@
 						class="w-[250px] h-[22px] rounded-[5px] border border-black"></input>
 				</div>
 				<div class="flex flex-col">
-					<label for="Cantidad_Cuotas" name="Cantidad_Cuotas">Cantidad de Cuotas:</label> <Select
-						for="Cantidad_Cuotas">
+					<label for="Cantidad_Cuotas">Cantidad de Cuotas:</label> <Select
+						name="Cantidad_Cuotas">
 							<option value="6">6</option>
 							<option value="12">12</option>
 							<option value="18">18</option>

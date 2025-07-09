@@ -101,6 +101,38 @@ public class PrestamoServlet extends HttpServlet {
 		
 		String idPrestamoS = request.getParameter("idPrestamo");
 		String pageParam = request.getParameter("page");
+		String accion = request.getParameter("accion");
+		
+		if("alta".equals(accion)) {
+			PrestamoBackup prestamoPendiente = (PrestamoBackup) request.getSession().getAttribute("prestamoPendiente");
+			
+			if (prestamoPendiente != null) {
+				
+				if (prestamoPendiente.getImportePedido() == null || 
+			            prestamoPendiente.getImportePedido().compareTo(BigDecimal.ZERO) <= 0) {
+			            request.setAttribute("mensajeError", "El importe solicitado no puede ser 0 o negativo.");
+			            request.getRequestDispatcher("clientes/confirmarPrestamo.jsp").forward(request, response);
+			            return;
+			    }
+				
+	            boolean exito = negocioPrestamo.agregarPrestamo(prestamoPendiente);
+
+	            if (exito) {
+	                request.getSession().removeAttribute("prestamoPendiente");
+	                request.setAttribute("mensajeExito", "Préstamo solicitado correctamente.");
+	            } else {
+	                request.setAttribute("mensajeError", "Ocurrió un error al procesar el préstamo. Intente nuevamente.");
+	            }
+
+	            // Siempre volver a la misma página de confirmación, con el resultado
+	            request.getRequestDispatcher("clientes/confirmarPrestamo.jsp").forward(request, response);
+	            return; // IMPORTANTE: detenemos el flujo para no ejecutar el resto
+	        } else {
+	            // Si no hay un préstamo en sesión, redirigimos a la solicitud inicial
+	            response.sendRedirect("clientes/solicitarPrestamo.jsp");
+	            return;
+	        }
+		}
 
 		String dni = (String) request.getSession().getAttribute("dniCliente");
 		IPrestamoNegocio prestamoNegocio = new PrestamoNegocioImpl();

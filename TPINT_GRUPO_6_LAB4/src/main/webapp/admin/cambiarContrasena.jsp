@@ -36,7 +36,7 @@
       style="background-image: url('../img/5594016.jpg');">
     
     <%
-    Usuario usuario = (Usuario) session.getAttribute("usuario");
+    Usuario usuario = (Usuario) request.getAttribute("usuario");
     %>
     
     <div class="max-w-xl w-full bg-white p-10 md:p-12 rounded-2xl shadow-2xl">

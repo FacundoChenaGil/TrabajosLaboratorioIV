@@ -45,7 +45,6 @@ public class UsuarioServlet extends HttpServlet {
 		
 		String nombreUsuario = request.getParameter("nombreUsuario");
 		
-		
 		if(nombreUsuario != null) {
 	    	Usuario usuario = new Usuario();
 	    	usuario = usuarioNegocio.getUsuarioPorNombre(nombreUsuario);

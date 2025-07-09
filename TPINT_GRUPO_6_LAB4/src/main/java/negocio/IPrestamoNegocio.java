@@ -13,7 +13,7 @@ public interface IPrestamoNegocio {
 		
 		List<Prestamo> obtenerPrestamosConCuotasPendientesPorDni(String dni);
 		
-		public boolean agregarPrestamo();
+		public boolean agregarPrestamo(PrestamoBackup prestamo);
 		public BigDecimal calcularImporteAPagar(BigDecimal importe);
 		public BigDecimal calcularImporteCuota(BigDecimal cantCuotas, BigDecimal importe);
 		

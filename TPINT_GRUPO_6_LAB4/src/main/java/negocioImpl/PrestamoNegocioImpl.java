@@ -80,12 +80,9 @@ public class PrestamoNegocioImpl implements IPrestamoNegocio{
     }
 
 	@Override
-	public boolean agregarPrestamo() {
-		
-		
-		
-		
-		return false;
+	public boolean agregarPrestamo(PrestamoBackup prestamo) {
+		boolean creado = prestamoDao.agregarPrestamo(prestamo);
+		return creado;
 	}
 
 	@Override
