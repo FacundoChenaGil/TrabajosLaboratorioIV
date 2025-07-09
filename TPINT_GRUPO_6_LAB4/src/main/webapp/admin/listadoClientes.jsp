@@ -10,6 +10,9 @@
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            montserrat: ['Montserrat', 'sans-serif']
+          },
           colors: {
             'custom-red': '#DD1A2F',
           }
@@ -17,19 +20,19 @@
       }
     }
   </script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+  </style>
 </head>
 <body class="bg-gray-100 p-8 text-gray-800">
 
   <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-xl">
     <h1 class="text-3xl font-bold text-custom-red mb-6">Buscar Clientes</h1>
 
-    <!-- Botón para volver -->
-    <div class="mb-6">
-      <a href="${pageContext.request.contextPath}/admin/reportes.jsp"
-         class="inline-block bg-custom-red text-white px-4 py-2 rounded hover:bg-red-700 transition">
-        ← Volver al Panel de Reportes
-      </a>
-    </div>
+    
 
     <!-- Formulario de búsqueda -->
     <form action="${pageContext.request.contextPath}/BuscarClientesServlet" method="get" class="mb-6 flex gap-4">
@@ -79,6 +82,11 @@
       </table>
     </c:if>
 
+  </div>
+<div class="max-w-6xl mx-auto text-end mt-4">
+    <a href="menuAdministrador.jsp" class="text-sm text-red-600 hover:underline">
+      ← Volver
+    </a>
   </div>
 
 </body>

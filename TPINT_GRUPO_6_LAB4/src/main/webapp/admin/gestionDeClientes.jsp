@@ -251,6 +251,12 @@
         modal.style.display = 'none';
     });
 </script>
+<div class="max-w-6xl mx-auto text-end mt-4">
+    <a href="${pageContext.request.contextPath}/admin/menuAdministrador.jsp" class="text-sm text-red-600 hover:underline">
+      ← Volver
+    </a>
+  </div>
+
 
 </main>
 

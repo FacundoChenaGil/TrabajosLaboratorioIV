@@ -38,10 +38,9 @@ body {
 }
 
 table {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 0.9rem;
 }
-
 
 ::-webkit-scrollbar {
 	width: 8px;
@@ -62,7 +61,6 @@ table {
 	background: #555;
 }
 
-
 #modalConfirmacion {
 	display: none;
 	position: fixed;
@@ -76,7 +74,7 @@ table {
 	align-items: center;
 }
 
-#modalConfirmacion > div {
+#modalConfirmacion>div {
 	background-color: white;
 	padding: 30px;
 	border-radius: 8px;
@@ -111,7 +109,6 @@ table {
 	background-color: #e5e7eb;
 	color: #374151;
 }
-
 
 .action-icon-button {
 	display: inline-flex;
@@ -181,7 +178,7 @@ table {
 				<p class="text-2xl font-bold"><%=cuentasInactivas%></p>
 			</div>
 		</div>
-		
+
 		<div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
 			<table id="cuentasDataTable"
 				class="min-w-full divide-y divide-gray-200">
@@ -218,14 +215,13 @@ table {
 						<td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
 							<form action="${pageContext.request.contextPath}/CuentaServlet"
 								method="get" class="inline-block">
-								<input
-									type="hidden" name="cbu" value="<%=c.getCbu()%>">
+								<input type="hidden" name="cbu" value="<%=c.getCbu()%>">
 								<button type="submit" class="action-icon-button">
 									<i class="fa-regular fa-pen-to-square fa-xl"
 										style="color: #fa0000;"></i>
 								</button>
 							</form>
-							
+
 							<button type="button"
 								onclick="confirmarEliminar('<%=c.getCbu()%>');"
 								class="action-icon-button ml-2">
@@ -259,6 +255,9 @@ table {
 
 		<a href="<%=request.getContextPath()%>/admin/menuAdministrador.jsp"
 			class="flex justify-end text-black underline mt-5">Volver</a>
+
+			
+
 	</main>
 
 	<div id="modalConfirmacion">
@@ -275,8 +274,7 @@ table {
 		</div>
 	</div>
 
-	<form id="formEliminar"
-		action="/TPINT_GRUPO_6_LAB4/CuentaServlet"
+	<form id="formEliminar" action="/TPINT_GRUPO_6_LAB4/CuentaServlet"
 		method="post" style="display: none;">
 		<input type="hidden" name="action" value="eliminar"> <input
 			type="hidden" name="cbu" id="cbuEliminar">
@@ -322,9 +320,17 @@ table {
 						});
 	</script>
 
+
   </main>
 
   <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
+
+
+	<div class="max-w-6xl mx-auto text-end mt-4">
+		<a
+			href="${pageContext.request.contextPath}/admin/menuAdministrador.jsp"
+			class="text-sm text-red-600 hover:underline"> ← Volver </a>
+	</div>
 
 </body>
 </html>

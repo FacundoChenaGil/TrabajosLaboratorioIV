@@ -43,6 +43,8 @@
   <div class="max-w-6xl mx-auto bg-white p-8 rounded-xl shadow-xl">
     <h1 class="text-4xl font-extrabold text-custom-red mb-10 text-center">Panel de Reportes e Informes</h1>
 
+	
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
       <!-- Reporte 1: Clientes Nuevos -->
@@ -72,9 +74,17 @@
     </div>
   </div>
 
+
   </main>
 
   <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
+
+
+<div class="max-w-6xl mx-auto text-end mt-4">
+    <a href="${pageContext.request.contextPath}/admin/menuAdministrador.jsp" class="text-sm text-red-600 hover:underline">
+      ← Volver
+    </a>
+  </div>
 
 </body>
 </html>
