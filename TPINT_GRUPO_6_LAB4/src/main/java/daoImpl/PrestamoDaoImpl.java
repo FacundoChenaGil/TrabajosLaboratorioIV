@@ -207,7 +207,7 @@ public class PrestamoDaoImpl implements IPrestamoDao {
 		
 		String sql = "INSERT INTO prestamos "
 				+ "(DNI, Fecha_Solicitud, Importe_Pedido, Importe_a_Pagar, Cantidad_Cuotas, Importe_Cuota, ID_Tipo_Estado, CBU_Acreditacion) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			conn = Conexion.getConexion();

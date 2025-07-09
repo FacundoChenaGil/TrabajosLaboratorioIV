@@ -15,9 +15,8 @@ public class TipoEstadoPrestamoDaoImpl implements ITipoEstadoPrestamoDao {
 		Connection conn = null;
 	    PreparedStatement ps = null;
 	    ResultSet rs = null;
-		TipoEstadoPrestamo ts = null;
 		
-		String sql = "SELECT * FROM tipos_estados_prestamo WHERE ID_Tipo_Estado = ?";
+		String sql = "SELECT * FROM tipos_estado_prestamo WHERE ID_Tipo_Estado = ?";
 		
 		 try {
 	            conn = Conexion.getConexion();
@@ -26,8 +25,10 @@ public class TipoEstadoPrestamoDaoImpl implements ITipoEstadoPrestamoDao {
 	            rs = ps.executeQuery();
 
 	            if (rs.next()) {
+	            	TipoEstadoPrestamo ts = new TipoEstadoPrestamo();
 	                ts.setIDTipoEstado(rs.getInt("ID_Tipo_Estado"));
 	                ts.setDescripcion(rs.getString("Descripcion"));
+	                return ts;
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -37,7 +38,7 @@ public class TipoEstadoPrestamoDaoImpl implements ITipoEstadoPrestamoDao {
 	            Conexion.cerrarConexion(conn);
 	        }
 		 
-		return ts;
+		return null;
 	}
 
 }

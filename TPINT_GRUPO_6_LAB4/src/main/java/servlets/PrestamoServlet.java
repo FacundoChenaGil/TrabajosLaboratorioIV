@@ -120,6 +120,7 @@ public class PrestamoServlet extends HttpServlet {
 	            if (exito) {
 	                request.getSession().removeAttribute("prestamoPendiente");
 	                request.setAttribute("mensajeExito", "Préstamo solicitado correctamente.");
+	                request.getSession().setAttribute("prestamoPendiente", prestamoPendiente);
 	            } else {
 	                request.setAttribute("mensajeError", "Ocurrió un error al procesar el préstamo. Intente nuevamente.");
 	            }
