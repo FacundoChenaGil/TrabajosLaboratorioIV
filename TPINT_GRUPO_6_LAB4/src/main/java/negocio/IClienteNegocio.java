@@ -17,4 +17,5 @@ public interface IClienteNegocio {
 	public boolean eliminarCliente(String dni);
 	public List<Cliente> obtenerClientesNuevosEntreFechas(LocalDate desde, LocalDate hasta); // Para Reporte
 	public List<Cliente> buscarClientesPorNombreApellidoUsuario(String texto); // Para Reporte
+	public List<Cliente> obtenerTodosLosClientes(); //Para Reporte
 }

@@ -118,6 +118,9 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 	    return clienteDao.buscarClientesPorNombreApellidoUsuario(texto);
 	}
 	
+	public List<Cliente> obtenerTodosLosClientes() {
+	    return clienteDao.obtenerTodosLosClientes();
+	}
 	
 	
 }
