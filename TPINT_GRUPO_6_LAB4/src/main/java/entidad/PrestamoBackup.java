@@ -10,23 +10,28 @@ public class PrestamoBackup {
 	private BigDecimal ImportePedido;
 	private BigDecimal ImporteAPagar;
 	private int CantidadCuotas;
-	private BigDecimal Importe_Cuota;
+	private BigDecimal ImporteCuota;
 	private Cliente Cliente;
 	private TipoEstadoPrestamo TipoEstadoPrestamo;
 	private Cuenta CuentaAcreditada;
 
 	public PrestamoBackup(int iDPrestamo, LocalDateTime fechaSolicitud, BigDecimal importePedido,
-			BigDecimal importeAPagar, int cantidadCuotas, BigDecimal importe_Cuota,
+			BigDecimal importeAPagar, int cantidadCuotas, BigDecimal importeCuota,
 			entidad.Cliente cliente, entidad.TipoEstadoPrestamo tipoEstadoPrestamo, Cuenta cuentaAcreditada) {
 		IDPrestamo = iDPrestamo;
 		FechaSolicitud = fechaSolicitud;
 		ImportePedido = importePedido;
 		ImporteAPagar = importeAPagar;
 		CantidadCuotas = cantidadCuotas;
-		Importe_Cuota = importe_Cuota;
+		ImporteCuota = importeCuota;
 		Cliente = cliente;
 		TipoEstadoPrestamo = tipoEstadoPrestamo;
 		CuentaAcreditada = cuentaAcreditada;
+	}
+
+
+	public PrestamoBackup() {
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -109,13 +114,13 @@ public class PrestamoBackup {
 	}
 
 
-	public BigDecimal getImporte_Cuota() {
-		return Importe_Cuota;
+	public BigDecimal getImporteCuota() {
+		return ImporteCuota;
 	}
 
 
-	public void setImporte_Cuota(BigDecimal importe_Cuota) {
-		Importe_Cuota = importe_Cuota;
+	public void setImporte_Cuota(BigDecimal importeCuota) {
+		ImporteCuota = importeCuota;
 	}
 	
 	

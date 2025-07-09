@@ -27,13 +27,14 @@
 		<p class="text-sm text-gray-600 mt-2">Simulá tu préstamo y obtené
 			resultados inmediatos.</p>
 
-		<form class="flex flex-col justify-center items-center gap-[35px]">
+		<form action="PrestamoServlet" method="get" class="flex flex-col justify-center items-center gap-[35px]">
+		<input type="hidden" name="accion" value="mostrar">
 			<div
 				class="flex flex-col gap-[21px] px-[21px] py-[38px] bg-[#E75E5E] rounded-[9px] w-[292px]"
 				style="box-shadow: 7px 8px 4px rgba(0, 0, 0, 0.25)">
 				<div class="flex flex-col">
 					<label for="Seleccionar_Cuenta">Seleccionar Cuenta:</label>
-					 <select name="cuentaSeleccionada" id="cuenta" class="w-full border px-3 py-2 rounded">
+					 <select name="cuentaSeleccionada" id="cuentaSeleccionada" class="w-full border px-3 py-2 rounded">
 				        <% if (listaCuentas != null && !listaCuentas.isEmpty()) {
 				            for (entidad.CuentaPrestamoddlDTO cuenta : listaCuentas) { %>
 				                <option value="<%= cuenta.getCBU() %>">
@@ -51,8 +52,13 @@
 						class="w-[250px] h-[22px] rounded-[5px] border border-black"></input>
 				</div>
 				<div class="flex flex-col">
-					<label for="Cantidad_Cuotas">Cantidad de Cuotas:</label> <Select
-						for="Cantidad_Cuotas"></Select>
+					<label for="Cantidad_Cuotas" name="Cantidad_Cuotas">Cantidad de Cuotas:</label> <Select
+						for="Cantidad_Cuotas">
+							<option value="6">6</option>
+							<option value="12">12</option>
+							<option value="18">18</option>
+							<option value="24">24</option>
+						</Select>
 				</div>
 			</div>
 			<input type="submit" value="Solicitar"
