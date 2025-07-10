@@ -98,6 +98,32 @@ public class MovimientoServlet extends HttpServlet {
   
             List<Movimiento> movimientos = movimientoNegocio.filtrarMovimientos(cbuSeleccionado, desde, hastaParam, idTipo);
             request.setAttribute("movimientos", movimientos);
+            
+         // PAGINACIÓN EN MEMORIA
+            int elementosPorPagina = 5;
+            int pagina = 1;
+
+            String paginaStr = request.getParameter("pagina");
+            if (paginaStr != null && !paginaStr.isEmpty()) {
+                try {
+                    pagina = Integer.parseInt(paginaStr);
+                } catch (NumberFormatException e) {
+                    pagina = 1;
+                }
+            }
+
+            int totalMovimientos = movimientos.size();
+            int inicio = (pagina - 1) * elementosPorPagina;
+            int fin = Math.min(inicio + elementosPorPagina, totalMovimientos);
+
+            List<Movimiento> movimientosPaginados = movimientos.subList(inicio, fin);
+
+            // Enviamos a la vista
+            request.setAttribute("movimientos", movimientosPaginados);
+            request.setAttribute("paginaActual", pagina);
+            request.setAttribute("totalPaginas", (int) Math.ceil((double) totalMovimientos / elementosPorPagina));
+            
+            
 
         } catch (Exception e) {
             e.printStackTrace();

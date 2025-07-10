@@ -115,6 +115,24 @@
         <p class="mt-6 text-gray-600">No se encontraron movimientos para esta cuenta.</p>
     </c:if>
   </main>
+  <!-- PAGINACIÓN -->
+<c:if test="${not empty movimientos && totalPaginas > 1}">
+    <div class="flex justify-center mt-6 space-x-2">
+        <c:forEach var="i" begin="1" end="${totalPaginas}">
+            <form method="post" action="MovimientoServlet">
+                <input type="hidden" name="cuenta" value="${cuentaSeleccionada}" />
+                <input type="hidden" name="desde" value="${param.desde}" />
+                <input type="hidden" name="hasta" value="${param.hasta}" />
+                <input type="hidden" name="tipo" value="${param.tipo}" />
+                <input type="hidden" name="pagina" value="${i}" />
+                <button type="submit"
+                        class="${i == paginaActual ? 'bg-blue-600 text-white' : 'bg-gray-300 text-black'} px-3 py-1 rounded">
+                    ${i}
+                </button>
+            </form>
+        </c:forEach>
+    </div>
+</c:if>
 </div>
 
 </body>
