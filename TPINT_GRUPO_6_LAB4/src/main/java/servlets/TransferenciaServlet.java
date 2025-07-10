@@ -43,12 +43,7 @@ public class TransferenciaServlet extends HttpServlet {
             request.getRequestDispatcher("/clientes/nuevaTransferencia.jsp").forward(request, response);
             return;
         }
-        System.out.println("Accion: " + accion);
-        System.out.println("dniCliente: " + dniCliente);
-        System.out.println("cbuOrigen: " + cbuOrigen);
-        System.out.println("cbuDestino: " + cbuDestino);
-        System.out.println("montoStr: " + montoStr);
-
+      
         if ("confirmar".equals(accion)) {
             if (cbuOrigen == null || cbuDestino == null || montoStr == null || montoStr.isEmpty()) {
                 request.setAttribute("error", "Faltan datos para realizar la transferencia.");
@@ -56,7 +51,7 @@ public class TransferenciaServlet extends HttpServlet {
                 return;
             }
 
-            // 🚫 Validación: no permitir transferirse a sí mismo
+           
             if (cbuOrigen.equals(cbuDestino)) {
                 request.setAttribute("error", "No puedes transferirte a tu propia cuenta.");
                 request.getRequestDispatcher("/clientes/nuevaTransferencia.jsp").forward(request, response);

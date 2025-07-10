@@ -32,7 +32,7 @@ public class MovimientoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-    	HttpSession session = request.getSession(false); // no crea una nueva sesión
+    	HttpSession session = request.getSession(false); 
     	if (session == null || session.getAttribute("dniCliente") == null) {
     	    response.sendRedirect(request.getContextPath() + "/login.jsp"); // Redirige al login
     	    return;
@@ -74,7 +74,7 @@ public class MovimientoServlet extends HttpServlet {
         List<Cuenta> cuentas = cuentaNegocio.obtenerCuentasConTipoPorDni(dniCliente);
         List<TipoMovimiento> tipos = tipoMovimientoNegocio.listarTodos();
 
-        request.setAttribute("listaCuentas", cuentas); // importante: el JSP usa 'listaCuentas'
+        request.setAttribute("listaCuentas", cuentas); 
         request.setAttribute("tiposMovimientos", tipos);
         request.setAttribute("cuentaSeleccionada", cbuSeleccionado);
 
@@ -95,7 +95,7 @@ public class MovimientoServlet extends HttpServlet {
 
             int idTipo = Integer.parseInt(tipoStr);
 
-            // 🔍 FILTRAMOS SIEMPRE POR FECHA
+  
             List<Movimiento> movimientos = movimientoNegocio.filtrarMovimientos(cbuSeleccionado, desde, hastaParam, idTipo);
             request.setAttribute("movimientos", movimientos);
 
