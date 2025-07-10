@@ -88,28 +88,28 @@
         <!-- DNI -->
         <div>
           <label for="dni" class="block mb-2 text-gray-700 font-medium">DNI:</label>
-          <input type="text" id="dni" name="dni" required value="<%=cliente.getDni() %>"
+          <input type="text" id="dni" name="dni" required minlength="7" maxlength="8" pattern="\d+" title="Solo se aceptan números" required value="<%=cliente.getDni() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
         <!-- CUIL -->
         <div>
           <label for="cuil" class="block mb-2 text-gray-700 font-medium">CUIL:</label>
-          <input type="text" id="cuil" name="cuil" required value="<%=cliente.getCuil() %>"
+          <input type="text" id="cuil" name="cuil" minlength="11" maxlength="11" pattern="\d+" title="Solo se aceptan números" required value="<%=cliente.getCuil() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
         <!-- Nombre -->
         <div>
           <label for="nombre" class="block mb-2 text-gray-700 font-medium">Nombre:</label>
-          <input type="text" id="nombre" name="nombre" required value="<%=cliente.getNombre() %>"
+          <input type="text" id="nombre" name="nombre" minlength="2" maxlength="100" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚüÜ\s]*[A-Za-zñÑáéíóúÁÉÍÓÚüÜ]+" title="Ingrese solo letras" required value="<%=cliente.getNombre() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
         <!-- Apellido -->
         <div>
           <label for="apellido" class="block mb-2 text-gray-700 font-medium">Apellido:</label>
-          <input type="text" id="apellido" name="apellido" required value="<%=cliente.getApellido() %>"
+          <input type="text" id="apellido" name="apellido" minlength="2" maxlength="100" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚüÜ\s]*[A-Za-zñÑáéíóúÁÉÍÓÚüÜ]+" title="Ingrese solo letras" required value="<%=cliente.getApellido() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
@@ -139,21 +139,21 @@
 				<!-- Teléfono -->
         <div>
           <label for="telefono" class="block mb-2 text-gray-700 font-medium">Teléfono:</label>
-          <input type="tel" id="telefono" name="telefono" value="<%=cliente.getTelefono() %>"
+          <input type="tel" id="telefono" name="telefono" minlength="10" maxlength="20" pattern="\d+" title="Solo se aceptan números" value="<%=cliente.getTelefono() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
         <!-- Fecha de nacimiento -->
         <div>
           <label for="fecha" class="block mb-2 text-gray-700 font-medium">Fecha de Nacimiento:</label>
-          <input type="date" id="fecha" name="fecha" value="<%=cliente.getFechaNacimiento() %>"
+          <input type="date" id="fecha" name="fecha" required value="<%=cliente.getFechaNacimiento() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" required />
         </div>
 
         <!-- Nacionalidad -->
         <div>
           <label for="nacionalidad" class="block mb-2 text-gray-700 font-medium">Nacionalidad:</label>
-          <select name="nacionalidad" id="nacionalidad"
+          <select name="nacionalidad" id="nacionalidad" required
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
             <option value="">Seleccione una nacionalidad</option>
           </select>
@@ -162,7 +162,7 @@
         <!-- Provincia -->
         <div>
           <label for="provincia" class="block mb-2 text-gray-700 font-medium">Provincia:</label>
-          <select name="provincia" id="provincia"
+          <select name="provincia" id="provincia" required
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
             <option value="">Seleccione una provincia</option>
           </select>
@@ -171,7 +171,7 @@
         <!-- Localidad -->
         <div>
           <label for="localidad" class="block mb-2 text-gray-700 font-medium">Localidad:</label>
-          <select name="localidad" id="localidad"
+          <select name="localidad" id="localidad" required
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out">
             <option value="">Seleccione una localidad</option>
           </select>
@@ -180,7 +180,7 @@
         <!-- Dirección -->
         <div>
           <label for="direccion" class="block mb-2 text-gray-700 font-medium">Dirección:</label>
-          <input type="text" id="direccion" name="direccion" required value="<%= cliente.getDireccion() %>"
+          <input type="text" id="direccion" name="direccion" minlength="5" maxlength="255" required value="<%= cliente.getDireccion() %>"
             class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base input-glow-on-hover-focus focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50 transition duration-300 ease-in-out" />
         </div>
 
