@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="entidad.PrestamoBackup" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,6 +14,7 @@
 
 	<%
     	PrestamoBackup prestamo = (PrestamoBackup) session.getAttribute("prestamoPendiente");
+		LocalDate fechaFinPrestamo = (LocalDate) session.getAttribute("fechaFinPrestamo");
 	%>
 
     <jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
@@ -59,11 +62,11 @@
                     </div>
                     <div class="flex justify-between text-sm">
                         <span class="text-gray-600 font-medium">Fecha de Creación:</span>
-                        <span class="text-gray-900 font-semibold"><%= prestamo.getFechaSolicitud().toLocalDate() %></span>
+                        <span class="text-gray-900 font-semibold"><%= prestamo.getFechaSolicitud().toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %></span>
                     </div>
                     <div class="flex justify-between text-sm">
                         <span class="text-gray-600 font-medium">Fecha Fin:</span>
-                        <span class="text-gray-900 font-semibold">11/11/2011</span>
+                        <span class="text-gray-900 font-semibold"><%= fechaFinPrestamo.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) %></span>
                     </div>
                     <div class="flex justify-between text-sm">
                         <span class="text-gray-600 font-medium">Plazo de Pago:</span>

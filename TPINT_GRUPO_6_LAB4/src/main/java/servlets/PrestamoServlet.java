@@ -90,6 +90,8 @@ public class PrestamoServlet extends HttpServlet {
 	        prestamo.setImporte_Cuota(importeCuota);
 	        
 	        request.getSession().setAttribute("prestamoPendiente", prestamo);
+	        request.getSession().setAttribute("fechaFinPrestamo", fechaFin);
+
 	        
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("clientes/confirmarPrestamo.jsp");
 	        dispatcher.forward(request, response);
