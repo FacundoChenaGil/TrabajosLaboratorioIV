@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidad.Cuenta;
 import entidad.Cuota;
+import excepciones.SaldoInsuficienteExcepcion;
 import negocio.ICuotaNegocio;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.CuotaNegocioImpl;
@@ -54,8 +54,10 @@ public class PagarCuotasServlet extends HttpServlet {
 	            if (pagoExitoso) {
 	                request.setAttribute("mensaje", "✅ ¡Pago realizado con éxito!");
 	            } else {
-	                request.setAttribute("mensaje", "Error: No se pudo procesar el pago. Verifique el saldo o que la cuota no esté ya pagada.");
+	                request.setAttribute("mensaje", "❌ Error: No se pudo procesar el pago. Verifique que la cuota no esté ya pagada.");
 	            }
+	        } catch (SaldoInsuficienteExcepcion e) {
+	        	request.setAttribute("mensaje", "❌ Error: " + e.getMessage());
 	        } catch (NumberFormatException e) {
 	            request.setAttribute("mensaje", "Error: El ID de la cuota no es válido.");
 	        }
