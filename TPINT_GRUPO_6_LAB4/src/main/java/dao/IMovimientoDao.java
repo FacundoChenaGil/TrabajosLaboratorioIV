@@ -1,12 +1,14 @@
 package dao;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 
 import entidad.Movimiento;
 
 public interface IMovimientoDao {
-    boolean insertarMovimiento(String cbu, BigDecimal importe, String detalle, int tipoMovimientoId);
-    List<Movimiento> obtenerMovimientosPorCBU(String cbu);
+	List<Movimiento> obtenerPorCBU(String cbu);
+    List<Movimiento> obtenerFiltrados(String cbu, Date desde, Date hasta, int idTipo);
+    public boolean insertarMovimiento(String cbu, BigDecimal monto, String descripcion, int tipoMovimiento);
 }

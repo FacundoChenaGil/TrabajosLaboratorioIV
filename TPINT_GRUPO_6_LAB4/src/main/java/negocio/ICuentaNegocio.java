@@ -28,6 +28,8 @@ public interface ICuentaNegocio {
     public List<Cuenta> obtenerCuentasPorDni(String dni);
 	public Cuenta obtenerPorNumero(String numeroCuenta);
 	boolean actualizarSaldoPorNumeroCuenta(String numeroCuenta, BigDecimal nuevoSaldo);
+
 	public List<Cliente> obtenerClientesConSaldoNegativo();// Para Reporte
+	public List<Cuenta> obtenerCuentasConTipoPorDni(String dni);
 	
 }

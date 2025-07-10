@@ -90,7 +90,22 @@
                     <p class="text-sm font-light max-w-xs text-right">Consulta tu historial de pagos.</p>
                 </div>
             </a>
+            
+            <!-- ✅ Card Historial de Movimientos -->
+      <a href="<%=request.getContextPath()%>/MovimientoServlet"
+         class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
+        <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3v5h6v-5c0-1.657-1.343-3-3-3z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 21h6" />
+          </svg>
+          <h3 class="text-2xl font-bold leading-tight">Historial de Movimientos</h3>
+          <p class="text-sm font-light max-w-xs text-right">Visualizá tus últimos movimientos y filtrá por tipo y fecha.</p>
         </div>
+      </a>
+
+    </div>
+           
     </main>
 
     <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />

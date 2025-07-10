@@ -136,6 +136,7 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
     }
     
   
+    
     	
     	public List<Cliente> obtenerClientesConSaldoNegativo() {
     	    List<Cuenta> cuentas = cuentaDao.obtenerCuentasConCliente();
@@ -155,6 +156,7 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
     	        }
     	    }
 
+    	
     	    List<Cliente> clientesNegativos = new ArrayList<>();
     	    for (Cliente c : mapaClientes.values()) {
     	        if (c.getSaldoTotal().compareTo(BigDecimal.ZERO) < 0) {
@@ -164,6 +166,12 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
 
     	    return clientesNegativos;
     	}
+    	
+    	@Override
+    	public List<Cuenta> obtenerCuentasConTipoPorDni(String dni) {
+    	    return cuentaDao.obtenerCuentasConTipoPorDni(dni);
+    	}
+
     }
 
     
