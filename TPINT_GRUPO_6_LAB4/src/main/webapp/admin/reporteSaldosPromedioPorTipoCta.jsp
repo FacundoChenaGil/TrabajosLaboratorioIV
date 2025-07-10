@@ -67,14 +67,14 @@
         </table>
       </div>
     </div>
-  </main>
-  
   </div>
     <div class="max-w-6xl mx-auto text-end mt-4">
     <a href="${pageContext.request.contextPath}/admin/reportes.jsp" class="text-sm text-red-600 hover:underline">
       ← Volver
     </a>
   </div>
+  </main>
+  
 
   <jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
