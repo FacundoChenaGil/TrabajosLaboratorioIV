@@ -738,63 +738,106 @@ public class CuentaDaoImpl implements ICuentaDao {
 
 	    return lista;
 	}
-	
-	public List<Cuenta> obtenerCuentasConTipoPorDni(String dni) {
-	    List<Cuenta> cuentas = new ArrayList<>();
-	    Connection conn = null;
-	    PreparedStatement ps = null;
-	    ResultSet rs = null;
+	 public Cuenta obtenerCuentaPorDni(String dni) {
+	        Cuenta cuenta = null;
 
-	    String sql = "SELECT c.*, t.Descripcion AS TipoDescripcion " +
-	                 "FROM Cuentas c " +
-	                 "JOIN Tipos_Cuenta t ON c.ID_Tipo_Cuenta = t.ID_Tipo_Cuenta " +
-	                 "WHERE c.Activa = 1 AND c.DNI = ?";
+	        String sql = "SELECT c.Numero_Cuenta, c.CBU, c.Fecha_Creacion, c.Saldo, c.Activa, " +
+	                "c.ID_Tipo_Cuenta, t.Descripcion AS TipoDescripcion, c.DNI " +
+	                "FROM cuentas c " +
+	                "JOIN tipos_cuenta t ON c.ID_Tipo_Cuenta = t.ID_Tipo_Cuenta " +
+	                "WHERE c.DNI = ? AND c.ID_Tipo_Cuenta = 1 AND c.Activa = 1 " +
+	                "ORDER BY c.Fecha_Creacion ASC LIMIT 1";
 
-	    try {
-	        conn = Conexion.getConexion();
-	        ps = conn.prepareStatement(sql);
-	        ps.setString(1, dni);
-	        rs = ps.executeQuery();
+	        try (Connection con = Conexion.getConexion();
+	             PreparedStatement stmt = con.prepareStatement(sql)) {
 
-	        while (rs.next()) {
-	            Cuenta cuenta = new Cuenta();
+	            stmt.setString(1, dni);
+	            ResultSet rs = stmt.executeQuery();
 
-	            cuenta.setCbu(rs.getString("CBU"));
-	            cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
+	            if (rs.next()) {
+	                cuenta = new Cuenta();
+	                cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
+	                cuenta.setCbu(rs.getString("CBU"));
 
-	            Date fechaSQL = rs.getDate("Fecha_Creacion");
-	            if (fechaSQL != null) {
-	                cuenta.setFechaCreacion(fechaSQL.toLocalDate());
+	                Date fechaSQL = rs.getDate("Fecha_Creacion");
+	                if (fechaSQL != null) {
+	                    cuenta.setFechaCreacion(fechaSQL.toLocalDate());
+	                }
+
+	                cuenta.setSaldo(rs.getBigDecimal("Saldo"));
+	                cuenta.setActiva(rs.getBoolean("Activa"));
+
+	                TiposDeCuentas tipo = new TiposDeCuentas();
+	                tipo.setID(rs.getInt("ID_Tipo_Cuenta"));
+	                tipo.setDescripcion(rs.getString("TipoDescripcion"));
+	                cuenta.setTipoCuenta(tipo);
+
+	                Cliente cliente = new Cliente();
+	                cliente.setDni(rs.getString("DNI"));
+	                cuenta.setCliente(cliente);
 	            }
 
-	            cuenta.setSaldo(rs.getBigDecimal("Saldo"));
-	            cuenta.setActiva(rs.getBoolean("Activa"));
-
-	            // Tipo de cuenta completo
-	            TiposDeCuentas tipo = new TiposDeCuentas();
-	            tipo.setID(rs.getInt("ID_Tipo_Cuenta"));
-	            tipo.setDescripcion(rs.getString("TipoDescripcion"));
-	            cuenta.setTipoCuenta(tipo);
-
-	            Cliente cliente = new Cliente();
-	            cliente.setDni(dni);
-	            cuenta.setCliente(cliente);
-
-	            cuentas.add(cuenta);
+	        } catch (SQLException e) {
+	            e.printStackTrace();
 	        }
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-	        try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
-	        Conexion.cerrarConexion(conn);
+	        return cuenta;
 	    }
 
-	    return cuentas;
-	}
-}
+	    public List<Cuenta> obtenerCuentasConTipoPorDni(String dni) {
+	        List<Cuenta> cuentas = new ArrayList<>();
+	        Connection conn = null;
+	        PreparedStatement ps = null;
+	        ResultSet rs = null;
 
+	        String sql = "SELECT c.*, t.Descripcion AS TipoDescripcion " +
+	                     "FROM Cuentas c " +
+	                     "JOIN Tipos_Cuenta t ON c.ID_Tipo_Cuenta = t.ID_Tipo_Cuenta " +
+	                     "WHERE c.Activa = 1 AND c.DNI = ?";
+
+	        try {
+	            conn = Conexion.getConexion();
+	            ps = conn.prepareStatement(sql);
+	            ps.setString(1, dni);
+	            rs = ps.executeQuery();
+
+	            while (rs.next()) {
+	                Cuenta cuenta = new Cuenta();
+	                cuenta.setCbu(rs.getString("CBU"));
+	                cuenta.setNumeroCuenta(rs.getString("Numero_Cuenta"));
+
+	                Date fechaSQL = rs.getDate("Fecha_Creacion");
+	                if (fechaSQL != null) {
+	                    cuenta.setFechaCreacion(fechaSQL.toLocalDate());
+	                }
+
+	                cuenta.setSaldo(rs.getBigDecimal("Saldo"));
+	                cuenta.setActiva(rs.getBoolean("Activa"));
+
+	                TiposDeCuentas tipo = new TiposDeCuentas();
+	                tipo.setID(rs.getInt("ID_Tipo_Cuenta"));
+	                tipo.setDescripcion(rs.getString("TipoDescripcion"));
+	                cuenta.setTipoCuenta(tipo);
+
+	                Cliente cliente = new Cliente();
+	                cliente.setDni(rs.getString("DNI"));
+	                cuenta.setCliente(cliente);
+
+	                cuentas.add(cuenta);
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+	            try { if (ps != null) ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+	            Conexion.cerrarConexion(conn);
+	        }
+
+	        return cuentas;
+	    }
+
+}
 	
 
 

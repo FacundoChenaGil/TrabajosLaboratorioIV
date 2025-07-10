@@ -4,13 +4,24 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.ICuotaDao;
+
 import entidad.Cuota;
 import entidad.Prestamo;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+
+import entidad.Cliente;
+import entidad.Cuenta;
+import entidad.Cuota;
+import entidad.TiposDeCuentas;
 
 public class CuotaDaoImpl implements ICuotaDao {
 
@@ -220,6 +231,7 @@ public class CuotaDaoImpl implements ICuotaDao {
 	    return exito;
 	}
 	
+
 	private Cuota crearCuotaDesdeResultSet(ResultSet rs, boolean isPagada) throws SQLException {
 		Prestamo p = new Prestamo();
 		p.setIDPrestamo(rs.getInt("ID_Prestamo"));
@@ -247,4 +259,7 @@ public class CuotaDaoImpl implements ICuotaDao {
 		
 		return cuota;
 	}
+
+
+	
 }

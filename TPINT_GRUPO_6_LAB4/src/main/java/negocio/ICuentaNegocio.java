@@ -24,12 +24,16 @@ public interface ICuentaNegocio {
     public String obtenerNombreTitular(String cbu);
     public String obtenerDniTitular(String cbu);
     public String obtenerCBUPorDNI(String dni);
-
     public List<Cuenta> obtenerCuentasPorDni(String dni);
+    	
 	public Cuenta obtenerPorNumero(String numeroCuenta);
 	boolean actualizarSaldoPorNumeroCuenta(String numeroCuenta, BigDecimal nuevoSaldo);
 
 	public List<Cliente> obtenerClientesConSaldoNegativo();// Para Reporte
+
 	public List<Cuenta> obtenerCuentasConTipoPorDni(String dni);
+
+	public Cuenta obtenerCuentaPorDni(String dni); // para el panel del cliente
+
 	
 }

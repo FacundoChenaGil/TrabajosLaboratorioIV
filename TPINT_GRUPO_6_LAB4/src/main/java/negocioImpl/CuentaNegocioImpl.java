@@ -120,7 +120,7 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
     public String obtenerCBUPorDNI(String dni) {
         return cDao.obtenerCBUPorDNI(dni);
     }
-
+    @Override
     public List<Cuenta> obtenerCuentasPorDni(String dni) {
         return cuentaDao.obtenerCuentasPorDni(dni);
     }
@@ -166,13 +166,23 @@ public class CuentaNegocioImpl implements ICuentaNegocio {
 
     	    return clientesNegativos;
     	}
+
     	
     	@Override
     	public List<Cuenta> obtenerCuentasConTipoPorDni(String dni) {
     	    return cuentaDao.obtenerCuentasConTipoPorDni(dni);
     	}
 
-    }
+    
+
+    	 @Override
+    	public Cuenta obtenerCuentaPorDni(String dni) {
+            return cuentaDao.obtenerCuentaPorDni(dni);
+        }
+}
+
+    	
+
 
     
     

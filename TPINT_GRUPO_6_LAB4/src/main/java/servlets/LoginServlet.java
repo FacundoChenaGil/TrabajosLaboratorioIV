@@ -81,13 +81,14 @@ public class LoginServlet extends HttpServlet {
             
             if (userRole.equals("cliente")) {
                 Cliente cliente = clienteNegocio.obtenerClientePorUsuario(username);
+                System.out.println("DNI del cliente logueado: " + cliente.getDni()); // quitar
                 session.setAttribute("dniCliente", cliente.getDni());
             }
             
             // 6. Redirigir según el rol
             String redirectPath = userRole.equals("administrador") 
                                 ? "/admin/menuAdministrador.jsp" 
-                                : "/clientes/miCuenta.jsp";
+                                : "/MiCuentaServlet";
             
             response.sendRedirect(request.getContextPath() + redirectPath);
             
@@ -112,9 +113,9 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("usuario") != null) {
             String userRole = (String) session.getAttribute("userRole");
-            String redirectPath = "administrador".equals(userRole) ? 
-                                "/admin/dashboard.jsp" : 
-                                "/clientes/dashboard.jsp";
+            String redirectPath = userRole.equals("administrador") 
+                    ? "/admin/menuAdministrador.jsp" 
+                    : "/MiCuentaServlet";
             response.sendRedirect(request.getContextPath() + redirectPath);
         } else {
             // Si no está autenticado, mostrar el formulario de login
