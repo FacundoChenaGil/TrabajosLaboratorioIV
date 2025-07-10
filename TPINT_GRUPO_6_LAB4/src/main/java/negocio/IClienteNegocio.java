@@ -1,5 +1,6 @@
 package negocio;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,5 +19,10 @@ public interface IClienteNegocio {
 	public List<Cliente> obtenerClientesNuevosEntreFechas(LocalDate desde, LocalDate hasta); // Para Reporte
 	public List<Cliente> buscarClientesPorNombreApellidoUsuario(String texto); // Para Reporte
 	public List<Cliente> obtenerTodosLosClientes(); //Para Reporte
+
 	public boolean existeCUIL(String cuil);
+
+	public List<Cliente> obtenerClientesConSaldoMinimo(BigDecimal saldoMinimo, String nombre, int offset, int limite);
+	public int contarClientesConSaldoMinimo(BigDecimal saldoMinimo, String nombre);
+
 }

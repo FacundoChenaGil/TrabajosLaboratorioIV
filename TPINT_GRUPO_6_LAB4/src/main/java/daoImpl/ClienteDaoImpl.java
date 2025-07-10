@@ -5,6 +5,8 @@ import entidad.Cliente; // Importa la clase Cliente
 import entidad.Cuenta;
 import entidad.Usuario; // Importa la clase Usuario
 import entidad.TipoUsuario; // Importa la clase TipoUsuario (para la relación con Usuario)
+
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -520,6 +522,9 @@ public class ClienteDaoImpl implements IClienteDao {
 
 	    return clientes;
 	}
+	public List<Cliente> obtenerTodosConSaldo() {
+	    List<Cliente> lista = new ArrayList<>();
+
 
 	@Override
 	public boolean existeCUIL(String cuil) {
@@ -539,6 +544,149 @@ public class ClienteDaoImpl implements IClienteDao {
 	}
 
   }
+
+	    String sql =  "SELECT c.dni, c.nombre, c.apellido, SUM(cu.saldo) AS saldo_total " +
+	    	    "FROM clientes c " +
+	    	    "INNER JOIN cuentas cu ON c.dni = cu.dni " +
+	    	    "GROUP BY c.dni, c.nombre, c.apellido " +
+	    	    "HAVING saldo_total > 0";
+
+	    try (Connection con = Conexion.getConexion();
+	         PreparedStatement stmt = con.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            Cliente cliente = new Cliente();
+	            cliente.setDni(rs.getString("DNI"));
+	            cliente.setNombre(rs.getString("Nombre"));
+	            cliente.setApellido(rs.getString("Apellido"));
+	            cliente.setSaldoTotal(rs.getBigDecimal("saldo_total")); 
+
+	            lista.add(cliente);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return lista;
+	}
+	
+	 public List<Cliente> obtenerClientesConSaldoMinimo(BigDecimal saldoMinimo, String nombre, int offset, int limite) {
+	        List<Cliente> lista = new ArrayList<>();
+
+	        boolean filtrarNombre = nombre != null && !nombre.trim().isEmpty();
+	        boolean filtrarMonto = saldoMinimo != null && saldoMinimo.compareTo(BigDecimal.ZERO) > 0;
+
+	        String sql = "SELECT c.DNI, c.Nombre, c.Apellido, SUM(cu.Saldo) AS SaldoTotal " +
+	                     "FROM clientes c INNER JOIN cuentas cu ON c.DNI = cu.DNI ";
+
+	        if (filtrarNombre) {
+	            sql += "WHERE c.Nombre LIKE ? OR c.Apellido LIKE ? ";
+	        }
+
+	        sql += "GROUP BY c.DNI, c.Nombre, c.Apellido ";
+
+	        if (filtrarMonto && filtrarNombre) {
+	            sql += "HAVING SUM(cu.Saldo) >= 0 AND SUM(cu.Saldo) >= ? ";
+	        } else if (filtrarMonto) {
+	            sql += "HAVING SUM(cu.Saldo) >= ? ";
+	        } else {
+	            sql += "HAVING SUM(cu.Saldo) >= 0 ";
+	        }
+
+	        sql += "LIMIT ? OFFSET ?";
+
+	        try (Connection con = Conexion.getConexion();
+	             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	            int i = 1;
+
+	            if (filtrarNombre) {
+	                String filtro = nombre.trim() + "%";
+	                stmt.setString(i++, filtro);
+	                stmt.setString(i++, filtro);
+	            }
+
+	            if (filtrarMonto) {
+	                stmt.setBigDecimal(i++, saldoMinimo);
+	            }
+
+	            stmt.setInt(i++, limite);
+	            stmt.setInt(i++, offset);
+
+	            ResultSet rs = stmt.executeQuery();
+	            while (rs.next()) {
+	                Cliente c = new Cliente();
+	                c.setDni(rs.getString("DNI"));
+	                c.setNombre(rs.getString("Nombre"));
+	                c.setApellido(rs.getString("Apellido"));
+	                c.setSaldoTotal(rs.getBigDecimal("SaldoTotal"));
+	                lista.add(c);
+	            }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return lista;
+	    }
+
+
+	    public int contarClientesConSaldoMinimo(BigDecimal saldoMinimo, String nombre) {
+	        int total = 0;
+
+	        boolean filtrarNombre = nombre != null && !nombre.trim().isEmpty();
+	        boolean filtrarMonto = saldoMinimo != null && saldoMinimo.compareTo(BigDecimal.ZERO) > 0;
+
+	        String sql = "SELECT COUNT(*) AS Total FROM (" +
+	                     "SELECT c.DNI " +
+	                     "FROM clientes c INNER JOIN cuentas cu ON c.DNI = cu.DNI ";
+
+	        if (filtrarNombre) {
+	            sql += "WHERE c.Nombre LIKE ? OR c.Apellido LIKE ? ";
+	        }
+
+	        sql += "GROUP BY c.DNI, c.Nombre, c.Apellido ";
+
+	        if (filtrarMonto && filtrarNombre) {
+	            sql += "HAVING SUM(cu.Saldo) >= 0 AND SUM(cu.Saldo) >= ? ";
+	        } else if (filtrarMonto) {
+	            sql += "HAVING SUM(cu.Saldo) >= ? ";
+	        } else {
+	            sql += "HAVING SUM(cu.Saldo) >= 0 ";
+	        }
+
+	        sql += ") AS subconsulta";
+
+	        try (Connection con = Conexion.getConexion();
+	             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	            int i = 1;
+
+	            if (filtrarNombre) {
+	                String filtro = nombre.trim() + "%";
+	                stmt.setString(i++, filtro);
+	                stmt.setString(i++, filtro);
+	            }
+
+	            if (filtrarMonto) {
+	                stmt.setBigDecimal(i++, saldoMinimo);
+	            }
+
+	            ResultSet rs = stmt.executeQuery();
+	            if (rs.next()) {
+	                total = rs.getInt("Total");
+	            }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return total;
+	    }
+	}
+
 
 
 

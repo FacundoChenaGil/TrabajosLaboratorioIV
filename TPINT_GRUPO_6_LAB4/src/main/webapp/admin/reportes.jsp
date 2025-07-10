@@ -78,7 +78,16 @@
 		  <h2 class="text-xl font-semibold mb-2">Clientes con Saldo Negativo</h2>
 		  <p class="text-sm opacity-90 leading-relaxed">Visualizá aquellos clientes cuyo saldo total es menor a 0.</p>
 		</a>
-	      
+		
+		  <!-- Reporte 5: Listado de Clientes según saldo -->
+			<a href="${pageContext.request.contextPath}/ClientesSaldoElevadoServlet"
+			   class="bg-custom-red text-white p-6 rounded-lg shadow-xl text-center flex flex-col items-center justify-center min-h-[200px] card-link">
+			  <i class="fa-solid fa-arrow-trend-up fa-2xl mb-4"></i>
+			  <h2 class="text-xl font-semibold mb-2">Listado de Clientes según Saldo</h2>
+			  <p class="text-sm opacity-90 leading-relaxed">Clientes cuyo saldo total supera un monto mínimo definido.</p>
+			</a>
+					
+				      
       
     </div>
   </div>
