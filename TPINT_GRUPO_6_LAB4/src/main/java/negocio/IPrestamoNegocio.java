@@ -4,21 +4,22 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import entidad.Prestamo;
-import entidad.Prestamo;
-
 
 public interface IPrestamoNegocio {
-	
-	public List<Prestamo>obtenerPrestamosPorDni(String dni);
-	
+
+	// Métodos para clientes
+	List<Prestamo> obtenerPrestamosPorDni(String dni);
 	List<Prestamo> obtenerPrestamosConCuotasPendientesPorDni(String dni);
-	List<Prestamo> obtenerPrestamosPorDniYEstado(String dni, int idEstado);
-		
-	public boolean agregarPrestamo(Prestamo prestamo);
-	public BigDecimal calcularImporteAPagar(BigDecimal importe);
-	public BigDecimal calcularImporteCuota(BigDecimal cantCuotas, BigDecimal importe);
-	
-	public List<Prestamo> leerPrestamosPendientes();
-	public boolean aprobarPrestamo(int idPrestamo);
-	public boolean rechazarPrestamo(int idPrestamo);
+	List<Prestamo> obtenerPrestamosFinalizadosPorDni(String dni);
+	boolean agregarPrestamo(Prestamo prestamo);
+	BigDecimal calcularImporteAPagar(BigDecimal importe);
+	BigDecimal calcularImporteCuota(BigDecimal cantCuotas, BigDecimal importeAPagar);
+
+	// Métodos para administradores
+	List<Prestamo> leerPrestamosPendientes();
+	boolean aprobarPrestamo(int idPrestamo);
+	boolean rechazarPrestamo(int idPrestamo);
+	boolean generarCuotas(Prestamo prestamo);
+	List<Prestamo> obtenerPrestamosPorDniYEstado(String dni, int estadoActivo);
+
 }

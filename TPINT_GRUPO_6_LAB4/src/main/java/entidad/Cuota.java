@@ -6,29 +6,25 @@ import java.time.LocalDate;
 public class Cuota {
 
 	private int idCuota;
-	private int idPrestamo;
+	private Prestamo prestamo;
 	private int numeroCuota;
 	private BigDecimal importe;
 	private LocalDate fechaVencimiento;
 	private LocalDate fechaPago;
-	private String numeroCuenta;
 	
-	// Constructores
 	public Cuota() {
 
 	}
 
-	
-	public Cuota(int idCuota, int idPrestamo, int numeroCuota, BigDecimal importe, LocalDate fechaVencimiento,
-			LocalDate fechaPago, String numeroCuenta) {
+	public Cuota(int idCuota, Prestamo prestamo, int numeroCuota, BigDecimal importe, LocalDate fechaVencimiento,
+			LocalDate fechaPago) {
 		super();
 		this.idCuota = idCuota;
-		this.idPrestamo = idPrestamo;
+		this.prestamo = prestamo;
 		this.numeroCuota = numeroCuota;
 		this.importe = importe;
 		this.fechaVencimiento = fechaVencimiento;
 		this.fechaPago = fechaPago;
-		this.numeroCuenta = numeroCuenta;
 	}
 
 	// getters y setters
@@ -43,13 +39,12 @@ public class Cuota {
 	}
 
 
-	public int getIdPrestamo() {
-		return idPrestamo;
+	public Prestamo getPrestamo() {
+		return prestamo;
 	}
 
-
-	public void setIdPrestamo(int idPrestamo) {
-		this.idPrestamo = idPrestamo;
+	public void setPrestamo(Prestamo prestamo) {
+		this.prestamo = prestamo;
 	}
 
 
@@ -92,27 +87,11 @@ public class Cuota {
 		this.fechaPago = fechaPago;
 	}
 
-
-	public String getNumeroCuenta() {
-		return numeroCuenta;
-	}
-
-
-	public void setNumeroCuenta(String numeroCuenta) {
-		this.numeroCuenta = numeroCuenta;
-	}
-
 	@Override
 	public String toString() {
-	    return "Cuota:" + idCuota + ", ID Prestamo:" + idPrestamo + ", Número Cuota:" + numeroCuota
+	    return "Cuota:" + idCuota + ", ID Prestamo:" + prestamo.getIDPrestamo() + ", Número Cuota:" + numeroCuota
 	            + ", Importe=" + importe + ", Fecha Vencimiento:" + fechaVencimiento + ", Fecha Pago:" + fechaPago
-	            + ", Numero Cuenta:" + numeroCuenta;
+	            + ", Numero Cuenta:";
 	}
 
-
-
-
-
-
-	
 }

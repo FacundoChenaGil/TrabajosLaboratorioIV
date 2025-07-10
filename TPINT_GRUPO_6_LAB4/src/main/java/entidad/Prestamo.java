@@ -156,6 +156,15 @@ public class Prestamo {
 		this.primeraCuotaId = primeraCuotaId;
 	}
 
+	public BigDecimal getMontoTotalAdeudado() {
+	    if (cuotasPendientes == null || cuotasPendientes.isEmpty()) {
+	        return BigDecimal.ZERO;
+	    }
+	    return cuotasPendientes.stream()
+	                           .map(Cuota::getImporte)
+	                           .reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
 
 	@Override
 	public String toString() {

@@ -22,7 +22,6 @@
             <p class="text-gray-600 text-base">Accedé rápidamente a tus operaciones bancarias más frecuentes.</p>
         </div>
         <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <!-- Tarjeta 1 -->
             <a href="#" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
                 <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -34,7 +33,6 @@
                 </div>
             </a>
 
-            <!-- Tarjeta 2 -->
             <a href="<%=request.getContextPath()%>/clientes/nuevaTransferencia.jsp" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
                 <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -45,20 +43,6 @@
                 </div>
             </a>
 
-            <!-- Tarjeta 3 -->
-            <a href="<%=request.getContextPath()%>/clientes/menuPagoPrestamos.jsp" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
-                <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3v5h6v-5c0-1.657-1.343-3-3-3z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 21h6" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v4" />
-                    </svg>
-                    <h3 class="text-2xl font-bold leading-tight">Pagar Préstamo</h3>
-                    <p class="text-sm font-light max-w-xs text-right">Administra y realiza pagos de tus préstamos de manera rápida y segura.</p>
-                </div>
-            </a>
-
-            <!-- Tarjeta 4 -->
             <a href="<%=request.getContextPath()%>/CuentaServlet?Param=cargarDDL" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
                 <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -69,7 +53,6 @@
                 </div>
             </a>
             
-            <!-- Tarjeta 4 -->
             <a href="<%=request.getContextPath()%>/PrestamosActivosServlet" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
                 <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -80,8 +63,19 @@
                 </div>
             </a>
             
-            <!-- Tarjeta 4 -->
-            <a href="<%=request.getContextPath()%>/clientes/historialPagodePrestamos.jsp" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
+            <a href="<%=request.getContextPath()%>/CargarPagoPrestamosServlet" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
+                <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3v5h6v-5c0-1.657-1.343-3-3-3z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 21h6" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v4" />
+                    </svg>
+                    <h3 class="text-2xl font-bold leading-tight">Pagar Préstamo</h3>
+                    <p class="text-sm font-light max-w-xs text-right">Administra y realiza pagos de tus préstamos de manera rápida y segura.</p>
+                </div>
+            </a>
+            
+            <a href="<%=request.getContextPath()%>/HistorialPrestamosServlet" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
                 <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m6 0a3 3 0 00-6 0m6 0v6m-6-6v6" />

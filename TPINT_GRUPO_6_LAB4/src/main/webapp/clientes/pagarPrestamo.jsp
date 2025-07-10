@@ -35,15 +35,15 @@
         <select id="prestamo" onchange="mostrarCuotas(this.value)" class="w-full p-3 border border-gray-300 rounded-lg">
           <option value="">-- Elegir préstamo --</option>
           <c:forEach var="prestamo" items="${prestamos}">
-            <option value="${prestamo.idPrestamo}">Préstamo ${prestamo.idPrestamo}</option>
+            <option value="${prestamo.IDPrestamo}">Préstamo ${prestamo.IDPrestamo}</option>
           </c:forEach>
         </select>
       </div>
 
       <!-- Cuotas por préstamo -->
       <c:forEach var="prestamo" items="${prestamos}">
-        <div id="prestamo-${prestamo.idPrestamo}" class="tabla-cuotas hidden">
-          <h3 class="text-lg font-semibold text-red-600 mb-3">Cuotas pendientes - Préstamo ${prestamo.idPrestamo}</h3>
+        <div id="prestamo-${prestamo.IDPrestamo}" class="tabla-cuotas hidden">
+          <h3 class="text-lg font-semibold text-red-600 mb-3">Cuotas pendientes - Préstamo ${prestamo.IDPrestamo}</h3>
 
           <!-- Resumen -->
           <div class="mb-4 bg-red-50 border-l-4 border-red-600 p-4 rounded-md shadow-sm">

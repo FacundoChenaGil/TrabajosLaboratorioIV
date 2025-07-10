@@ -1,101 +1,97 @@
 package negocioImpl;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import entidad.Cliente;
-import entidad.Cuenta;
+import dao.IClienteDao;
+import dao.ICuentaDao;
+import dao.ICuotaDao;
+import dao.IPrestamoDao;
+import dao.ITipoEstadoPrestamoDao;
+import daoImpl.ClienteDaoImpl;
+import daoImpl.CuentaDaoImpl;
+import daoImpl.CuotaDaoImpl;
+import daoImpl.PrestamoDaoImpl;
+import daoImpl.TipoEstadoPrestamoDaoImpl;
 import entidad.Cuota;
 import entidad.Prestamo;
-import entidad.TipoEstadoPrestamo;
-import dao.IPrestamoDao;
-import daoImpl.PrestamoDaoImpl;
 import negocio.IPrestamoNegocio;
-import daoImpl.CuotaDaoImpl;
-import dao.ICuotaDao;
-import dao.ICuentaDao;
-import daoImpl.CuentaDaoImpl;
-import dao.IClienteDao;
-import daoImpl.ClienteDaoImpl;
-import dao.ITipoEstadoPrestamoDao;
-import daoImpl.TipoEstadoPrestamoDaoImpl;
 
-public class PrestamoNegocioImpl implements IPrestamoNegocio{
-	
+public class PrestamoNegocioImpl implements IPrestamoNegocio {
+
 	private IPrestamoDao prestamoDao = new PrestamoDaoImpl();
 	private ICuotaDao cuotaDao = new CuotaDaoImpl();
-	private ICuentaDao cuentaDao = new CuentaDaoImpl();
 	private IClienteDao clienteDao = new ClienteDaoImpl();
 	private ITipoEstadoPrestamoDao tsDao = new TipoEstadoPrestamoDaoImpl();
 
-	
-
-    public PrestamoNegocioImpl(IPrestamoDao prestamoDao, ICuotaDao cuotaDao, ICuentaDao cuentaDao,
-			IClienteDao clienteDao, ITipoEstadoPrestamoDao tsDao) {
-		super();
-		this.prestamoDao = prestamoDao;
-		this.cuotaDao = cuotaDao;
-		this.cuentaDao = cuentaDao;
-		this.clienteDao = clienteDao;
-		this.tsDao = tsDao;
-	}
-    
 	public PrestamoNegocioImpl() {
-		
 	}
 
-	public List<Prestamo>obtenerPrestamosPorDni(String dni){
-        return prestamoDao.obtenerPrestamosPorDni(dni);
-    }
-    
-    public BigDecimal calcularImporteAPagar(BigDecimal importe) {
-    	BigDecimal porcentaje = new BigDecimal("1.20");
-        BigDecimal importeAPagar = importe.multiply(porcentaje);
-        return importeAPagar;
-    }
-    
-    public BigDecimal calcularImporteCuota(BigDecimal cantCuotas, BigDecimal importe) {
-    	BigDecimal importeCuota = importe.divide(cantCuotas, 2, RoundingMode.HALF_UP);
-    	return importeCuota;
-    }
-    
-    public List<Prestamo> obtenerPrestamosConCuotasPendientesPorDni(String dni) {
-    	List<Prestamo> prestamos = prestamoDao.obtenerPrestamosPorDni(dni);
-    	List<Prestamo> prestamosConPendientes = new ArrayList<>();
-    	
-    	for (Prestamo p : prestamos) {
-    		List<Cuota> cuotasPendientes = cuotaDao.obtenerCuotasPendientesPorPrestamo(p.getIDPrestamo());
-    		
-    		if (!cuotasPendientes.isEmpty()) {
-    			p.setCuotasPendientes(cuotasPendientes);
-    			p.setPrimeraCuotaId(cuotasPendientes.get(0).getIdCuota()); // la más próxima a pagar
-    			prestamosConPendientes.add(p);
-    		}
-    	}
-    	
-    	return prestamosConPendientes;
-    }
+
 
 	@Override
-	public List<Prestamo> obtenerPrestamosPorDniYEstado(String dni, int idEstado) {
-		return prestamoDao.obtenerPrestamosPorDniYEstado(dni, idEstado);
+	public List<Prestamo> obtenerPrestamosPorDni(String dni) {
+		List<Prestamo> prestamos = prestamoDao.obtenerPrestamosPorDni(dni);
+		for (Prestamo prestamo : prestamos) {
+			prestamo.setCliente(clienteDao.obtenerClientePorDni(prestamo.getCliente().getDni()));
+			prestamo.setTipoEstadoPrestamo(tsDao.read(prestamo.getTipoEstadoPrestamo().getIDTipoEstado()));
+		}
+		return prestamos;
 	}
 
 	@Override
-	public boolean agregarPrestamo(Prestamo prestamo) {
-		boolean creado = prestamoDao.agregarPrestamo(prestamo);
-		return creado;
+	public List<Prestamo> obtenerPrestamosFinalizadosPorDni(String dni) {
+		return obtenerPrestamosPorDniYEstado(dni, 4);
+	}
+
+	@Override
+	public List<Prestamo> obtenerPrestamosConCuotasPendientesPorDni(String dni) {
+		List<Prestamo> prestamosAprobados = prestamoDao.obtenerPrestamosPorDniYEstado(dni, 2); // 2 = Aprobado
+		List<Prestamo> prestamosConCuotasPendientes = new ArrayList<>();
+
+		for (Prestamo prestamo : prestamosAprobados) {
+			// Completamos la información del préstamo antes de devolverlo
+			prestamo.setCliente(clienteDao.obtenerClientePorDni(prestamo.getCliente().getDni()));
+			prestamo.setTipoEstadoPrestamo(tsDao.read(prestamo.getTipoEstadoPrestamo().getIDTipoEstado()));
+			List<Cuota> cuotasPendientes = cuotaDao.obtenerCuotasPendientesPorPrestamo(prestamo);
+			if (!cuotasPendientes.isEmpty()) {
+				prestamo.setCuotasPendientes(cuotasPendientes);
+				prestamo.setPrimeraCuotaId(cuotasPendientes.get(0).getIdCuota()); // Establece la primera cuota como pagable
+				prestamosConCuotasPendientes.add(prestamo);
+			}
+		}
+
+		return prestamosConCuotasPendientes;
 	}
 
 	@Override
 	public List<Prestamo> leerPrestamosPendientes() {
-		return prestamoDao.leerPrestamosPendientes();
+		List<Prestamo> prestamos = prestamoDao.leerPrestamosPendientes();
+		for (Prestamo prestamo : prestamos) {
+			prestamo.setCliente(clienteDao.obtenerClientePorDni(prestamo.getCliente().getDni()));
+			prestamo.setTipoEstadoPrestamo(tsDao.read(prestamo.getTipoEstadoPrestamo().getIDTipoEstado()));
+		}
+		return prestamos;
 	}
 
 	@Override
 	public boolean aprobarPrestamo(int idPrestamo) {
+		// 1. Obtener el préstamo completo para tener todos los datos necesarios
+		Prestamo prestamo = prestamoDao.obtenerPrestamoPorId(idPrestamo);
+		if (prestamo == null) {
+			return false; // El préstamo no existe
+		}
+
+		// 2. Generar las cuotas
+		boolean cuotasGeneradas = generarCuotas(prestamo);
+		if (!cuotasGeneradas) {
+			// Aquí iría la lógica de rollback en una transacción real
+			return false;
+		}
+
+		// 3. Cambiar el estado del préstamo a Aprobado
 		return prestamoDao.aprobarPrestamo(idPrestamo);
 	}
 
@@ -104,6 +100,56 @@ public class PrestamoNegocioImpl implements IPrestamoNegocio{
 		return prestamoDao.rechazarPrestamo(idPrestamo);
 	}
 
-   }       
+	@Override
+	public boolean generarCuotas(Prestamo prestamo) {
+		int cantidadCuotas = prestamo.getCantidadCuotas();
+		LocalDate fecha = LocalDate.now();
+
+		for (int i = 1; i <= cantidadCuotas; i++) {
+			Cuota cuota = new Cuota();
+			cuota.setPrestamo(prestamo);
+			cuota.setNumeroCuota(i);
+			cuota.setImporte(prestamo.getImporteCuota());
+			cuota.setFechaVencimiento(fecha.plusMonths(i));
+
+			if (!cuotaDao.agregarCuota(cuota)) {
+				// En un escenario real, esto debería provocar un rollback de la transacción
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean agregarPrestamo(Prestamo prestamo) {
+		return prestamoDao.solicitarPrestamo(prestamo);
+	}
+
+	@Override
+	public BigDecimal calcularImporteAPagar(BigDecimal importe) {
+		// Se asume una tasa de interés fija del 10% para el cálculo.
+		BigDecimal interes = new BigDecimal("1.10");
+		return importe.multiply(interes);
+	}
+
+	@Override
+	public BigDecimal calcularImporteCuota(BigDecimal cantCuotas, BigDecimal importeAPagar) {
+		if (cantCuotas == null || cantCuotas.compareTo(BigDecimal.ZERO) <= 0) {
+			return BigDecimal.ZERO; // Evitar división por cero
+		}
+		// Se divide con 2 decimales y redondeo hacia arriba.
+		return importeAPagar.divide(cantCuotas, 2, java.math.RoundingMode.HALF_UP);
+	}
 
 
+
+	@Override
+	public List<Prestamo> obtenerPrestamosPorDniYEstado(String dni, int idEstado) {
+		List<Prestamo> prestamos = prestamoDao.obtenerPrestamosPorDniYEstado(dni, idEstado);
+		for (Prestamo prestamo : prestamos) {
+			prestamo.setCliente(clienteDao.obtenerClientePorDni(prestamo.getCliente().getDni()));
+			prestamo.setTipoEstadoPrestamo(tsDao.read(prestamo.getTipoEstadoPrestamo().getIDTipoEstado()));
+		}
+		return prestamos;
+	}
+}

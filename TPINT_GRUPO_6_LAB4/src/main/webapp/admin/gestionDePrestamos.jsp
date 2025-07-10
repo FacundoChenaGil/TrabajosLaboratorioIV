@@ -46,7 +46,7 @@ table {
 	<%
 	String mensajeExito = (String) request.getAttribute("mensajeExito");
 	String mensajeError = (String) request.getAttribute("mensajeError");
-	List<Prestamo> listaPrestamosPendientes = (List<Prestamo>) request.getAttribute("prestamosPendientes");
+	List<Prestamo> prestamosPendientes = (List<Prestamo>) request.getAttribute("prestamosPendientes");
 	%>
 
 	<!-- Mensajes -->
@@ -96,8 +96,8 @@ table {
 				</thead>
 				<tbody>
 					<%
-					if (listaPrestamosPendientes != null && !listaPrestamosPendientes.isEmpty()) {
-						for (Prestamo prestamo : listaPrestamosPendientes) {
+					if (prestamosPendientes != null && !prestamosPendientes.isEmpty()) {
+						for (Prestamo prestamo : prestamosPendientes) {
 							LocalDate fechaInicio = prestamo.getFechaSolicitud().toLocalDate();
 							LocalDate fechaFin = fechaInicio.plusMonths(prestamo.getCantidadCuotas());
 					%>
