@@ -84,7 +84,7 @@
                 <!-- Nueva contraseña -->
                 <div>
                     <label for="new-password" class="block mb-2 text-gray-700 font-medium">Ingrese nueva contraseña:</label>
-                    <input type="password" id="new-password" name="new-password" required
+                    <input type="password" id="new-password" name="new-password" pattern="^\S+$" title="La contraseña no debe contener espacios" minlength="6" maxlength="255" required
                         placeholder="Letras, números y símbolos"
                         class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
                         focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:ring-opacity-50
