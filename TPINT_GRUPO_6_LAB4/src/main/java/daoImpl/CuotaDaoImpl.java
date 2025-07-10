@@ -31,6 +31,7 @@ public class CuotaDaoImpl implements ICuotaDao {
 	private static final String AGREGAR_CUOTA = "INSERT INTO Cuotas (ID_Prestamo, Numero_Cuota, Importe, Fecha_Vencimiento) VALUES (?, ?, ?, ?)";
 	private static final String PAGAR_CUOTA_UPDATE_CUENTA = "UPDATE Cuentas SET Saldo = Saldo - ? WHERE Numero_Cuenta = ?";
 	private static final String PAGAR_CUOTA_UPDATE_CUOTA = "UPDATE Cuotas SET Fecha_Pago = CURRENT_DATE() WHERE ID_Cuota = ?";
+	private static final String REGISTRAR_MOVIMIENTO_PAGO = "INSERT INTO Movimientos (CBU, Fecha_Movimiento, Detalle, Importe, ID_Tipo_Movimiento) VALUES (?, NOW(), ?, ?, 3)";
 
 	@Override
 	public List<Cuota> obtenerCuotasPagadasPorPrestamo(int idPrestamo) {
@@ -163,7 +164,7 @@ public class CuotaDaoImpl implements ICuotaDao {
 	    ResultSet rs = null;
 	    boolean exito = false;
 
-	    String sqlGetCuota = "SELECT ID_Prestamo, Importe FROM Cuotas WHERE ID_Cuota = ? AND Fecha_Pago IS NULL";
+	    String sqlGetCuotaInfo = "SELECT c.ID_Prestamo, c.Importe, c.Numero_Cuota, p.Cantidad_Cuotas, p.CBU_Acreditacion FROM Cuotas c JOIN Prestamos p ON c.ID_Prestamo = p.ID_Prestamo WHERE c.ID_Cuota = ? AND c.Fecha_Pago IS NULL";
 	    String sqlGetCuenta = "SELECT Saldo FROM Cuentas WHERE Numero_Cuenta = ?";
 	    String sqlCheckCuotas = "SELECT COUNT(*) AS pendientes FROM Cuotas WHERE ID_Prestamo = ? AND Fecha_Pago IS NULL";
 	    String sqlUpdatePrestamo = "UPDATE Prestamos SET ID_Tipo_Estado = 4 WHERE ID_Prestamo = ?";
@@ -172,13 +173,16 @@ public class CuotaDaoImpl implements ICuotaDao {
 	        conn = Conexion.getConexion();
 	        conn.setAutoCommit(false);
 
-	        // 1. Obtener datos de la cuota
-	        ps = conn.prepareStatement(sqlGetCuota);
+	        // 1. Obtener datos de la cuota y del préstamo asociado
+	        ps = conn.prepareStatement(sqlGetCuotaInfo);
 	        ps.setInt(1, cuotaId);
 	        rs = ps.executeQuery();
 	        if (!rs.next()) throw new SQLException("Cuota no encontrada o ya pagada.");
 	        int idPrestamo = rs.getInt("ID_Prestamo");
 	        java.math.BigDecimal importeCuota = rs.getBigDecimal("Importe");
+	        int numeroCuota = rs.getInt("Numero_Cuota");
+	        int totalCuotas = rs.getInt("Cantidad_Cuotas");
+	        String cbu = rs.getString("CBU_Acreditacion");
 	        rs.close();
 	        ps.close();
 
@@ -203,12 +207,21 @@ public class CuotaDaoImpl implements ICuotaDao {
 	        if (ps.executeUpdate() == 0) throw new SQLException("No se pudo marcar la cuota como pagada.");
 	        ps.close();
 
-	        // 5. Verificar si es la última cuota y finalizar préstamo si corresponde
+	        // 5. Registrar el movimiento de pago de préstamo
+	        ps = conn.prepareStatement(REGISTRAR_MOVIMIENTO_PAGO);
+	        ps.setString(1, cbu);
+	        String detalle = String.format("Pago de cuota %d/%d del préstamo ID %d", numeroCuota, totalCuotas, idPrestamo);
+	        ps.setString(2, detalle);
+	        ps.setBigDecimal(3, importeCuota.negate()); // El importe es negativo porque es un débito
+	        if (ps.executeUpdate() == 0) throw new SQLException("No se pudo registrar el movimiento de pago.");
+	        ps.close();
+
+	        // 6. Verificar si es la última cuota y finalizar préstamo si corresponde
 	        ps = conn.prepareStatement(sqlCheckCuotas);
 	        ps.setInt(1, idPrestamo);
 	        rs = ps.executeQuery();
 	        if (rs.next() && rs.getInt("pendientes") == 0) {
-	            rs.close(); // Cerrar ResultSet antes de la siguiente operación
+	            rs.close();
 	            ps.close();
 	            
 	            ps = conn.prepareStatement(sqlUpdatePrestamo);
