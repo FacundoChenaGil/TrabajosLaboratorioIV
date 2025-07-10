@@ -220,7 +220,7 @@ layer base {body { font-family:'Montserrat', sans-serif;
 
 				<div>
 					<label for="password" class="block mb-2 text-gray-700 font-medium">Clave:</label> 
-					<input type="password" id="password" name="password"
+					<input type="password" id="password" name="password" pattern="^\S+$" title="La contraseña no debe contener espacios" minlength="6" maxlength="255"
 						requiredminlength="6" maxlength="255" value="<%= (clienteForm != null) ? clienteForm.getUsuario().getClave() : "" %>"
 						placeholder="Letras mayúsculas, minúsculas, números y símbolos."
 						class="w-full py-3 px-4 border border-gray-200 rounded-lg bg-white text-gray-800 text-base
