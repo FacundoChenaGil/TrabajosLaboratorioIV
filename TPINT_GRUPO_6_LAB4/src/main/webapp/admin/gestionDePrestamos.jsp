@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.time.LocalDate"%>
 <%@ page import="java.util.List"%>
-<%@ page import="entidad.PrestamoBackup"%>
+<%@ page import="entidad.Prestamo"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +46,7 @@ table {
 	<%
 	String mensajeExito = (String) request.getAttribute("mensajeExito");
 	String mensajeError = (String) request.getAttribute("mensajeError");
-	List<PrestamoBackup> listaPrestamosPendientes = (List<PrestamoBackup>) request.getAttribute("prestamosPendientes");
+	List<Prestamo> listaPrestamosPendientes = (List<Prestamo>) request.getAttribute("prestamosPendientes");
 	%>
 
 	<!-- Mensajes -->
@@ -97,7 +97,7 @@ table {
 				<tbody>
 					<%
 					if (listaPrestamosPendientes != null && !listaPrestamosPendientes.isEmpty()) {
-						for (PrestamoBackup prestamo : listaPrestamosPendientes) {
+						for (Prestamo prestamo : listaPrestamosPendientes) {
 							LocalDate fechaInicio = prestamo.getFechaSolicitud().toLocalDate();
 							LocalDate fechaFin = fechaInicio.plusMonths(prestamo.getCantidadCuotas());
 					%>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="entidad.PrestamoBackup" %>
+<%@ page import="entidad.Prestamo" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 	<%
-    	PrestamoBackup prestamo = (PrestamoBackup) session.getAttribute("prestamoPendiente");
+    	Prestamo prestamo = (Prestamo) session.getAttribute("prestamoPendiente");
 		LocalDate fechaFinPrestamo = (LocalDate) session.getAttribute("fechaFinPrestamo");
 	%>
 

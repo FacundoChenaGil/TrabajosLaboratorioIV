@@ -9,7 +9,6 @@ import entidad.Cliente;
 import entidad.Cuenta;
 import entidad.Cuota;
 import entidad.Prestamo;
-import entidad.PrestamoBackup;
 import entidad.TipoEstadoPrestamo;
 import dao.IPrestamoDao;
 import daoImpl.PrestamoDaoImpl;
@@ -67,7 +66,7 @@ public class PrestamoNegocioImpl implements IPrestamoNegocio{
     	List<Prestamo> prestamosConPendientes = new ArrayList<>();
     	
     	for (Prestamo p : prestamos) {
-    		List<Cuota> cuotasPendientes = cuotaDao.obtenerCuotasPendientesPorPrestamo(p.getIdPrestamo());
+    		List<Cuota> cuotasPendientes = cuotaDao.obtenerCuotasPendientesPorPrestamo(p.getIDPrestamo());
     		
     		if (!cuotasPendientes.isEmpty()) {
     			p.setCuotasPendientes(cuotasPendientes);
@@ -80,13 +79,18 @@ public class PrestamoNegocioImpl implements IPrestamoNegocio{
     }
 
 	@Override
-	public boolean agregarPrestamo(PrestamoBackup prestamo) {
+	public List<Prestamo> obtenerPrestamosPorDniYEstado(String dni, int idEstado) {
+		return prestamoDao.obtenerPrestamosPorDniYEstado(dni, idEstado);
+	}
+
+	@Override
+	public boolean agregarPrestamo(Prestamo prestamo) {
 		boolean creado = prestamoDao.agregarPrestamo(prestamo);
 		return creado;
 	}
 
 	@Override
-	public List<PrestamoBackup> leerPrestamosPendientes() {
+	public List<Prestamo> leerPrestamosPendientes() {
 		return prestamoDao.leerPrestamosPendientes();
 	}
 

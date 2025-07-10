@@ -1,5 +1,6 @@
 package entidad;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Cuota {
@@ -7,7 +8,7 @@ public class Cuota {
 	private int idCuota;
 	private int idPrestamo;
 	private int numeroCuota;
-	private float importe;
+	private BigDecimal importe;
 	private LocalDate fechaVencimiento;
 	private LocalDate fechaPago;
 	private String numeroCuenta;
@@ -18,7 +19,7 @@ public class Cuota {
 	}
 
 	
-	public Cuota(int idCuota, int idPrestamo, int numeroCuota, float importe, LocalDate fechaVencimiento,
+	public Cuota(int idCuota, int idPrestamo, int numeroCuota, BigDecimal importe, LocalDate fechaVencimiento,
 			LocalDate fechaPago, String numeroCuenta) {
 		super();
 		this.idCuota = idCuota;
@@ -62,12 +63,12 @@ public class Cuota {
 	}
 
 
-	public float getImporte() {
+	public BigDecimal getImporte() {
 		return importe;
 	}
 
 
-	public void setImporte(float importe) {
+	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
 

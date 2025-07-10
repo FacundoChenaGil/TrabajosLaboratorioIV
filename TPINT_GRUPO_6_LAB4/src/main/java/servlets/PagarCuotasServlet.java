@@ -65,7 +65,7 @@ public class PagarCuotasServlet extends HttpServlet {
 	    }
 
 	    BigDecimal saldoActual = cuenta.getSaldo();
-	    BigDecimal montoCuota = BigDecimal.valueOf(cuota.getImporte());
+	    BigDecimal montoCuota = cuota.getImporte();
 
 	    if (saldoActual.compareTo(montoCuota) < 0) {
 	        request.setAttribute("mensaje", "Saldo insuficiente para realizar el pago.");

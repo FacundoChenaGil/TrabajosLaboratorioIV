@@ -31,7 +31,7 @@ public class CuotaDaoImpl implements ICuotaDao {
 				cuota.setIdCuota(rs.getInt("ID_Cuota"));
 				cuota.setIdPrestamo(rs.getInt("ID_Prestamo"));
 				cuota.setNumeroCuota(rs.getInt("Numero_Cuota"));
-				cuota.setImporte(rs.getFloat("Importe"));
+				cuota.setImporte(rs.getBigDecimal("Importe"));
 				cuota.setNumeroCuenta(rs.getString("Numero_Cuenta"));
 
 				java.sql.Date fechaVenc = rs.getDate("Fecha_Vencimiento");
@@ -75,7 +75,7 @@ public class CuotaDaoImpl implements ICuotaDao {
 				cuota.setIdCuota(rs.getInt("ID_Cuota"));
 				cuota.setIdPrestamo(rs.getInt("ID_Prestamo"));
 				cuota.setNumeroCuota(rs.getInt("Numero_Cuota"));
-				cuota.setImporte(rs.getFloat("Importe"));
+				cuota.setImporte(rs.getBigDecimal("Importe"));
 				cuota.setNumeroCuenta(rs.getString("Numero_Cuenta"));
 				Date fechaSQL = rs.getDate("Fecha_Vencimiento");
 				if (fechaSQL != null) {
@@ -114,7 +114,7 @@ public class CuotaDaoImpl implements ICuotaDao {
 				cuota.setIdCuota(rs.getInt("ID_Cuota"));
 				cuota.setIdPrestamo(rs.getInt("ID_Prestamo"));
 				cuota.setNumeroCuota(rs.getInt("Numero_Cuota"));
-				cuota.setImporte(rs.getFloat("Importe"));
+				cuota.setImporte(rs.getBigDecimal("Importe"));
 				cuota.setNumeroCuenta(rs.getString("Numero_Cuenta"));
 
 				Date fechaSQL = rs.getDate("Fecha_Vencimiento");

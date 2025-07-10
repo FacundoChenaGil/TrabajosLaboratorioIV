@@ -1,170 +1,140 @@
 package entidad;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 public class Prestamo {
-
-	private int idPrestamo;
-	private String dni;
-	private LocalDate fechaCreacion;
-	private float importeAPagar;
-	private float montoPedido;
-	private int plazoPago;
-	private float importeCuota;
-	private int cantCuotas;
-	private int idTipoEstado;
-	private String idCuenta;
+	
+	private int IDPrestamo;
+	private LocalDateTime FechaSolicitud;
+	private BigDecimal ImportePedido;
+	private BigDecimal ImporteAPagar;
+	private int CantidadCuotas;
+	private BigDecimal ImporteCuota;
+	private Cliente Cliente;
+	private TipoEstadoPrestamo TipoEstadoPrestamo;
+	private Cuenta CuentaAcreditada;
 	private List<Cuota> cuotasPendientes;
 	private int primeraCuotaId;
-	
+
+	public Prestamo(int iDPrestamo, LocalDateTime fechaSolicitud, BigDecimal importePedido,
+			BigDecimal importeAPagar, int cantidadCuotas, BigDecimal importeCuota,
+			entidad.Cliente cliente, entidad.TipoEstadoPrestamo tipoEstadoPrestamo, Cuenta cuentaAcreditada) {
+		IDPrestamo = iDPrestamo;
+		FechaSolicitud = fechaSolicitud;
+		ImportePedido = importePedido;
+		ImporteAPagar = importeAPagar;
+		CantidadCuotas = cantidadCuotas;
+		ImporteCuota = importeCuota;
+		Cliente = cliente;
+		TipoEstadoPrestamo = tipoEstadoPrestamo;
+		CuentaAcreditada = cuentaAcreditada;
+	}
+
 
 	public Prestamo() {
-	}
-
-	
-
-	public Prestamo(int idPrestamo, String dni, LocalDate fechaCreacion, float importeaPagar, float montoPedido,
-			int plazoPago, float importeCuota, int cantCuotas, int idTipoEstado, String idCuenta,
-			List<Cuota> cuotasPendientes, int primeraCuotaId) {
-		super();
-		this.idPrestamo = idPrestamo;
-		this.dni = dni;
-		this.fechaCreacion = fechaCreacion;
-		this.importeAPagar = importeaPagar;
-		this.montoPedido = montoPedido;
-		this.plazoPago = plazoPago;
-		this.importeCuota = importeCuota;
-		this.cantCuotas = cantCuotas;
-		this.idTipoEstado = idTipoEstado;
-		this.idCuenta = idCuenta;
-		this.cuotasPendientes = cuotasPendientes;
-		this.primeraCuotaId = primeraCuotaId;
-		
+		// TODO Auto-generated constructor stub
 	}
 
 
-
-	public int getIdPrestamo() {
-		return idPrestamo;
+	public int getIDPrestamo() {
+		return IDPrestamo;
 	}
 
 
-
-	public void setIdPrestamo(int idPrestamo) {
-		this.idPrestamo = idPrestamo;
+	public void setIDPrestamo(int iDPrestamo) {
+		IDPrestamo = iDPrestamo;
 	}
 
 
-
-	public String getDNI() {
-		return dni;
+	public LocalDateTime getFechaSolicitud() {
+		return FechaSolicitud;
 	}
 
 
+	public void setFechaSolicitud(LocalDateTime fechaSolicitud) {
+		FechaSolicitud = fechaSolicitud;
+	}
 
-	public void setDNI(String dni) {
-		this.dni = dni;
+	public Date getFechaSolicitudAsDate() {
+	    if (this.FechaSolicitud == null) {
+	        return null;
+	    }
+	    return Date.from(this.FechaSolicitud.atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 
-
-	public LocalDate getFechaCreacion() {
-		return fechaCreacion;
+	public BigDecimal getImportePedido() {
+		return ImportePedido;
 	}
 
 
-
-	public void setFechaCreacion(LocalDate fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+	public void setImportePedido(BigDecimal importePedido) {
+		ImportePedido = importePedido;
 	}
 
 
-
-	public float getImporteAPagar() {
-		return importeAPagar;
+	public BigDecimal getImporteAPagar() {
+		return ImporteAPagar;
 	}
 
 
-
-	public void setImporteAPagar(float importeAPagar) {
-		this.importeAPagar = importeAPagar;
+	public void setImporteAPagar(BigDecimal importeAPagar) {
+		ImporteAPagar = importeAPagar;
 	}
-
-
-
-	public float getMontoPedido() {
-		return montoPedido;
-	}
-
-
-
-	public void setMontoPedido(float montoPedido) {
-		this.montoPedido = montoPedido;
-	}
-
-
-
-	public int getPlazoPago() {
-		return plazoPago;
-	}
-
-
-
-	public void setPlazoPago(int plazoPago) {
-		this.plazoPago = plazoPago;
-	}
-
-
-
-	public float getImporteCuota() {
-		return importeCuota;
-	}
-
-
-
-	public void setImporteCuota(float importeCuota) {
-		this.importeCuota = importeCuota;
-	}
-
 
 
 	public int getCantidadCuotas() {
-		return cantCuotas;
+		return CantidadCuotas;
 	}
 
 
-
-	public void setCantidadCuotas(int cantCuotas) {
-		this.cantCuotas = cantCuotas;
+	public void setCantidadCuotas(int cantidadCuotas) {
+		CantidadCuotas = cantidadCuotas;
 	}
 
 
-
-	public int getIdTipoEstado() {
-		return idTipoEstado;
+	public BigDecimal getImporteCuota() {
+		return ImporteCuota;
 	}
 
 
-
-	public void setIdTipoEstado(int idTipoEstado) {
-		this.idTipoEstado = idTipoEstado;
+	public void setImporteCuota(BigDecimal importeCuota) {
+		ImporteCuota = importeCuota;
 	}
 
 
-
-	public String getIdCuenta() {
-		return idCuenta;
+	public Cliente getCliente() {
+		return Cliente;
 	}
 
 
-
-	public void setIdCuenta(String idCuenta) {
-		this.idCuenta = idCuenta;
+	public void setCliente(Cliente cliente) {
+		Cliente = cliente;
 	}
 
+
+	public TipoEstadoPrestamo getTipoEstadoPrestamo() {
+		return TipoEstadoPrestamo;
+	}
+
+
+	public void setTipoEstadoPrestamo(TipoEstadoPrestamo tipoEstadoPrestamo) {
+		TipoEstadoPrestamo = tipoEstadoPrestamo;
+	}
+
+
+	public Cuenta getCuentaAcreditada() {
+		return CuentaAcreditada;
+	}
+
+
+	public void setCuentaAcreditada(Cuenta cuentaAcreditada) {
+		CuentaAcreditada = cuentaAcreditada;
+	}
 
 
 	public List<Cuota> getCuotasPendientes() {
@@ -172,11 +142,9 @@ public class Prestamo {
 	}
 
 
-
 	public void setCuotasPendientes(List<Cuota> cuotasPendientes) {
 		this.cuotasPendientes = cuotasPendientes;
 	}
-
 
 
 	public int getPrimeraCuotaId() {
@@ -184,35 +152,17 @@ public class Prestamo {
 	}
 
 
-
 	public void setPrimeraCuotaId(int primeraCuotaId) {
 		this.primeraCuotaId = primeraCuotaId;
 	}
 
-	
-	public float getMontoTotalAdeudado() {
-	    float total = 0;
-	    if (cuotasPendientes != null) {
-	        for (Cuota c : cuotasPendientes) {
-	            total += c.getImporte();
-	        }
-	    }
-	    return total;
-	}
-	
-
-
 
 	@Override
 	public String toString() {
-		return "IdPrestamo:" + idPrestamo + ", DNI: " + dni + ", FechaCreación: " + fechaCreacion
-				+ ", Importe a Pagar=" + importeAPagar + ", MontoPedido=" + montoPedido + ", Plazo de Pago: " + plazoPago
-				+ ", Importe Cuota:" + importeCuota + ", Cant.Cuotas:" + cantCuotas + ", IdTipoEstado:" + idTipoEstado
-				+ ", IdCuenta:" + idCuenta + ", CuotasPendientes:" + cuotasPendientes + ", PrimeraCuotaId:"
-				+ primeraCuotaId ;
+		return "Prestamo [IDPrestamo=" + IDPrestamo + ", FechaSolicitud=" + FechaSolicitud + ", ImportePedido="
+				+ ImportePedido + ", ImporteAPagar=" + ImporteAPagar + ", CantidadCuotas=" + CantidadCuotas
+				+ ", ImporteCuota=" + ImporteCuota + ", Cliente=" + Cliente + ", TipoEstadoPrestamo="
+				+ TipoEstadoPrestamo + ", CuentaAcreditada=" + CuentaAcreditada + "]";
 	}
 
-
-
-	
 }

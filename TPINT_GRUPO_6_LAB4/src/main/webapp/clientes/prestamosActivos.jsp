@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +18,45 @@
         
         <!-- Content for active loans will go here -->
         <div class="bg-white p-6 rounded-lg shadow-md">
-            <p>Aquí se mostrará la lista de sus préstamos activos.</p>
+            <c:if test="${not empty listaPrestamosActivos}">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-800 text-white">
+                            <tr>
+                                <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">ID Préstamo</th>
+                                <th class="w-1/6 text-left py-3 px-4 uppercase font-semibold text-sm">Fecha Solicitud</th>
+                                <th class="w-1/6 text-right py-3 px-4 uppercase font-semibold text-sm">Importe Pedido</th>
+                                <th class="w-1/6 text-right py-3 px-4 uppercase font-semibold text-sm">Importe a Pagar</th>
+                                <th class="w-1/6 text-center py-3 px-4 uppercase font-semibold text-sm">Cuotas</th>
+                                <th class="w-1/6 text-right py-3 px-4 uppercase font-semibold text-sm">Importe por Cuota</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                            <c:forEach var="prestamo" items="${listaPrestamosActivos}">
+                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                    <td class="text-left py-3 px-4">${prestamo.IDPrestamo}</td>
+                                    <td class="text-left py-3 px-4">
+                                        <fmt:formatDate value="${prestamo.fechaSolicitudAsDate}" type="date" dateStyle="medium" />
+                                    </td>
+                                    <td class="text-right py-3 px-4">
+                                        <fmt:formatNumber value="${prestamo.importePedido}" type="currency" currencySymbol="$ " />
+                                    </td>
+                                    <td class="text-right py-3 px-4">
+                                        <fmt:formatNumber value="${prestamo.importeAPagar}" type="currency" currencySymbol="$ " />
+                                    </td>
+                                    <td class="text-center py-3 px-4">${prestamo.cantidadCuotas}</td>
+                                    <td class="text-right py-3 px-4">
+                                        <fmt:formatNumber value="${prestamo.importeCuota}" type="currency" currencySymbol="$ " />
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:if>
+            <c:if test="${empty listaPrestamosActivos}">
+                <p class="text-center text-gray-500">No tiene préstamos activos en este momento.</p>
+            </c:if>
         </div>
 
     </main>

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import entidad.Cuota;
 import entidad.Prestamo;
-import entidad.PrestamoBackup;
 import negocio.ICuotaNegocio;
 import negocioImpl.CuotaNegocioImpl;
 import negocio.IPrestamoNegocio;
@@ -78,7 +77,7 @@ public class PrestamoServlet extends HttpServlet {
 	        Cuenta cuenta = negocioCuenta.read(cbu);
 	        TipoEstadoPrestamo ts = negocioTs.read(1);
 	        
-	        PrestamoBackup prestamo = new PrestamoBackup();
+	        Prestamo prestamo = new Prestamo();
 	        
 	        prestamo.setCliente(cliente);
 	        prestamo.setCuentaAcreditada(cuenta);
@@ -87,7 +86,7 @@ public class PrestamoServlet extends HttpServlet {
 	        prestamo.setFechaSolicitud(fechaSolicitud);
 	        prestamo.setImportePedido(montoSolicitado);
 	        prestamo.setImporteAPagar(importeAPagar);
-	        prestamo.setImporte_Cuota(importeCuota);
+	        prestamo.setImporteCuota(importeCuota);
 	        
 	        request.getSession().setAttribute("prestamoPendiente", prestamo);
 	        request.getSession().setAttribute("fechaFinPrestamo", fechaFin);
@@ -106,7 +105,7 @@ public class PrestamoServlet extends HttpServlet {
 		String accion = request.getParameter("accion");
 		
 		if("alta".equals(accion)) {
-			PrestamoBackup prestamoPendiente = (PrestamoBackup) request.getSession().getAttribute("prestamoPendiente");
+			Prestamo prestamoPendiente = (Prestamo) request.getSession().getAttribute("prestamoPendiente");
 			
 			if (prestamoPendiente != null) {
 				

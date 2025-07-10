@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import negocio.IPrestamoNegocio;
 import negocioImpl.PrestamoNegocioImpl;
-import entidad.PrestamoBackup;
+import entidad.Prestamo;
 
 
 
@@ -38,7 +38,7 @@ public class GestionDePrestamosServlet extends HttpServlet {
         }
         
         
-		List<PrestamoBackup> prestamosPendientes = negPrestamo.leerPrestamosPendientes();
+		List<Prestamo> prestamosPendientes = negPrestamo.leerPrestamosPendientes();
 		request.setAttribute("prestamosPendientes", prestamosPendientes);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/gestionDePrestamos.jsp");
 		dispatcher.forward(request, response);

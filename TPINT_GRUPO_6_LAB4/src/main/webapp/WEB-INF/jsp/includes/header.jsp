@@ -26,14 +26,6 @@
             <a href="<%= request.getContextPath() %>/admin/menuAdministrador.jsp" class="hover:text-gray-300 font-medium">Inicio</a>
           </li>
 
-          <!-- Perfil Dropdown -->
-          <li class="relative">
-            <button onclick="toggleMenu('perfilMenu')" class="hover:text-gray-300 font-medium">Mi Perfil</button>
-            <ul id="perfilMenu" class="absolute hidden bg-white text-black mt-2 rounded shadow-md w-48 z-50">
-              <li><a href="<%= request.getContextPath() %>/admin/cambiarContrasena.jsp" class="block px-4 py-2 hover:bg-gray-200">Cambiar Contraseña</a></li>
-            </ul>
-          </li>
-
           <!-- User Info and Logout -->
           <li class="flex items-center space-x-4">
             <div class="flex items-center bg-red-800 px-3 py-1 rounded-full">

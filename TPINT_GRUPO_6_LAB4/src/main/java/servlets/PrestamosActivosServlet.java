@@ -10,32 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import negocio.IPrestamoNegocio;
 import entidad.Prestamo;
+import negocio.IPrestamoNegocio;
 import negocioImpl.PrestamoNegocioImpl;
 
+@WebServlet("/PrestamosActivosServlet")
+public class PrestamosActivosServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private static final int ESTADO_ACTIVO = 2; 
 
-
-@WebServlet("/SeleccionarPrestamoServlet")
-public class SeleccionarPrestamoServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-   
-    public SeleccionarPrestamoServlet() {
+    public PrestamosActivosServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false); 
 
         String dni = (String) session.getAttribute("dniCliente");
 
         IPrestamoNegocio prestamoNegocio = new PrestamoNegocioImpl();
-        List<Prestamo> prestamos = prestamoNegocio.obtenerPrestamosPorDni(dni);
+        List<Prestamo> prestamosActivos = prestamoNegocio.obtenerPrestamosPorDniYEstado(dni, ESTADO_ACTIVO);
 
-        request.setAttribute("prestamos", prestamos);
-        request.getRequestDispatcher("clientes/historialPagodePrestamos.jsp").forward(request, response);
+        request.setAttribute("listaPrestamosActivos", prestamosActivos);
+        request.getRequestDispatcher("clientes/prestamosActivos.jsp").forward(request, response);
     }
 }
