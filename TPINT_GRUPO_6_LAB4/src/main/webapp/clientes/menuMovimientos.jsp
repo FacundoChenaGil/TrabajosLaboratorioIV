@@ -59,13 +59,35 @@
             </a>
 
             <!-- Tarjeta 4 -->
-            <a href="<%=request.getContextPath()%>/CuentaServlet?Param=solicitarPrestamo" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
+            <a href="<%=request.getContextPath()%>/CuentaServlet?Param=cargarDDL" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
                 <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m6 0a3 3 0 00-6 0m6 0v6m-6-6v6" />
                     </svg>
                     <h3 class="text-2xl font-bold leading-tight">Solicitar Préstamo</h3>
                     <p class="text-sm font-light max-w-xs text-right">Solicita un préstamo personalizado con tasas competitivas.</p>
+                </div>
+            </a>
+            
+            <!-- Tarjeta 4 -->
+            <a href="<%=request.getContextPath()%>/clientes/prestamosActivos.jsp" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
+                <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m6 0a3 3 0 00-6 0m6 0v6m-6-6v6" />
+                    </svg>
+                    <h3 class="text-2xl font-bold leading-tight">Prestamos Activos</h3>
+                    <p class="text-sm font-light max-w-xs text-right">Revisa tus prestamos activos.</p>
+                </div>
+            </a>
+            
+            <!-- Tarjeta 4 -->
+            <a href="<%=request.getContextPath()%>/clientes/historialPagodePrestamos.jsp" class="relative w-full h-52 border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg group transform transition duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer bg-white">
+                <div class="absolute inset-0 bg-gradient-to-tr from-[#D14444] to-[#A83232] clip-diagonal flex flex-col items-end justify-center pr-8 space-y-2 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 self-start mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m6 0a3 3 0 00-6 0m6 0v6m-6-6v6" />
+                    </svg>
+                    <h3 class="text-2xl font-bold leading-tight">Historial de Prestamos</h3>
+                    <p class="text-sm font-light max-w-xs text-right">Consulta tu historial de pagos.</p>
                 </div>
             </a>
         </div>

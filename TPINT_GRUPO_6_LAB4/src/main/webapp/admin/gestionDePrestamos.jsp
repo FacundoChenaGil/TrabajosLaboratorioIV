@@ -37,9 +37,11 @@ table {
 }
 </style>
 </head>
-<body class="bg-gray-100 text-gray-800 p-6">
+<body class="flex flex-col min-h-screen">
 
 	<jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+	<main class="flex-grow bg-gray-100">
 
 	<%
 	String mensajeExito = (String) request.getAttribute("mensajeExito");
@@ -214,6 +216,10 @@ table {
 		});
 	});
 </script>
+
+	</main>
+
+	<jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </body>
 </html>

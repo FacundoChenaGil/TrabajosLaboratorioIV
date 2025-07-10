@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, java.text.*" %>
 <%
-    String userRole = (String) session.getAttribute("userRole");
-    if (userRole == null || !userRole.equals("cliente")) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp?error=notAuthorized");
-        return;
-    }
-
     String tipoFiltro = request.getParameter("tipo");
     String fechaDesde = request.getParameter("fechaDesde");
     String fechaHasta = request.getParameter("fechaHasta");

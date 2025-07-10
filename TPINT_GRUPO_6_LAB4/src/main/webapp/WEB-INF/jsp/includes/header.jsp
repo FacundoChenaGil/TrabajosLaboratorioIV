@@ -26,25 +26,6 @@
             <a href="<%= request.getContextPath() %>/admin/menuAdministrador.jsp" class="hover:text-gray-300 font-medium">Inicio</a>
           </li>
 
-          <!-- Gestión Dropdown -->
-          <li class="relative">
-            <button onclick="toggleMenu('gestionMenu')" class="hover:text-gray-300 font-medium">Gestión</button>
-            <ul id="gestionMenu" class="absolute hidden bg-white text-black mt-2 rounded shadow-md w-48 z-50">
-              <li><a href="<%= request.getContextPath() %>/admin/gestionDeClientes.jsp" class="block px-4 py-2 hover:bg-gray-200">Clientes</a></li>
-              <li><a href="<%= request.getContextPath() %>/admin/gestionDeCuentas.jsp" class="block px-4 py-2 hover:bg-gray-200">Cuentas</a></li>
-              <li><a href="<%= request.getContextPath() %>/admin/gestionDePrestamos.jsp" class="block px-4 py-2 hover:bg-gray-200">Préstamos</a></li>
-            </ul>
-          </li>
-
-          <!-- Altas Dropdown -->
-          <li class="relative">
-            <button onclick="toggleMenu('altasMenu')" class="hover:text-gray-300 font-medium">Altas</button>
-            <ul id="altasMenu" class="absolute hidden bg-white text-black mt-2 rounded shadow-md w-48 z-50">
-              <li><a href="<%= request.getContextPath() %>/admin/altaCliente.jsp" class="block px-4 py-2 hover:bg-gray-200">Nuevo Cliente</a></li>
-              <li><a href="<%= request.getContextPath() %>/admin/altaCuenta.jsp" class="block px-4 py-2 hover:bg-gray-200">Nueva Cuenta</a></li>
-            </ul>
-          </li>
-
           <!-- Perfil Dropdown -->
           <li class="relative">
             <button onclick="toggleMenu('perfilMenu')" class="hover:text-gray-300 font-medium">Mi Perfil</button>
@@ -68,41 +49,14 @@
       <% } else if ("cliente".equals(userRole)) { %>
 		   <!-- Cliente -->
         <ul class="flex space-x-6 relative items-center">
-          <!-- HOME -->
+          <!-- Historial -->
           <li>
-            <a href="<%= request.getContextPath() %>/clientes/dashboard.jsp" class="hover:text-gray-300 font-medium">🏠 Home</a>
+            <a href="<%= request.getContextPath() %>/clientes/menuMovimientos.jsp" class="hover:text-gray-300">Inicio</a>
           </li>
-
+          
           <!-- Mi cuenta -->
           <li>
             <a href="<%= request.getContextPath() %>/clientes/miCuenta.jsp" class="hover:text-gray-300">Mi cuenta</a>
-          </li>
-
-          <!-- Historial -->
-          <li class="relative">
-            <button onclick="toggleMenu('historialMenu')" class="hover:text-gray-300">Historial</button>
-            <ul id="historialMenu" class="absolute hidden bg-white text-black mt-2 rounded shadow-md w-48 z-50">
-              <li><a href="<%= request.getContextPath() %>/clientes/menuMovimientos.jsp" class="block px-4 py-2 hover:bg-gray-200">Movimientos recientes</a></li>
-              <li><a href="<%= request.getContextPath() %>/clientes/historialPagodePrestamos.jsp" class="block px-4 py-2 hover:bg-gray-200">Historial de Préstamos</a></li>
-            </ul>
-          </li>
-
-          <!-- Transferencias -->
-          <li class="relative">
-            <button onclick="toggleMenu('transferenciasMenu')" class="hover:text-gray-300">Transferencias</button>
-            <ul id="transferenciasMenu" class="absolute hidden bg-white text-black mt-2 rounded shadow-md w-48 z-50">
-              <li><a href="<%= request.getContextPath() %>/clientes/nuevaTransferencia.jsp" class="block px-4 py-2 hover:bg-gray-200">Nueva</a></li>
-            </ul>
-          </li>
-
-          <!-- Préstamos -->
-          <li class="relative">
-            <button onclick="toggleMenu('prestamosMenu')" class="hover:text-gray-300">Préstamos</button>
-            <ul id="prestamosMenu" class="absolute hidden bg-white text-black mt-2 rounded shadow-md w-48 z-50">
-              <li><a href="<%= request.getContextPath() %>/clientes/prestamosActivos.jsp" class="block px-4 py-2 hover:bg-gray-200">Activos</a></li>
-              <li><a href="<%= request.getContextPath() %>/clientes/menuPagoPrestamos.jsp" class="block px-4 py-2 hover:bg-gray-200">Pagar Préstamos</a></li>
-              <li><a href="<%=request.getContextPath()%>/CuentaServlet?Param=cargarDDL" class="block px-4 py-2 hover:bg-gray-200">Solicitar préstamo</a></li>
-            </ul>
           </li>
 
           <!-- User Info and Logout -->
