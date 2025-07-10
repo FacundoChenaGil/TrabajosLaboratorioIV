@@ -28,34 +28,25 @@ public class ClienteNegocioImpl implements IClienteNegocio {
     
     @Override
     public boolean registrarCliente(Cliente cliente) {
-        System.out.println("🔍 [Negocio] Verificando si el cliente ya existe...");
-
         // Verificar si ya existe un cliente con el mismo DNI
         if (clienteDao.existeClienteActivo(cliente.getDni())) {
-            System.out.println("❌ [Negocio] Ya existe un cliente con el DNI: " + cliente.getDni());
             return false;
         }
 
         // Verificar si el correo electrónico ya está en uso
         if (clienteDao.existeCorreoElectronico(cliente.getCorreoElectronico())) {
-            System.out.println("❌ [Negocio] El correo electrónico ya está en uso: " + cliente.getCorreoElectronico());
             return false;
         }
 
         // Insertar el usuario primero
-        System.out.println("✅ [Negocio] Insertando usuario...");
         boolean usuarioInsertado = usuarioDao.insertarUsuario(cliente.getUsuario());
-        System.out.println("🧾 ¿Se insertó el usuario?: " + usuarioInsertado);
-
+      
         if (!usuarioInsertado) {
-            System.out.println("❌ [Negocio] Falló al insertar el usuario.");
             return false;
         }
 
         // Luego insertar el cliente
-        System.out.println("✅ [Negocio] Insertando cliente...");
         boolean clienteInsertado = clienteDao.agregarCliente(cliente);
-        System.out.println("📥 ¿Se insertó el cliente?: " + clienteInsertado);
 
         return clienteInsertado;
     }
