@@ -30,21 +30,19 @@ public class AltaCuentaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
+		request.setAttribute("mensaje", request.getSession().getAttribute("mensaje"));
+		request.setAttribute("error", request.getSession().getAttribute("error"));
+		request.setAttribute("dniCliente", request.getSession().getAttribute("dniCliente"));
+		request.setAttribute("numeroCuenta", request.getSession().getAttribute("numeroCuenta"));
+		request.setAttribute("cbu", request.getSession().getAttribute("cbu"));
+		request.setAttribute("idTipoCuenta", request.getSession().getAttribute("idTipoCuenta"));
 
-		request.setAttribute("mensaje", session.getAttribute("mensaje"));
-		request.setAttribute("error", session.getAttribute("error"));
-		request.setAttribute("dniCliente", session.getAttribute("dniCliente"));
-		request.setAttribute("numeroCuenta", session.getAttribute("numeroCuenta"));
-		request.setAttribute("cbu", session.getAttribute("cbu"));
-		request.setAttribute("idTipoCuenta", session.getAttribute("idTipoCuenta"));
-
-		session.removeAttribute("mensaje");
-		session.removeAttribute("error");
-		session.removeAttribute("dniCliente");
-		session.removeAttribute("numeroCuenta");
-		session.removeAttribute("cbu");
-		session.removeAttribute("idTipoCuenta");
+		request.getSession().removeAttribute("mensaje");
+		request.getSession().removeAttribute("error");
+		request.getSession().removeAttribute("dniCliente");
+		request.getSession().removeAttribute("numeroCuenta");
+		request.getSession().removeAttribute("cbu");
+		request.getSession().removeAttribute("idTipoCuenta");
 
 		List<TiposDeCuentas> tiposDeCuenta = tipoCuentaNegocio.listarTiposDeCuentas();
 		request.setAttribute("tiposCuenta", tiposDeCuenta);
@@ -55,44 +53,42 @@ public class AltaCuentaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-
 		String dni = request.getParameter("dniCliente");
 		String numeroCuenta = request.getParameter("numeroCuenta");
 		String cbu = request.getParameter("cbu");
 		String idTipoCuenta = request.getParameter("idTipoCuenta");
 
-		session.setAttribute("dniCliente", dni);
-		session.setAttribute("numeroCuenta", numeroCuenta);
-		session.setAttribute("cbu", cbu);
-		session.setAttribute("idTipoCuenta", idTipoCuenta);
+		request.getSession().setAttribute("dniCliente", dni);
+		request.getSession().setAttribute("numeroCuenta", numeroCuenta);
+		request.getSession().setAttribute("cbu", cbu);
+		request.getSession().setAttribute("idTipoCuenta", idTipoCuenta);
 
 		if (!clienteNegocio.existeClienteActivo(dni)) {
-			session.setAttribute("error", "El DNI ingresado no existe o no está activo.");
+			request.getSession().setAttribute("error", "El DNI ingresado no existe o no está activo.");
 			response.sendRedirect("AltaCuentaServlet");
 			return;
 		}
 
 		if (cuentaNegocio.contarCuentasPorDni(dni) >= 3) {
-			session.setAttribute("error", "El cliente ya tiene el máximo de 3 cuentas activas.");
+			request.getSession().setAttribute("error", "El cliente ya tiene el máximo de 3 cuentas activas.");
 			response.sendRedirect("AltaCuentaServlet");
 			return;
 		}
 
 		if (cuentaNegocio.existeNumeroCuenta(numeroCuenta)) {
-			session.setAttribute("error", "El número de cuenta ingresado ya existe.");
+			request.getSession().setAttribute("error", "El número de cuenta ingresado ya existe.");
 			response.sendRedirect("AltaCuentaServlet");
 			return;
 		}
 
 		if (cuentaNegocio.existeCBU(cbu)) {
-			session.setAttribute("error", "El CBU ingresado ya existe.");
+			request.getSession().setAttribute("error", "El CBU ingresado ya existe.");
 			response.sendRedirect("AltaCuentaServlet");
 			return;
 		}
 
 		if (!cbu.contains(numeroCuenta)) {
-			session.setAttribute("error", "El número de cuenta no está dentro del CBU.");
+			request.getSession().setAttribute("error", "El número de cuenta no está dentro del CBU.");
 			response.sendRedirect("AltaCuentaServlet");
 			return;
 		}
@@ -114,16 +110,17 @@ public class AltaCuentaServlet extends HttpServlet {
 			cuenta.setActiva(true);
 
 			if (cuentaNegocio.insertarCuenta(cuenta) == 1) {
-				session.setAttribute("mensaje", "Cuenta creada correctamente. Número de cuenta: " + numeroCuenta);
-				session.removeAttribute("dniCliente");
-				session.removeAttribute("numeroCuenta");
-				session.removeAttribute("cbu");
-				session.removeAttribute("idTipoCuenta");
+				request.getSession().setAttribute("mensaje",
+						"Cuenta creada correctamente. Número de cuenta: " + numeroCuenta);
+				request.getSession().removeAttribute("dniCliente");
+				request.getSession().removeAttribute("numeroCuenta");
+				request.getSession().removeAttribute("cbu");
+				request.getSession().removeAttribute("idTipoCuenta");
 			} else {
-				session.setAttribute("error", "No se pudo crear la cuenta. Intente nuevamente.");
+				request.getSession().setAttribute("error", "No se pudo crear la cuenta. Intente nuevamente.");
 			}
 		} catch (Exception e) {
-			session.setAttribute("error", "Ocurrió un error inesperado al crear la cuenta.");
+			request.getSession().setAttribute("error", "Ocurrió un error inesperado al crear la cuenta.");
 		}
 
 		response.sendRedirect("AltaCuentaServlet");
