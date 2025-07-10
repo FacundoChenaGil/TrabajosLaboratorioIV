@@ -231,8 +231,7 @@ layer base {body { font-family:'Montserrat', sans-serif;
 
 			<!-- Botones -->
 			<div class="flex items-center justify-between pt-4 gap-4">
-				<a
-					href="<%=request.getContextPath()%>/ClienteServlet?Param=mostrarClientes"
+				<a href="/TPINT_GRUPO_6_LAB4/CuentaServlet?Param=mostrarTodo"
 					class="py-3 px-8 text-center bg-gray-100 border border-gray-400 rounded-lg text-base font-semibold w-full hover:bg-gray-300 transition duration-200 ease-in-out">
 					Volver </a> <input type="submit" value="Registrar Cliente"
 					class="py-3 px-8 bg-white text-black border border-black rounded-lg cursor-pointer w-full text-base font-bold hover:bg-black hover:text-white transition duration-200 ease-in-out" />
