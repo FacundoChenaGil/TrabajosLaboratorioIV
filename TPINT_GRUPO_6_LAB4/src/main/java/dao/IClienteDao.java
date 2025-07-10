@@ -2,6 +2,7 @@ package dao;
 
 import entidad.Cliente;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List; // Para métodos que devuelvan listas de clientes
 
@@ -28,7 +29,8 @@ public interface IClienteDao {
     
     public String obtenerDNIPorUsuario(String usuario);
     
-    List<Cliente> obtenerClientesNuevosEntreFechas(LocalDate desde, LocalDate hasta); // Para reporte
+    public List<Cliente> obtenerClientesNuevosEntreFechas(LocalDate desde, LocalDate hasta); // Para reporte
     public List<Cliente> buscarClientesPorNombreApellidoUsuario(String texto); // Para reporte
-    
+    public List<Cliente> obtenerTodosConSaldo(); // Para reporte
+    public int contarClientesConSaldoMinimo(BigDecimal saldoMinimo, String nombre);
 }

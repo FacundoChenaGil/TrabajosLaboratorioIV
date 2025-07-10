@@ -1,5 +1,9 @@
 package negocioImpl;
 
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +11,7 @@ import java.util.List;
 import dao.IClienteDao;
 import dao.IUsuarioDao;
 import daoImpl.ClienteDaoImpl;
+import daoImpl.Conexion;
 import daoImpl.UsuarioDaoImpl;
 import entidad.Cliente;
 import entidad.Usuario;
@@ -127,5 +132,73 @@ public class ClienteNegocioImpl implements IClienteNegocio {
 		return clienteDao.existeCUIL(cuil);
 	}
 	
+	public List<Cliente> obtenerClientesConSaldoMinimo(BigDecimal saldoMinimo, String nombre, int offset, int limite) {
+	    List<Cliente> lista = new ArrayList<>();
+
+	    boolean filtrarNombre = nombre != null && !nombre.trim().isEmpty();
+	    boolean filtrarMonto = saldoMinimo != null && saldoMinimo.compareTo(BigDecimal.ZERO) > 0;
+
+	    String sql = "SELECT c.DNI, c.Nombre, c.Apellido, SUM(cu.Saldo) AS SaldoTotal " +
+	                 "FROM clientes c INNER JOIN cuentas cu ON c.DNI = cu.DNI ";
+
+	    if (filtrarNombre) {
+	        sql += "WHERE c.Nombre LIKE ? OR c.Apellido LIKE ? ";
+	    }
+
+	    sql += "GROUP BY c.DNI, c.Nombre, c.Apellido ";
+
+	    if (filtrarMonto && filtrarNombre) {
+	        sql += "HAVING SUM(cu.Saldo) >= 0 AND SUM(cu.Saldo) >= ? ";
+	    } else if (filtrarMonto) {
+	        sql += "HAVING SUM(cu.Saldo) >= ? ";
+	    } else {
+	        sql += "HAVING SUM(cu.Saldo) >= 0 ";
+	    }
+
+	    sql += "ORDER BY SaldoTotal DESC LIMIT ? OFFSET ?"; // <--- Paginación
+
+	    try (Connection con = Conexion.getConexion();
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        int i = 1;
+
+	        if (filtrarNombre) {
+	            String filtro = nombre.trim() + "%";
+	            stmt.setString(i++, filtro);
+	            stmt.setString(i++, filtro);
+	        }
+
+	        if (filtrarMonto) {
+	            stmt.setBigDecimal(i++, saldoMinimo);
+	        }
+
+	        stmt.setInt(i++, limite);
+	        stmt.setInt(i++, offset);
+
+	        ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) {
+	            Cliente c = new Cliente();
+	            c.setDni(rs.getString("DNI"));
+	            c.setNombre(rs.getString("Nombre"));
+	            c.setApellido(rs.getString("Apellido"));
+	            c.setSaldoTotal(rs.getBigDecimal("SaldoTotal"));
+	            lista.add(c);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return lista;
+	}
+	
+	
+	public int contarClientesConSaldoMinimo(BigDecimal saldoMinimo, String nombre) {
+	    IClienteDao clienteDao = new ClienteDaoImpl();
+	    return clienteDao.contarClientesConSaldoMinimo(saldoMinimo, nombre);
+	}
+	
+	
 	
 }
+	
