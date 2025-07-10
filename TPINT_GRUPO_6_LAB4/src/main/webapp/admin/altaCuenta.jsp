@@ -98,7 +98,7 @@ body {
     String dniCliente= (String) request.getAttribute("dniCliente");
     String numeroCuenta = (String) request.getAttribute("numeroCuenta");
     String cbu = (String) request.getAttribute("cbu");
-    String idTipoCuentaSelected = (String) request.getAttribute("idTipoCuenta");
+    String idTipoCuentaSeleccionado = (String) request.getAttribute("idTipoCuenta");
     List<TiposDeCuentas> tiposDeCuenta = (List<TiposDeCuentas>) request.getAttribute("tiposCuenta");
 %>
 
@@ -123,7 +123,7 @@ body {
                     if (tiposDeCuenta != null) {
                         for (TiposDeCuentas tipo : tiposDeCuenta) {
                             String selected = "";
-                            if (idTipoCuentaSelected != null && idTipoCuentaSelected.equals(String.valueOf(tipo.getID()))) {
+                            if (idTipoCuentaSeleccionado != null && idTipoCuentaSeleccionado.equals(String.valueOf(tipo.getID()))) {
                                 selected = "selected";
                             }
                     %>
